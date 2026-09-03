@@ -603,8 +603,8 @@ function Home() {
           <h2 className="text-4xl md:text-5xl font-serif mb-2 text-[#F2F2F2]">{t.aboutTitle}</h2>
         </div>
         
-        <div className="max-w-xl mx-auto bg-[#1A1A1A] rounded-3xl p-10 border border-white/5 text-center shadow-[0_0_15px_rgba(229,193,88,0.3)]">
-          <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 flex-shrink-0">
+        <div className="max-w-xl mx-auto bg-[#1A1A1A] rounded-3xl p-10 border border-white/5 text-center shadow-[0_0_15px_rgba(229,193,88,0.15)] hover:shadow-[0_0_40px_rgba(229,193,88,0.3)] hover:border-primary/30 transition-all duration-500 group">
+          <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 flex-shrink-0 border-2 border-transparent group-hover:border-primary/80 group-hover:shadow-[0_0_20px_rgba(229,193,88,0.4)] transition-all duration-500">
              <img src="/founder.jpg" alt="KH Shifat Manjum" className="w-full h-full object-cover object-top" />
           </div>
           <h3 className="text-2xl font-semibold text-[#E5E5E5] tracking-wide mb-2">{t.aboutName}</h3>
