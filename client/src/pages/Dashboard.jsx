@@ -160,6 +160,8 @@ function Dashboard() {
               <tbody className="divide-y divide-white/5 text-sm">
                 {loading ? (
                   <tr><td colSpan="4" className="p-8 text-center text-text-muted">Loading leads...</td></tr>
+                ) : !Array.isArray(leads) ? (
+                  <tr><td colSpan="4" className="p-8 text-center text-red-400 font-bold">Database Connection Error. Check Render Backend Logs.</td></tr>
                 ) : leads.length === 0 ? (
                   <tr><td colSpan="4" className="p-8 text-center text-text-muted">No leads yet. Time to run some ads!</td></tr>
                 ) : (

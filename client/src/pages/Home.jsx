@@ -493,66 +493,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 px-4 border-y border-white/5 bg-card">
-        <h2 className="text-4xl font-black text-center mb-16 text-white">{t.testTitle}</h2>
-        <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
-          {[
-            { name: "Ali Kasar", role: "Owner", review: "Since using pixeloro, our bookings have gone through the roof. The SEO really works." },
-            { name: "Roni", role: "Manager", review: "Incredible service. The dashboard is super simple and shows us exactly what's going on." },
-            { name: "Tio", role: "Founder", review: "I didn't believe the free audit would be so detailed. Best decision we made this year." },
-            { name: "Rami", role: "Chef & Owner", review: "They take care of everything so I can focus on cooking. Totally worth the price." }
-          ].map((testimonial, i) => (
-            <div key={i} className="w-full sm:w-64 bg-black rounded-3xl overflow-hidden relative border border-white/10">
-              <div className="h-80 flex items-center justify-center relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center z-20 shadow-[0_0_15px_rgba(229,193,88,0.5)] cursor-pointer hover:scale-110 transition-transform">
-                  <Play className="text-black ml-1" fill="currentColor" size={20} />
-                </div>
-                <div className="absolute bottom-4 left-4 z-20 pr-4">
-                  <p className="text-white text-xs italic opacity-90 mb-3">"{testimonial.review}"</p>
-                  <p className="text-primary font-bold">{testimonial.name}</p>
-                  <p className="text-white/60 text-xs">{testimonial.role}</p>
-                  <div className="flex gap-1 mt-2">
-                    {[...Array(5)].map((_, j) => <Star key={j} size={10} className="text-primary" fill="currentColor" />)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-16">
-           <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-block">
-            {t.bookCall}
-          </a>
-        </div>
-      </section>
-
-      {/* Example Builds */}
-      <section className="py-24 px-4 bg-gray-bg">
-        <h2 className="text-4xl font-black text-center mb-6 text-white">{t.exampleTitle}</h2>
-        <p className="text-center text-text-muted font-medium mb-16">{t.exampleSub}</p>
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {[
-            { id: 1, name: "The Fine Dining Theme", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" },
-            { id: 2, name: "The Casual Burger Theme", img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&q=80" },
-            { id: 3, name: "The Cozy Cafe Theme", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" }
-          ].map((theme) => (
-            <div key={theme.id} className="bg-card rounded-3xl border border-white/10 overflow-hidden p-4 group hover:border-primary/50 transition-colors shadow-lg">
-              <div className="bg-black h-64 rounded-2xl mb-4 flex items-center justify-center overflow-hidden relative">
-                 <img src={theme.img} alt={theme.name} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
-                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80"></div>
-                 <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <h3 className="font-bold text-lg mb-1 text-white px-2">{theme.name}</h3>
-              <a href="#" className="text-sm text-primary font-medium hover:underline inline-flex items-center gap-1 mt-1 px-2 pb-2">
-                <Play size={14} />
-                View live demo
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* How it works */}
       <section className="py-24 px-4 border-y border-white/5 bg-card">
