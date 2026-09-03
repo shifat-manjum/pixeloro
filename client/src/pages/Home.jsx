@@ -7,49 +7,51 @@ const phoneNumber = "+393481134181";
 const translations = {
   en: {
     bookCall: "Book a call",
-    marketingSub: "RESTAURANT MARKETING BY PIXELORO",
-    heroTitle1: "Find out where your restaurant",
-    heroTitleHighlight: "actually ranks",
-    heroTitle2: "on Google.",
-    heroSubtitle: "We process hundreds of data points and figure out exactly how your guests find you. Free of charge, no catch.",
-    restCheck: "Restaurant Check",
+    marketingSub: "WEB DESIGN BY PIXELORO",
+    heroTitle1: "Get a luxury restaurant website built for",
+    heroTitleHighlight: "€0 upfront.",
+    heroTitle2: "",
+    heroSubtitle: "Stop paying agencies €2,000+. Send us your menu, and we'll build a stunning, high-converting website in 24 hours. You only pay if you love it.",
+    restCheck: "Claim Your Free Website",
     restNameLabel: "Restaurant Name",
     restNamePlace: "e.g. Mario's Pizza",
     yourNameLabel: "Your Name",
     yourNamePlace: "John Doe",
     emailLabel: "Email Address",
     emailPlace: "john@example.com",
-    submitBtn: "Show me my rank",
-    noCreditCard: "100% free. No credit card required.",
-    terms: "* Terms and conditions apply. Data privacy is our highest priority. We do not sell your data.",
-    valueTitle1: "Your guests are not asking their friends where to eat. They are asking ",
-    valueTitleHighlight: "Google and ChatGPT.",
-    valueSub: "Make sure you show up first when they search for \"restaurants near me\". We help you optimize your digital footprint.",
+    phoneLabel: "Phone Number",
+    phonePlace: "+39 333 123 4567",
+    submitBtn: "Claim My Free Website",
+    noCreditCard: "100% free build. No credit card required.",
+    terms: "* Terms and conditions apply. We will contact you to get your menu and logo.",
+    valueTitle1: "Your guests judge your food by your ",
+    valueTitleHighlight: "website.",
+    valueSub: "A bad website costs you bookings every single day. We build digital experiences that make your food look irresistible and drive reservations.",
     findOutMore: "Find out more - book a call",
-    pricingTitle: "What you actually get",
-    pricingSub: "Stop guessing. Get real insights and action plans.",
-    freeTierTitle: "Your current setup",
+    pricingTitle: "Simple, transparent pricing",
+    pricingSub: "No massive upfront costs. Just a simple monthly subscription.",
+    freeTierTitle: "Phase 1: The Build",
     freeTierPrice: "€0",
-    freeTierUnit: "/ audit",
-    freeItem1: "Full Google Profile & SEO audit. Know exactly where you stand.",
-    freeItem2: "List of your local competitors. And what they do better.",
-    freeItem3: "Basic website feedback.",
-    freeItem4: "15-minute consultation call. No strings attached.",
-    proBadge: "Only if you want it",
-    proTierTitle: "Pixeloro Pro",
+    freeTierUnit: "upfront",
+    freeItem1: "Custom web design tailored to your brand.",
+    freeItem2: "Mobile-optimized for hungry guests on the go.",
+    freeItem3: "Menu integration & contact forms.",
+    freeItem4: "Delivered in 24 hours to review.",
+    proBadge: "Phase 2",
+    proTierTitle: "Hosting & Management",
     proTierPrice: "€85",
     proTierUnit: "/ month + VAT",
-    proItem1: "We do everything for you. Sit back and relax.",
-    proItem2: "Optimized Google My Business. Maximize local search.",
-    proItem3: "High-converting website setup. Designed to get bookings.",
-    proItem4: "Automated review generation. Get more 5-star reviews.",
-    proItem5: "Monthly performance reports. See the ROI.",
-    trustText: "More than 1,000 restaurants trust us with their details.",
-    payNowhere: "Find out more, pay us nowhere",
+    proItem1: "Premium, lightning-fast hosting.",
+    proItem2: "Unlimited minor text/image updates.",
+    proItem3: "Continuous technical maintenance & security.",
+    proItem4: "Basic SEO to keep you ranking locally.",
+    proItem5: "Cancel anytime. You own your domain.",
+    trustText: "Join the modern restaurants growing with Pixeloro.",
+    payNowhere: "See the design first, pay nothing upfront.",
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
-    catchP1: "We bring you massive value early on by doing the heavy lifting and showing you exactly what is wrong with your current digital setup. All for free. No credit card required.",
-    catchP2: "If you like what you see, and you want us to fix it for you, you can hire us for just €85 a month. If you don't, you just take the audit and fix it yourself. It's a win-win.",
+    catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
+    catchP2: "If you love it, you simply subscribe to our €85/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -266,7 +268,8 @@ function Home() {
   const [formData, setFormData] = useState({
     restaurantName: '',
     name: '',
-    email: ''
+    email: '',
+    phone: ''
   });
 
   const [openFaq, setOpenFaq] = useState(null);
@@ -287,7 +290,7 @@ function Home() {
       });
       if (res.ok) {
         alert("Thanks! We'll be in touch soon.");
-        setFormData({ restaurantName: '', name: '', email: '' });
+        setFormData({ restaurantName: '', name: '', email: '', phone: '' });
       } else {
         alert("Something went wrong. Please try again.");
       }
@@ -361,6 +364,10 @@ function Home() {
                 <label className="block text-sm font-semibold mb-2 text-text-muted">{t.emailLabel}</label>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border border-white/10 rounded-xl p-3.5 bg-black text-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-white/30" placeholder={t.emailPlace} required />
               </div>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-text-muted">{t.phoneLabel || 'Phone Number'}</label>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full border border-white/10 rounded-xl p-3.5 bg-black text-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-white/30" placeholder={t.phonePlace || '+39 123 456'} required />
             </div>
             <button type="submit" className="w-full bg-primary hover:bg-primary-hover text-black font-bold py-4 rounded-xl mt-4 transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] hover:shadow-[0_0_30px_rgba(229,193,88,0.4)]">
               {t.submitBtn}

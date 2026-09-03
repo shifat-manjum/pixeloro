@@ -17,6 +17,11 @@ const leadSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
+    phone: {
+        type: String,
+        required: true,
+        trim: true
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -24,4 +29,3 @@ const leadSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Lead', leadSchema);
-
