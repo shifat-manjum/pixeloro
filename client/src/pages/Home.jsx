@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, CheckCircle2, Phone, Star, ShieldCheck, Zap, Rocket, Search, BarChart3, MapPin, Smartphone, Check, ChevronDown, Play, Mail, User, PhoneCall, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -274,6 +274,16 @@ function Home() {
 
   const [openFaq, setOpenFaq] = useState(null);
 
+  // Track page visit on mount
+  useEffect(() => {
+    // Basic deduplication using sessionStorage to prevent refreshing from counting as a new visit
+    if (!sessionStorage.getItem('hasVisited')) {
+      fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/stats/visit`, { method: 'POST' })
+        .then(() => sessionStorage.setItem('hasVisited', 'true'))
+        .catch(err => console.error("Error tracking visit:", err));
+    }
+  }, []);
+
   const phoneNumber = "+393481134181";
 
   const handleChange = (e) => {
@@ -283,7 +293,7 @@ function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5001/api/leads', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -663,6 +673,18 @@ function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <a 
+        href={`https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=Hi%20KH%20Shifat!%20I'm%20interested%20in%20a%20free%20website%20build.`}
+        target="_blank" 
+        rel="noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] hover:-translate-y-1 transition-all flex items-center justify-center group"
+        title="Chat on WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:scale-110 transition-transform"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      </a>
+
     </div>
   );
 }

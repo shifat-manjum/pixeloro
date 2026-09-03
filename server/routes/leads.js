@@ -7,9 +7,9 @@ router.post('/', async (req, res) => {
     console.log("Received POST request at /api/leads");
     console.log("Request body:", req.body);
     try {
-        const { restaurantName, name, email } = req.body;
+        const { restaurantName, name, email, phone } = req.body;
         
-        if (!restaurantName || !name || !email) {
+        if (!restaurantName || !name || !email || !phone) {
             console.log("Validation failed. Missing fields.");
             return res.status(400).json({ error: 'All fields are required.' });
         }
@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
         const newLead = new Lead({
             restaurantName,
             name,
-            email
+            email,
+            phone
         });
 
         await newLead.save();
@@ -26,6 +27,17 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error('Error saving lead:', error);
         res.status(500).json({ error: 'Server error. Please try again.' });
+    }
+});
+
+// GET /api/leads - Read all leads
+router.get('/', async (req, res) => {
+    try {
+        const leads = await Lead.find().sort({ createdAt: -1 }); // Get all leads, newest first
+        res.status(200).json(leads);
+    } catch (error) {
+        console.error('Error fetching leads:', error);
+        res.status(500).json({ error: 'Server error while fetching leads.' });
     }
 });
 
