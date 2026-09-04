@@ -1,6 +1,56 @@
-import { useState, useEffect } from 'react';
-import { ArrowRight, CheckCircle2, Phone, Star, ShieldCheck, Zap, Rocket, Search, BarChart3, MapPin, Smartphone, Check, ChevronDown, Play, Mail, User, PhoneCall, Globe } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Play, Star, Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
+
+function useInView(options = { threshold: 0.1 }) {
+  const [isIntersecting, setIntersecting] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIntersecting(true);
+    }, options);
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [options]);
+  return [ref, isIntersecting];
+}
+
+const CountUp = ({ end, duration = 2000, prefix = "", suffix = "" }) => {
+  const [count, setCount] = useState(0);
+  const [ref, inView] = useInView();
+  
+  useEffect(() => {
+    if (!inView) return;
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  }, [inView, end, duration]);
+  
+  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+};
+
+const FAQAccordion = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border border-white/10 rounded-2xl mb-4 bg-card/50 overflow-hidden">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full text-left px-6 py-5 flex justify-between items-center hover:bg-white/5 transition-colors"
+      >
+        <span className="font-bold text-white text-lg">{question}</span>
+        <ChevronDown className={`text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`px-6 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <p className="text-text-muted">{answer}</p>
+      </div>
+    </div>
+  );
+};
 
 const phoneNumber = "+393481134181";
 
@@ -261,6 +311,25 @@ const translations = {
   }
 };
 
+const FeatureCard = ({ icon: Icon, title, desc }) => {
+  const [ref, inView] = useInView();
+  return (
+    <div 
+      ref={ref}
+      className={`bg-card/50 backdrop-blur-sm p-8 rounded-3xl border border-white/5 transition-all duration-700 relative overflow-hidden group 
+      ${inView ? 'opacity-100 translate-y-0 shadow-[0_8px_40px_rgba(229,193,88,0.25)] border-primary/50' : 'opacity-0 translate-y-12 shadow-[0_8px_30px_rgba(229,193,88,0.08)]'}
+      hover:shadow-[0_8px_40px_rgba(229,193,88,0.35)] hover:-translate-y-2 hover:border-primary/80`}
+    >
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div className={`w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 border border-primary/20 shadow-inner ${inView ? 'scale-100' : 'scale-50'} group-hover:scale-110`}>
+        <Icon className="text-primary w-6 h-6" />
+      </div>
+      <h3 className="font-black text-xl mb-3 text-white tracking-wide">{title}</h3>
+      <p className="text-text-muted font-medium leading-relaxed">{desc}</p>
+    </div>
+  );
+};
+
 function Home() {
   const [lang, setLang] = useState('en');
   const t = translations[lang];
@@ -310,11 +379,11 @@ function Home() {
   };
 
   const faqs = [
-    t.faq1 || "Is it really free?",
-    t.faq2 || "How does the audit work?",
-    t.faq3 || "What is Pixeloro Pro?",
-    t.faq4 || "Do you build my website?",
-    t.faq5 || "How long does it take?"
+    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €85/month if you decide to keep it and use our hosting & maintenance." },
+    { q: "How does the process work?", a: "Simply send us your current menu and some details. We will build a high-converting website draft. If you love it, we make it live." },
+    { q: "How long does it take?", a: "Our standard turnaround time is incredibly fast. We will have your new website ready in 24-48 hours after receiving your menu and details." },
+    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €85/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
+    { q: "Are there any hidden fees or contracts?", a: "No hidden fees, no long-term contracts. You can cancel your subscription at any time with no questions asked." }
   ];
 
   return (
@@ -459,9 +528,35 @@ function Home() {
       <section className="text-center py-24 px-4 border-t border-white/5 bg-card">
         <h2 className="text-4xl font-black mb-8 text-primary">{t.catchTitle}</h2>
         <h3 className="text-2xl font-black mb-6 text-white">{t.catchSub}</h3>
-        <p className="text-text-muted max-w-3xl mx-auto mb-6 text-lg">
+        <p className="text-text-muted max-w-3xl mx-auto mb-12 text-lg">
           {t.catchP1}
         </p>
+
+        {/* Dynamic Comparison */}
+        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-black/50 p-8 rounded-3xl border border-white/10">
+            <h4 className="text-white/60 font-bold uppercase tracking-wider text-sm mb-4">Traditional Agency Setup</h4>
+            <div className="text-5xl font-black text-white/50 line-through">
+              <CountUp end={2150} prefix="€" />
+            </div>
+          </div>
+          <div className="bg-primary/10 p-8 rounded-3xl border border-primary/50 relative shadow-[0_0_30px_rgba(229,193,88,0.2)]">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-black text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+              Pixeloro Setup
+            </div>
+            <h4 className="text-primary font-bold uppercase tracking-wider text-sm mb-4 mt-2">What we charge to build</h4>
+            <div className="text-6xl font-black text-primary">
+              <CountUp end={0} prefix="€" />
+            </div>
+          </div>
+          <div className="bg-black/50 p-8 rounded-3xl border border-white/10">
+            <h4 className="text-white/60 font-bold uppercase tracking-wider text-sm mb-4">Turnaround Time</h4>
+            <div className="text-5xl font-black text-white">
+              <CountUp end={48} suffix=" Hours" duration={1500} />
+            </div>
+          </div>
+        </div>
+
         <p className="text-text-muted max-w-3xl mx-auto text-lg">
           {t.catchP2}
         </p>
@@ -479,16 +574,7 @@ function Home() {
             { icon: MapPin, title: t.f5Title, desc: t.f5Sub },
             { icon: Smartphone, title: t.f6Title, desc: t.f6Sub }
           ].map((feat, i) => (
-            <div key={i} className="bg-card/50 backdrop-blur-sm p-8 rounded-3xl border border-white/5 hover:border-primary/50 transition-all duration-300 group shadow-[0_8px_30px_rgba(229,193,88,0.08)] hover:shadow-[0_8px_40px_rgba(229,193,88,0.25)] hover:-translate-y-2 relative overflow-hidden">
-              {/* Subtle top gradient line for trendy look */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              
-              <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-primary/20 shadow-inner">
-                <feat.icon className="text-primary w-6 h-6" />
-              </div>
-              <h3 className="font-black text-xl mb-3 text-white tracking-wide">{feat.title}</h3>
-              <p className="text-text-muted font-medium leading-relaxed">{feat.desc}</p>
-            </div>
+            <FeatureCard key={i} icon={feat.icon} title={feat.title} desc={feat.desc} />
           ))}
         </div>
       </section>
@@ -560,8 +646,8 @@ function Home() {
           <h2 className="text-4xl md:text-5xl font-serif mb-2 text-[#F2F2F2]">{t.aboutTitle}</h2>
         </div>
         
-        <div className="max-w-xl mx-auto bg-[#1A1A1A] rounded-3xl p-10 border border-white/5 text-center shadow-[0_0_15px_rgba(229,193,88,0.15)] hover:shadow-[0_0_40px_rgba(229,193,88,0.3)] hover:border-primary/30 transition-all duration-500 group">
-          <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 flex-shrink-0 border-2 border-transparent group-hover:border-primary/80 group-hover:shadow-[0_0_20px_rgba(229,193,88,0.4)] transition-all duration-500">
+        <div className="max-w-xl mx-auto bg-[#1A1A1A] rounded-3xl p-10 border border-primary/30 text-center shadow-[0_0_30px_rgba(229,193,88,0.2)] hover:shadow-[0_0_40px_rgba(229,193,88,0.3)] transition-all duration-500 group">
+          <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 flex-shrink-0 border-2 border-primary/80 shadow-[0_0_20px_rgba(229,193,88,0.4)] transition-all duration-500">
              <img src="/founder.jpg" alt="KH Shifat Manjum" className="w-full h-full object-cover object-top" />
           </div>
           <h3 className="text-2xl font-semibold text-[#E5E5E5] tracking-wide mb-2">{t.aboutName}</h3>
@@ -577,20 +663,7 @@ function Home() {
         <h2 className="text-4xl font-black text-center mb-16 text-white">{t.faqTitle}</h2>
         <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, i) => (
-            <div key={i} className="bg-card rounded-2xl border border-white/10 overflow-hidden">
-              <button 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-white hover:text-primary transition-colors"
-              >
-                {faq}
-                <ChevronDown className={`transition-transform duration-200 ${openFaq === i ? 'rotate-180 text-primary' : 'text-white/50'}`} size={20} />
-              </button>
-              {openFaq === i && (
-                <div className="px-6 pb-5 text-text-muted font-medium border-t border-white/5 pt-4 mt-2">
-                  We are completely transparent. Yes, the audit is 100% free with no obligations. If you choose our Pro plan, everything mentioned is included.
-                </div>
-              )}
-            </div>
+            <FAQAccordion key={i} question={faq.q} answer={faq.a} />
           ))}
         </div>
       </section>
@@ -607,7 +680,6 @@ function Home() {
         <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto text-sm text-text-muted font-medium">
           <div className="font-black text-primary mb-6 md:mb-0 text-2xl tracking-tighter">pixeloro</div>
           <div className="flex gap-8">
-            <a href="#" className="hover:text-primary transition-colors">Imprint</a>
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
           </div>
