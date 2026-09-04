@@ -648,7 +648,7 @@ function Home() {
         
         <div className="max-w-xl mx-auto bg-[#1A1A1A] rounded-3xl p-10 border border-primary/30 text-center shadow-[0_0_30px_rgba(229,193,88,0.2)] hover:shadow-[0_0_40px_rgba(229,193,88,0.3)] transition-all duration-500 group">
           <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 flex-shrink-0 border-2 border-primary/80 shadow-[0_0_20px_rgba(229,193,88,0.4)] transition-all duration-500">
-             <img src="/founder.jpg" alt="KH Shifat Manjum" className="w-full h-full object-cover object-top" />
+             <img src="/founder.jpg" alt="KH Shifat Manjum" loading="lazy" fetchpriority="low" decoding="async" className="w-full h-full object-cover object-top" />
           </div>
           <h3 className="text-2xl font-semibold text-[#E5E5E5] tracking-wide mb-2">{t.aboutName}</h3>
           <p className="text-primary font-medium text-sm mb-6">{t.aboutRole}</p>
