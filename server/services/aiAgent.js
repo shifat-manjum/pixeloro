@@ -1,12 +1,15 @@
-const { OpenAI } = require('openai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-let openaiInstance = null;
+let genAIInstance = null;
+let modelInstance = null;
 
-const getOpenAI = () => {
-  if (!openaiInstance && process.env.OPENAI_API_KEY) {
-    openaiInstance = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const getModel = () => {
+  if (!genAIInstance && process.env.GEMINI_API_KEY) {
+    genAIInstance = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    // Use gemini-1.5-flash for fast, free tier text generation
+    modelInstance = genAIInstance.getGenerativeModel({ model: "gemini-1.5-flash" });
   }
-  return openaiInstance;
+  return modelInstance;
 };
 
 const SYSTEM_PROMPT = `You are the official AI assistant for Pixeloro, a web design agency that exclusively builds websites for Italian restaurants.
@@ -23,24 +26,19 @@ If they ask a question you don't know the answer to, politely let them know that
 
 const generateWhatsAppResponse = async (userMessage, senderId) => {
   try {
-    const openai = getOpenAI();
+    const model = getModel();
     
-    if (!openai) {
-      console.warn("OpenAI API key is missing. Please set OPENAI_API_KEY in environment variables.");
+    if (!model) {
+      console.warn("GEMINI API key is missing. Please set GEMINI_API_KEY in environment variables.");
       return "Hi there! I am currently undergoing maintenance. Please leave a message and our human team will get back to you shortly!";
     }
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: userMessage }
-      ],
-      max_tokens: 200,
-      temperature: 0.7,
-    });
-
-    return completion.choices[0].message.content;
+    const prompt = `${SYSTEM_PROMPT}\n\nUser Message: ${userMessage}\n\nYour Reply:`;
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+    
   } catch (error) {
     console.error("AI Generation Error:", error);
     return "I'm sorry, I'm having a little trouble connecting right now. We will respond manually as soon as possible!";
