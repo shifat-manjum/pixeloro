@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Star, Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
 
 function useInView(options = { threshold: 0.1 }) {
   const [isIntersecting, setIntersecting] = useState(false);
@@ -51,9 +51,6 @@ const FAQAccordion = ({ question, answer }) => {
     </div>
   );
 };
-
-const phoneNumber = "+393481134181";
-
 const translations = {
   en: {
     bookCall: "Book a call",
@@ -341,8 +338,6 @@ function Home() {
     phone: ''
   });
 
-  const [openFaq, setOpenFaq] = useState(null);
-
   // Track page visit on mount
   useEffect(() => {
     // Basic deduplication using sessionStorage to prevent refreshing from counting as a new visit
@@ -373,7 +368,7 @@ function Home() {
       } else {
         alert("Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch (_err) {
       alert("Error submitting the form.");
     }
   };
