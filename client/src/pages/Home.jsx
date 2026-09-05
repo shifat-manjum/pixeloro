@@ -86,7 +86,7 @@ const translations = {
     freeItem4: "Delivered in 24 hours to review.",
     proBadge: "Phase 2",
     proTierTitle: "Hosting & Management",
-    proTierPrice: "€85",
+    proTierPrice: "€55",
     proTierUnit: "/ month + VAT",
     proItem1: "Premium, lightning-fast hosting.",
     proItem2: "Unlimited minor text/image updates.",
@@ -98,7 +98,7 @@ const translations = {
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
     catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
-    catchP2: "If you love it, you simply subscribe to our €85/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
+    catchP2: "If you love it, you simply subscribe to our €55/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -113,8 +113,8 @@ const translations = {
     f6Title: "Website optimization",
     f6Sub: "Fast, mobile-friendly, and designed specifically to drive reservations.",
     testTitle: "Restaurant owners, in their own words.",
-    exampleTitle: "Example builds",
-    exampleSub: "High converting designs optimized for speed and user experience.",
+    exampleTitle: "What Your Restaurant Gets for €55/Month",
+    exampleSub: "Handcrafted, high-converting digital experiences engineered to fill your tables every night.",
     howItWorks: "How it works",
     hw1Title: "send your menu",
     hw1Sub: "Send us an email with a link to your menu or upload it in our form.",
@@ -136,7 +136,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Passionate about technology and design.",
     aboutDesc2: "I founded Pixeloro with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
-    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €85 a month only if you keep it.",
+    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €55 a month only if you keep it.",
   },
   it: {
     bookCall: "Prenota una chiamata",
@@ -170,7 +170,7 @@ const translations = {
     freeItem4: "Chiamata di consulenza di 15 minuti. Senza impegno.",
     proBadge: "Solo se lo desideri",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€85",
+    proTierPrice: "€55",
     proTierUnit: "/ mese + IVA",
     proItem1: "Facciamo tutto noi per te. Rilassati e goditi i risultati.",
     proItem2: "Google My Business ottimizzato. Massimizza la ricerca locale.",
@@ -182,7 +182,7 @@ const translations = {
     catchTitle: "Quindi, dov'è la fregatura?",
     catchSub: "Non c'è nessuna fregatura. È esattamente come sembra.",
     catchP1: "Ti offriamo un enorme valore iniziale facendo il lavoro pesante e mostrandoti esattamente cosa non va nella tua attuale configurazione digitale. Tutto gratis. Nessuna carta richiesta.",
-    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli 85€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.",
+    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi attivare il piano per soli 55€ al mese. Altrimenti, nessun problema: non paghi assolutamente nulla.",
     featuresTitle: "Cosa ottieni",
     f1Title: "Marketing a pagamento",
     f1Sub: "Gestiamo i tuoi Google Ads per darti maggiore visibilità quando conta di più.",
@@ -197,8 +197,8 @@ const translations = {
     f6Title: "Ottimizzazione sito web",
     f6Sub: "Veloce, ottimizzato per dispositivi mobili e progettato per generare prenotazioni.",
     testTitle: "I proprietari di ristoranti, con le loro parole.",
-    exampleTitle: "Esempi di siti",
-    exampleSub: "Design ad alta conversione ottimizzati per velocità ed esperienza utente.",
+    exampleTitle: "Cosa ottiene il tuo ristorante per 55€ al mese",
+    exampleSub: "Siti web di lusso ad alta conversione progettati per riempire i tuoi tavoli ogni sera.",
     howItWorks: "Come funziona",
     hw1Title: "invia il tuo menu",
     hw1Sub: "Inviaci un'email con un link al tuo menu o caricalo nel nostro modulo.",
@@ -220,7 +220,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Appassionato di tecnologia e design.",
     aboutDesc2: "Ho fondato Pixeloro con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
-    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 85€ al mese solo se lo mantieni.",
+    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 55€ al mese solo se lo mantieni.",
   },
   de: {
     bookCall: "Gespräch buchen",
@@ -254,7 +254,7 @@ const translations = {
     freeItem4: "15-minütiges Beratungsgespräch. Unverbindlich.",
     proBadge: "Nur wenn Sie es wollen",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€85",
+    proTierPrice: "€55",
     proTierUnit: "/ Monat + MwSt",
     proItem1: "Wir erledigen alles für Sie. Lehnen Sie sich zurück.",
     proItem2: "Optimiertes Google My Business. Maximieren Sie die lokale Suche.",
@@ -266,7 +266,7 @@ const translations = {
     catchTitle: "Also, was ist der Haken?",
     catchSub: "Es gibt keinen Haken. Es ist genau so, wie es klingt.",
     catchP1: "Wir bieten Ihnen frühzeitig massiven Wert, indem wir die schwere Arbeit übernehmen und Ihnen genau zeigen, was an Ihrem aktuellen digitalen Setup falsch ist. Alles kostenlos.",
-    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 85 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
+    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 55 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
     featuresTitle: "Was Sie bekommen",
     f1Title: "Bezahltes Marketing",
     f1Sub: "Wir verwalten Ihre Google Ads, um Ihnen mehr Sichtbarkeit zu verschaffen.",
@@ -281,8 +281,8 @@ const translations = {
     f6Title: "Website-Optimierung",
     f6Sub: "Schnell, mobilfreundlich und speziell entwickelt, um Reservierungen zu fördern.",
     testTitle: "Restaurantbesitzer, in ihren eigenen Worten.",
-    exampleTitle: "Beispiel-Websites",
-    exampleSub: "Konversionsstarke Designs, optimiert für Geschwindigkeit und Benutzererfahrung.",
+    exampleTitle: "Was Ihr Restaurant für 55 €/Monat bekommt",
+    exampleSub: "Hochwertige, konversionsstarke Designs, entwickelt, um Ihre Tische jeden Abend zu füllen.",
     howItWorks: "Wie es funktioniert",
     hw1Title: "senden Sie Ihr Menü",
     hw1Sub: "Senden Sie uns eine E-Mail mit einem Link zu Ihrem Menü oder laden Sie es hoch.",
@@ -304,7 +304,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Leidenschaftlich für Technologie und Design.",
     aboutDesc2: "Ich habe Pixeloro mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
-    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 85€ im Monat, nur wenn Sie sie behalten.",
+    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 55€ im Monat, nur wenn Sie sie behalten.",
   }
 };
 
@@ -375,10 +375,10 @@ function Home() {
   };
 
   const faqs = [
-    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €85/month if you decide to keep it and use our hosting & maintenance." },
+    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €55/month if you decide to keep it and use our hosting & maintenance." },
     { q: "How does the process work?", a: "Simply send us your current menu and some details. We will build a high-converting website draft. If you love it, we make it live." },
     { q: "How long does it take?", a: "Our standard turnaround time is incredibly fast. We will have your new website ready in 24-48 hours after receiving your menu and details." },
-    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €85/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
+    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €55/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
     { q: "Are there any hidden fees or contracts?", a: "No hidden fees, no long-term contracts. You can cancel your subscription at any time with no questions asked." }
   ];
 
@@ -601,6 +601,106 @@ function Home() {
         </div>
         <div className="text-center mt-20">
            <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-block">
+            {t.bookCall}
+          </a>
+        </div>
+      </section>
+
+      {/* Example Builds Showcase */}
+      <section className="py-24 px-4 max-w-7xl mx-auto border-t border-white/5">
+        <div className="text-center mb-16">
+          <span className="text-xs font-bold tracking-widest text-primary uppercase bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full inline-block mb-4">
+            Live Showcase & Portfolio
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+            {t.exampleTitle}
+          </h2>
+          <p className="text-text-muted text-lg max-w-2xl mx-auto font-medium">
+            {t.exampleSub}
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {[
+            {
+              image: "/showcase-1.jpg",
+              title: "Trattoria Bella Vista",
+              category: "Traditional Trattoria & Pizzeria",
+              features: ["WhatsApp 1-Tap Booking", "Digital Visual Menu", "Google 4.9★ Widget"]
+            },
+            {
+              image: "/showcase-2.jpg",
+              title: "Pizzeria Da Enzo",
+              category: "Neapolitan Wood-Fired Pizzeria",
+              features: ["Table Reservation UI", "Mobile-Speed Optimized", "Local Maps SEO"]
+            },
+            {
+              image: "/showcase-3.jpg",
+              title: "Sapori d'Italia",
+              category: "Artisan Pasta Bar & Trattoria",
+              features: ["Curated Wine Pairing", "Allergen & Price Guide", "Instant Call CTA"]
+            },
+            {
+              image: "/showcase-4.jpg",
+              title: "Ristorante Mare Nostrum",
+              category: "Mediterranean Seafood & Fish",
+              features: ["Daily Fresh Catch", "Direct WhatsApp Chat", "Ultra-Fast 4G Load"]
+            },
+            {
+              image: "/showcase-5.jpg",
+              title: "Braceria Fiorentina",
+              category: "Tuscan Steakhouse & Wine Cellar",
+              features: ["Online Booking Form", "Luxury Dark Theme", "Zero Tech Hassle"]
+            },
+            {
+              image: "/showcase-6.jpg",
+              title: "Dolce Vita",
+              category: "Gourmet Gelateria & Pasticceria",
+              features: ["Visual Dessert Catalog", "Order & Pickup Button", "No Clunky PDFs"]
+            }
+          ].map((item, idx) => (
+            <div 
+              key={idx} 
+              className="bg-card/70 border border-white/10 rounded-3xl overflow-hidden hover:border-primary/60 hover:shadow-[0_10px_40px_rgba(229,193,88,0.25)] transition-all duration-500 group flex flex-col"
+            >
+              <div className="relative overflow-hidden aspect-[16/9] bg-black/50">
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" 
+                />
+                <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md border border-primary/30 text-primary text-xs font-bold px-3 py-1 rounded-full">
+                  €55/mo Ready
+                </div>
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
+                  {item.category}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
+                  {item.title}
+                </h3>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {item.features.map((feat, fIdx) => (
+                    <span key={fIdx} className="bg-white/5 border border-white/10 text-text-muted text-xs px-2.5 py-1 rounded-lg">
+                      {feat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border border-primary/30 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-[0_0_40px_rgba(229,193,88,0.15)]">
+          <h3 className="text-2xl md:text-3xl font-black text-white mb-4">
+            Want your restaurant to look like this in 48 hours?
+          </h3>
+          <p className="text-text-muted text-base md:text-lg mb-8 max-w-2xl mx-auto">
+            Send us your current menu or Instagram page. We will build your complete custom website for free. If you love it, activate it for just €55/month.
+          </p>
+          <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.3)] hover:shadow-[0_0_30px_rgba(229,193,88,0.5)] inline-block text-lg">
             {t.bookCall}
           </a>
         </div>
