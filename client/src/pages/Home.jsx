@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
 
 function useInView(options = { threshold: 0.1 }) {
@@ -354,6 +354,8 @@ function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -363,8 +365,7 @@ function Home() {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        alert("Thanks! We'll be in touch soon.");
-        setFormData({ restaurantName: '', name: '', email: '', phone: '' });
+        navigate('/thank-you');
       } else {
         alert("Something went wrong. Please try again.");
       }
