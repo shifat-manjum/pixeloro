@@ -30,3 +30,4 @@ router.post('/whatsapp', async (req, res) => {
 });
 
 module.exports = router;
+

@@ -532,7 +532,7 @@ function Home() {
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-black/50 p-8 rounded-3xl border border-white/10">
             <h4 className="text-white/60 font-bold uppercase tracking-wider text-sm mb-4">Traditional Agency Setup</h4>
-            <div className="text-5xl font-black text-white/50 line-through">
+            <div className="text-5xl font-black text-white/70">
               <CountUp end={2150} prefix="€" />
             </div>
           </div>
@@ -603,24 +603,6 @@ function Home() {
            <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-block">
             {t.bookCall}
           </a>
-        </div>
-      </section>
-
-      {/* Stats Banner */}
-      <section className="bg-black text-white py-20 px-4 border-b border-white/5">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-          <div className="py-4">
-            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat1Value}</div>
-            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat1Label}</div>
-          </div>
-          <div className="py-4">
-            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat2Value}</div>
-            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat2Label}</div>
-          </div>
-          <div className="py-4">
-            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat3Value}</div>
-            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat3Label}</div>
-          </div>
         </div>
       </section>
 
