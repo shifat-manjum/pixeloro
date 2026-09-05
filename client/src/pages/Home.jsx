@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, X, ZoomIn } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
 
 function useInView(options = { threshold: 0.1 }) {
   const [isIntersecting, setIntersecting] = useState(false);
@@ -17,6 +17,7 @@ function useInView(options = { threshold: 0.1 }) {
 
 const CountUp = ({ end, duration = 2000, prefix = "", suffix = "" }) => {
   const [count, setCount] = useState(0);
+  
   const [ref, inView] = useInView();
   
   useEffect(() => {
@@ -53,7 +54,7 @@ const FAQAccordion = ({ question, answer }) => {
 };
 const translations = {
   en: {
-    bookCall: "Book a call",
+    bookCall: "Chat on WhatsApp",
     marketingSub: "WEB DESIGN BY PIXELORO",
     heroTitle1: "Get a luxury restaurant website built for",
     heroTitleHighlight: "€0 upfront.",
@@ -74,7 +75,7 @@ const translations = {
     valueTitle1: "Your guests judge your food by your ",
     valueTitleHighlight: "website.",
     valueSub: "A bad website costs you bookings every single day. We build digital experiences that make your food look irresistible and drive reservations.",
-    findOutMore: "Find out more - book a call",
+    findOutMore: "Chat with us on WhatsApp",
     pricingTitle: "Simple, transparent pricing",
     pricingSub: "No massive upfront costs. Just a simple monthly subscription.",
     freeTierTitle: "Phase 1: The Build",
@@ -86,7 +87,7 @@ const translations = {
     freeItem4: "Delivered in 24 hours to review.",
     proBadge: "Phase 2",
     proTierTitle: "Hosting & Management",
-    proTierPrice: "€55",
+    proTierPrice: "€85",
     proTierUnit: "/ month + VAT",
     proItem1: "Premium, lightning-fast hosting.",
     proItem2: "Unlimited minor text/image updates.",
@@ -98,7 +99,7 @@ const translations = {
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
     catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
-    catchP2: "If you love it, you simply subscribe to our €55/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
+    catchP2: "If you love it, you simply subscribe to our €85/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -113,8 +114,8 @@ const translations = {
     f6Title: "Website optimization",
     f6Sub: "Fast, mobile-friendly, and designed specifically to drive reservations.",
     testTitle: "Restaurant owners, in their own words.",
-    exampleTitle: "What Your Restaurant Gets for €55/Month",
-    exampleSub: "Handcrafted, high-converting digital experiences engineered to fill your tables every night.",
+    exampleTitle: "Example builds",
+    exampleSub: "High converting designs optimized for speed and user experience.",
     howItWorks: "How it works",
     hw1Title: "send your menu",
     hw1Sub: "Send us an email with a link to your menu or upload it in our form.",
@@ -136,10 +137,10 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Passionate about technology and design.",
     aboutDesc2: "I founded Pixeloro with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
-    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €55 a month only if you keep it.",
+    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €85 a month only if you keep it.",
   },
   it: {
-    bookCall: "Prenota una chiamata",
+    bookCall: "Scrivici su WhatsApp",
     marketingSub: "MARKETING PER RISTORANTI DA PIXELORO",
     heroTitle1: "Scopri dove il tuo ristorante",
     heroTitleHighlight: "si posiziona",
@@ -158,7 +159,7 @@ const translations = {
     valueTitle1: "I tuoi clienti non chiedono agli amici dove mangiare. Chiedono a ",
     valueTitleHighlight: "Google e ChatGPT.",
     valueSub: "Assicurati di apparire per primo quando cercano \"ristoranti vicino a me\". Ti aiutiamo a ottimizzare la tua presenza digitale.",
-    findOutMore: "Scopri di più - prenota una chiamata",
+    findOutMore: "Contattaci su WhatsApp",
     pricingTitle: "Cosa ottieni davvero",
     pricingSub: "Smetti di indovinare. Ottieni dati reali e piani d'azione.",
     freeTierTitle: "La tua situazione attuale",
@@ -170,7 +171,7 @@ const translations = {
     freeItem4: "Chiamata di consulenza di 15 minuti. Senza impegno.",
     proBadge: "Solo se lo desideri",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€55",
+    proTierPrice: "€85",
     proTierUnit: "/ mese + IVA",
     proItem1: "Facciamo tutto noi per te. Rilassati e goditi i risultati.",
     proItem2: "Google My Business ottimizzato. Massimizza la ricerca locale.",
@@ -182,7 +183,7 @@ const translations = {
     catchTitle: "Quindi, dov'è la fregatura?",
     catchSub: "Non c'è nessuna fregatura. È esattamente come sembra.",
     catchP1: "Ti offriamo un enorme valore iniziale facendo il lavoro pesante e mostrandoti esattamente cosa non va nella tua attuale configurazione digitale. Tutto gratis. Nessuna carta richiesta.",
-    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi attivare il piano per soli 55€ al mese. Altrimenti, nessun problema: non paghi assolutamente nulla.",
+    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli 85€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.",
     featuresTitle: "Cosa ottieni",
     f1Title: "Marketing a pagamento",
     f1Sub: "Gestiamo i tuoi Google Ads per darti maggiore visibilità quando conta di più.",
@@ -197,8 +198,8 @@ const translations = {
     f6Title: "Ottimizzazione sito web",
     f6Sub: "Veloce, ottimizzato per dispositivi mobili e progettato per generare prenotazioni.",
     testTitle: "I proprietari di ristoranti, con le loro parole.",
-    exampleTitle: "Cosa ottiene il tuo ristorante per 55€ al mese",
-    exampleSub: "Siti web di lusso ad alta conversione progettati per riempire i tuoi tavoli ogni sera.",
+    exampleTitle: "Esempi di siti",
+    exampleSub: "Design ad alta conversione ottimizzati per velocità ed esperienza utente.",
     howItWorks: "Come funziona",
     hw1Title: "invia il tuo menu",
     hw1Sub: "Inviaci un'email con un link al tuo menu o caricalo nel nostro modulo.",
@@ -220,10 +221,10 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Appassionato di tecnologia e design.",
     aboutDesc2: "Ho fondato Pixeloro con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
-    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 55€ al mese solo se lo mantieni.",
+    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 85€ al mese solo se lo mantieni.",
   },
   de: {
-    bookCall: "Gespräch buchen",
+    bookCall: "Auf WhatsApp schreiben",
     marketingSub: "RESTAURANT-MARKETING VON PIXELORO",
     heroTitle1: "Finden Sie heraus, wo Ihr Restaurant",
     heroTitleHighlight: "wirklich steht",
@@ -242,7 +243,7 @@ const translations = {
     valueTitle1: "Ihre Gäste fragen nicht ihre Freunde, wo sie essen sollen. Sie fragen ",
     valueTitleHighlight: "Google und ChatGPT.",
     valueSub: "Stellen Sie sicher, dass Sie als Erster erscheinen, wenn sie nach \"Restaurants in meiner Nähe\" suchen. Wir optimieren Ihren digitalen Fußabdruck.",
-    findOutMore: "Mehr erfahren - Gespräch buchen",
+    findOutMore: "Auf WhatsApp kontaktieren",
     pricingTitle: "Was Sie tatsächlich bekommen",
     pricingSub: "Hören Sie auf zu raten. Erhalten Sie echte Einblicke und Aktionspläne.",
     freeTierTitle: "Ihr aktuelles Setup",
@@ -251,10 +252,10 @@ const translations = {
     freeItem1: "Vollständiges Google-Profil & SEO-Audit. Wissen Sie genau, wo Sie stehen.",
     freeItem2: "Liste Ihrer lokalen Konkurrenten. Und was sie besser machen.",
     freeItem3: "Grundlegendes Website-Feedback.",
-    freeItem4: "15-minütiges Beratungsgespräch. Unverbindlich.",
+    freeItem4: "Chat auf WhatsApp für alle Details.",
     proBadge: "Nur wenn Sie es wollen",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€55",
+    proTierPrice: "€85",
     proTierUnit: "/ Monat + MwSt",
     proItem1: "Wir erledigen alles für Sie. Lehnen Sie sich zurück.",
     proItem2: "Optimiertes Google My Business. Maximieren Sie die lokale Suche.",
@@ -266,7 +267,7 @@ const translations = {
     catchTitle: "Also, was ist der Haken?",
     catchSub: "Es gibt keinen Haken. Es ist genau so, wie es klingt.",
     catchP1: "Wir bieten Ihnen frühzeitig massiven Wert, indem wir die schwere Arbeit übernehmen und Ihnen genau zeigen, was an Ihrem aktuellen digitalen Setup falsch ist. Alles kostenlos.",
-    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 55 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
+    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 85 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
     featuresTitle: "Was Sie bekommen",
     f1Title: "Bezahltes Marketing",
     f1Sub: "Wir verwalten Ihre Google Ads, um Ihnen mehr Sichtbarkeit zu verschaffen.",
@@ -281,8 +282,8 @@ const translations = {
     f6Title: "Website-Optimierung",
     f6Sub: "Schnell, mobilfreundlich und speziell entwickelt, um Reservierungen zu fördern.",
     testTitle: "Restaurantbesitzer, in ihren eigenen Worten.",
-    exampleTitle: "Was Ihr Restaurant für 55 €/Monat bekommt",
-    exampleSub: "Hochwertige, konversionsstarke Designs, entwickelt, um Ihre Tische jeden Abend zu füllen.",
+    exampleTitle: "Beispiel-Websites",
+    exampleSub: "Konversionsstarke Designs, optimiert für Geschwindigkeit und Benutzererfahrung.",
     howItWorks: "Wie es funktioniert",
     hw1Title: "senden Sie Ihr Menü",
     hw1Sub: "Senden Sie uns eine E-Mail mit einem Link zu Ihrem Menü oder laden Sie es hoch.",
@@ -304,7 +305,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Leidenschaftlich für Technologie und Design.",
     aboutDesc2: "Ich habe Pixeloro mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
-    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 55€ im Monat, nur wenn Sie sie behalten.",
+    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 85€ im Monat, nur wenn Sie sie behalten.",
   }
 };
 
@@ -338,6 +339,8 @@ function Home() {
     phone: ''
   });
 
+  const [openFaq, setOpenFaq] = useState(null);
+
   // Track page visit on mount
   useEffect(() => {
     // Basic deduplication using sessionStorage to prevent refreshing from counting as a new visit
@@ -348,24 +351,18 @@ function Home() {
     }
   }, []);
 
-  const [selectedPreview, setSelectedPreview] = useState(null);
-
-  // Close modal with Escape key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setSelectedPreview(null);
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
   const phoneNumber = "+393481134181";
+  const whatsappUrl = `https://wa.me/393481134181?text=${encodeURIComponent(
+    lang === 'it' 
+      ? "Ciao! Vorrei maggiori informazioni sulla bozza gratuita in 48 ore del nuovo sito web per il mio ristorante." 
+      : lang === 'de'
+      ? "Hallo! Ich interessiere mich für einen kostenlosen Website-Entwurf innerhalb von 48 Stunden für mein Restaurant."
+      : "Hi! I would like more information about getting a free 48h custom website build for my restaurant."
+  )}`;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -376,20 +373,21 @@ function Home() {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        navigate('/thank-you');
+        alert("Thanks! We'll be in touch soon.");
+        setFormData({ restaurantName: '', name: '', email: '', phone: '' });
       } else {
         alert("Something went wrong. Please try again.");
       }
-    } catch (_err) {
+    } catch (err) {
       alert("Error submitting the form.");
     }
   };
 
   const faqs = [
-    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €55/month if you decide to keep it and use our hosting & maintenance." },
+    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €85/month if you decide to keep it and use our hosting & maintenance." },
     { q: "How does the process work?", a: "Simply send us your current menu and some details. We will build a high-converting website draft. If you love it, we make it live." },
     { q: "How long does it take?", a: "Our standard turnaround time is incredibly fast. We will have your new website ready in 24-48 hours after receiving your menu and details." },
-    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €55/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
+    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €85/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
     { q: "Are there any hidden fees or contracts?", a: "No hidden fees, no long-term contracts. You can cancel your subscription at any time with no questions asked." }
   ];
 
@@ -410,10 +408,13 @@ function Home() {
               </button>
             ))}
           </div>
-          <Link to="/login" className="text-sm font-bold text-primary border border-primary hover:bg-primary/10 px-6 py-2.5 rounded-full transition-all hidden sm:block shadow-[0_0_15px_rgba(229,193,88,0.2)] hover:shadow-[0_0_25px_rgba(229,193,88,0.4)]">
-            Login
-          </Link>
-          <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-2.5 px-6 rounded-full transition-colors text-sm shadow-[0_0_15px_rgba(229,193,88,0.3)] inline-block">
+          <a 
+            href={whatsappUrl} 
+            target="_blank" 
+            rel="noreferrer" 
+            className="bg-primary hover:bg-primary-hover text-black font-bold py-2.5 px-6 rounded-full transition-all text-sm shadow-[0_0_15px_rgba(229,193,88,0.3)] inline-flex items-center gap-2"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             {t.bookCall}
           </a>
         </div>
@@ -543,7 +544,7 @@ function Home() {
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-black/50 p-8 rounded-3xl border border-white/10">
             <h4 className="text-white/60 font-bold uppercase tracking-wider text-sm mb-4">Traditional Agency Setup</h4>
-            <div className="text-5xl font-black text-white/70">
+            <div className="text-5xl font-black text-white/50 line-through">
               <CountUp end={2150} prefix="€" />
             </div>
           </div>
@@ -611,120 +612,33 @@ function Home() {
           </div>
         </div>
         <div className="text-center mt-20">
-           <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-block">
+           <a 
+            href={whatsappUrl} 
+            target="_blank" 
+            rel="noreferrer" 
+            className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-flex items-center gap-2.5 text-base"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             {t.bookCall}
           </a>
         </div>
       </section>
 
-      {/* Example Builds Showcase */}
-      <section className="py-24 px-4 max-w-7xl mx-auto border-t border-white/5">
-        <div className="text-center mb-16">
-          <span className="text-xs font-bold tracking-widest text-primary uppercase bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full inline-block mb-4">
-            Live Showcase & Portfolio
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
-            {t.exampleTitle}
-          </h2>
-          <p className="text-text-muted text-lg max-w-2xl mx-auto font-medium">
-            {t.exampleSub}
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {[
-            {
-              image: "/showcase-1.jpg",
-              title: "Trattoria Bella Vista",
-              category: "Traditional Trattoria & Pizzeria",
-              features: ["WhatsApp 1-Tap Booking", "Digital Visual Menu", "Google 4.9★ Widget"]
-            },
-            {
-              image: "/showcase-2.jpg",
-              title: "Pizzeria Da Enzo",
-              category: "Neapolitan Wood-Fired Pizzeria",
-              features: ["Table Reservation UI", "Mobile-Speed Optimized", "Local Maps SEO"]
-            },
-            {
-              image: "/showcase-3.jpg",
-              title: "Sapori d'Italia",
-              category: "Artisan Pasta Bar & Trattoria",
-              features: ["Curated Wine Pairing", "Allergen & Price Guide", "Instant Call CTA"]
-            },
-            {
-              image: "/showcase-4.jpg",
-              title: "Ristorante Mare Nostrum",
-              category: "Mediterranean Seafood & Fish",
-              features: ["Daily Fresh Catch", "Direct WhatsApp Chat", "Ultra-Fast 4G Load"]
-            },
-            {
-              image: "/showcase-5.jpg",
-              title: "Braceria Fiorentina",
-              category: "Tuscan Steakhouse & Wine Cellar",
-              features: ["Online Booking Form", "Luxury Dark Theme", "Zero Tech Hassle"]
-            },
-            {
-              image: "/showcase-6.jpg",
-              title: "Dolce Vita",
-              category: "Gourmet Gelateria & Pasticceria",
-              features: ["Visual Dessert Catalog", "Order & Pickup Button", "No Clunky PDFs"]
-            }
-          ].map((item, idx) => (
-            <div 
-              key={idx} 
-              onClick={() => setSelectedPreview(item)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPreview(item); }}
-              className="bg-card/70 border border-white/10 rounded-3xl overflow-hidden hover:border-primary/60 hover:shadow-[0_10px_40px_rgba(229,193,88,0.25)] transition-all duration-500 group flex flex-col cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <div className="relative overflow-hidden aspect-[16/9] bg-black/50">
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" 
-                />
-                <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md border border-primary/30 text-primary text-xs font-bold px-3 py-1 rounded-full">
-                  €55/mo Ready
-                </div>
-                {/* Click to preview badge on hover/tap */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-bold text-sm backdrop-blur-[2px]">
-                  <span className="bg-primary text-black px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <ZoomIn className="w-4 h-4" /> Tap for Full Preview
-                  </span>
-                </div>
-              </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-                  {item.category}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors flex items-center justify-between">
-                  <span>{item.title}</span>
-                  <ZoomIn className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {item.features.map((feat, fIdx) => (
-                    <span key={fIdx} className="bg-white/5 border border-white/10 text-text-muted text-xs px-2.5 py-1 rounded-lg">
-                      {feat}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border border-primary/30 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-[0_0_40px_rgba(229,193,88,0.15)]">
-          <h3 className="text-2xl md:text-3xl font-black text-white mb-4">
-            Want your restaurant to look like this in 48 hours?
-          </h3>
-          <p className="text-text-muted text-base md:text-lg mb-8 max-w-2xl mx-auto">
-            Send us your current menu or Instagram page. We will build your complete custom website for free. If you love it, activate it for just €55/month.
-          </p>
-          <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.3)] hover:shadow-[0_0_30px_rgba(229,193,88,0.5)] inline-block text-lg">
-            {t.bookCall}
-          </a>
+      {/* Stats Banner */}
+      <section className="bg-black text-white py-20 px-4 border-b border-white/5">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+          <div className="py-4">
+            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat1Value}</div>
+            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat1Label}</div>
+          </div>
+          <div className="py-4">
+            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat2Value}</div>
+            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat2Label}</div>
+          </div>
+          <div className="py-4">
+            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat3Value}</div>
+            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat3Label}</div>
+          </div>
         </div>
       </section>
 
@@ -734,7 +648,13 @@ function Home() {
         <p className="text-text-muted font-medium max-w-2xl mx-auto mb-10 text-lg">
           {t.limitSub}
         </p>
-        <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-colors shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-block">
+        <a 
+          href={whatsappUrl} 
+          target="_blank" 
+          rel="noreferrer" 
+          className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-10 rounded-full transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] inline-flex items-center gap-2.5 text-base"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
           {t.bookCall}
         </a>
       </section>
@@ -773,7 +693,13 @@ function Home() {
         <h2 className="text-4xl md:text-5xl font-black mb-12 max-w-4xl mx-auto leading-tight text-white">
           {t.footerTitle}
         </h2>
-        <a href={`tel:${phoneNumber}`} className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-12 rounded-full text-lg transition-colors mb-24 shadow-[0_0_20px_rgba(229,193,88,0.2)] hover:shadow-[0_0_30px_rgba(229,193,88,0.4)] inline-block">
+        <a 
+          href={whatsappUrl} 
+          target="_blank" 
+          rel="noreferrer" 
+          className="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-12 rounded-full text-lg transition-all mb-24 shadow-[0_0_20px_rgba(229,193,88,0.2)] hover:shadow-[0_0_30px_rgba(229,193,88,0.4)] inline-flex items-center gap-3"
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
           {t.bookCall}
         </a>
         
@@ -788,7 +714,7 @@ function Home() {
 
       {/* Floating WhatsApp Button */}
       <a 
-        href={`https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=Hi%20KH%20Shifat!%20I'm%20interested%20in%20a%20free%20website%20build.`}
+        href={whatsappUrl}
         target="_blank" 
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] hover:-translate-y-1 transition-all flex items-center justify-center group"
@@ -796,67 +722,6 @@ function Home() {
       >
         <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:scale-110 transition-transform"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
       </a>
-
-      {/* Full View Demo Modal */}
-      {selectedPreview && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
-          onClick={() => setSelectedPreview(null)}
-        >
-          <div 
-            className="relative max-w-5xl w-full bg-[#141414] border border-primary/40 rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(229,193,88,0.3)] flex flex-col max-h-[92vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/70">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-                <span className="text-white font-bold text-base sm:text-lg ml-2">
-                  {selectedPreview.title}
-                </span>
-                <span className="hidden sm:inline-block text-xs bg-primary/20 text-primary border border-primary/30 px-2.5 py-0.5 rounded-full font-medium">
-                  {selectedPreview.category}
-                </span>
-              </div>
-              <button 
-                onClick={() => setSelectedPreview(null)}
-                aria-label="Close modal"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary hover:text-black flex items-center justify-center transition-colors text-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Modal Image Area */}
-            <div className="overflow-y-auto p-3 sm:p-6 flex-grow flex items-center justify-center bg-black/40">
-              <img 
-                src={selectedPreview.image} 
-                alt={selectedPreview.title} 
-                className="w-full h-auto max-h-[68vh] object-contain rounded-2xl border border-white/5 shadow-2xl"
-              />
-            </div>
-
-            {/* Modal Footer Bar */}
-            <div className="px-6 py-4 border-t border-white/10 bg-black/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex flex-wrap gap-2 text-xs">
-                {selectedPreview.features.map((feat, fIdx) => (
-                  <span key={fIdx} className="bg-white/5 border border-white/10 text-text-muted px-2.5 py-1 rounded-lg">
-                    ✓ {feat}
-                  </span>
-                ))}
-              </div>
-              <a 
-                href={`tel:${phoneNumber}`} 
-                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-black font-bold py-2.5 px-6 rounded-full text-sm transition-all shadow-[0_0_15px_rgba(229,193,88,0.3)] text-center flex-shrink-0"
-              >
-                Claim This Free Build (€55/mo)
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );

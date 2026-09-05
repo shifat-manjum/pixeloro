@@ -20,11 +20,9 @@ mongoose.connect(mongoURI)
 // Routes
 const leadRoutes = require('./routes/leads');
 const statRoutes = require('./routes/stats');
-const webhookRoutes = require('./routes/webhook');
 
 app.use('/api/leads', leadRoutes);
 app.use('/api/stats', statRoutes);
-app.use('/api/webhook', webhookRoutes);
 
 app.get('/', (req, res) => {
     res.send('Pixeloro API is running.');
@@ -33,4 +31,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+
 

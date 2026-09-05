@@ -12,7 +12,7 @@ function Dashboard() {
 
   // Security Check: Only allow KH Shifat
   useEffect(() => {
-    if (!user) return; // ProtectedRoute will handle undefined user
+    if (!user) return;
     const adminEmails = ['khshifat@gmail.com', 'khshifatmanjum@gmail.com', 'khshi@gmail.com'];
     if (!adminEmails.includes(user.email)) {
       alert("Access Denied: Admin Panel Only.");
@@ -174,11 +174,14 @@ function Dashboard() {
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-white font-medium">{lead.phone}</span>
                             <div className="flex gap-1 ml-auto">
-                              <a href={`tel:${lead.phone}`} title="Call Lead" className="p-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-md transition-colors">
-                                📞
-                              </a>
-                              <a href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" title="WhatsApp Lead" className="p-1.5 bg-green-500/20 hover:bg-green-500 text-green-500 hover:text-black rounded-md transition-colors">
-                                💬
+                              <a 
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                title="Open WhatsApp Chat" 
+                                className="flex items-center gap-1.5 px-2.5 py-1 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-md font-semibold transition-colors"
+                              >
+                                <span>💬</span> WhatsApp
                               </a>
                             </div>
                           </div>
@@ -205,4 +208,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
