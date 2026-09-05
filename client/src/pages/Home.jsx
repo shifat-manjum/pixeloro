@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
+import ShowcaseCarousel from '../components/ShowcaseCarousel';
+
 
 function useInView(options = { threshold: 0.1 }) {
   const [isIntersecting, setIntersecting] = useState(false);
@@ -587,6 +589,8 @@ function Home() {
         </div>
       </section>
 
+      {/* Live Showcase & Portfolio Carousel */}
+      <ShowcaseCarousel lang={lang} whatsappUrl={whatsappUrl} />
 
       {/* How it works */}
       <section className="py-24 px-4 border-y border-white/5 bg-card">
