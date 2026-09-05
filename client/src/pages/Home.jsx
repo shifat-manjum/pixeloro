@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, X, ZoomIn } from 'lucide-react';
 
 function useInView(options = { threshold: 0.1 }) {
   const [isIntersecting, setIntersecting] = useState(false);
@@ -348,6 +348,17 @@ function Home() {
     }
   }, []);
 
+  const [selectedPreview, setSelectedPreview] = useState(null);
+
+  // Close modal with Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedPreview(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const phoneNumber = "+393481134181";
 
   const handleChange = (e) => {
@@ -661,7 +672,11 @@ function Home() {
           ].map((item, idx) => (
             <div 
               key={idx} 
-              className="bg-card/70 border border-white/10 rounded-3xl overflow-hidden hover:border-primary/60 hover:shadow-[0_10px_40px_rgba(229,193,88,0.25)] transition-all duration-500 group flex flex-col"
+              onClick={() => setSelectedPreview(item)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPreview(item); }}
+              className="bg-card/70 border border-white/10 rounded-3xl overflow-hidden hover:border-primary/60 hover:shadow-[0_10px_40px_rgba(229,193,88,0.25)] transition-all duration-500 group flex flex-col cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <div className="relative overflow-hidden aspect-[16/9] bg-black/50">
                 <img 
@@ -673,13 +688,20 @@ function Home() {
                 <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md border border-primary/30 text-primary text-xs font-bold px-3 py-1 rounded-full">
                   €55/mo Ready
                 </div>
+                {/* Click to preview badge on hover/tap */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-bold text-sm backdrop-blur-[2px]">
+                  <span className="bg-primary text-black px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                    <ZoomIn className="w-4 h-4" /> Tap for Full Preview
+                  </span>
+                </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
                   {item.category}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
-                  {item.title}
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors flex items-center justify-between">
+                  <span>{item.title}</span>
+                  <ZoomIn className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                 </h3>
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {item.features.map((feat, fIdx) => (
@@ -774,6 +796,67 @@ function Home() {
       >
         <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:scale-110 transition-transform"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
       </a>
+
+      {/* Full View Demo Modal */}
+      {selectedPreview && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          onClick={() => setSelectedPreview(null)}
+        >
+          <div 
+            className="relative max-w-5xl w-full bg-[#141414] border border-primary/40 rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(229,193,88,0.3)] flex flex-col max-h-[92vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/70">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                <span className="text-white font-bold text-base sm:text-lg ml-2">
+                  {selectedPreview.title}
+                </span>
+                <span className="hidden sm:inline-block text-xs bg-primary/20 text-primary border border-primary/30 px-2.5 py-0.5 rounded-full font-medium">
+                  {selectedPreview.category}
+                </span>
+              </div>
+              <button 
+                onClick={() => setSelectedPreview(null)}
+                aria-label="Close modal"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary hover:text-black flex items-center justify-center transition-colors text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Image Area */}
+            <div className="overflow-y-auto p-3 sm:p-6 flex-grow flex items-center justify-center bg-black/40">
+              <img 
+                src={selectedPreview.image} 
+                alt={selectedPreview.title} 
+                className="w-full h-auto max-h-[68vh] object-contain rounded-2xl border border-white/5 shadow-2xl"
+              />
+            </div>
+
+            {/* Modal Footer Bar */}
+            <div className="px-6 py-4 border-t border-white/10 bg-black/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-2 text-xs">
+                {selectedPreview.features.map((feat, fIdx) => (
+                  <span key={fIdx} className="bg-white/5 border border-white/10 text-text-muted px-2.5 py-1 rounded-lg">
+                    ✓ {feat}
+                  </span>
+                ))}
+              </div>
+              <a 
+                href={`tel:${phoneNumber}`} 
+                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-black font-bold py-2.5 px-6 rounded-full text-sm transition-all shadow-[0_0_15px_rgba(229,193,88,0.3)] text-center flex-shrink-0"
+              >
+                Claim This Free Build (€55/mo)
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
