@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2 } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock } from 'lucide-react';
 import ShowcaseCarousel from '../components/ShowcaseCarousel';
 
 
@@ -419,6 +419,14 @@ function Home() {
               </button>
             ))}
           </div>
+          <Link 
+            to="/login"
+            className="text-xs font-bold text-white/70 hover:text-primary transition-all py-2 px-3.5 rounded-full hover:bg-white/5 flex items-center gap-1.5 border border-white/10 hover:border-primary/40 cursor-pointer"
+            title="Access CRM Dashboard"
+          >
+            <Lock size={13} className="text-primary" />
+            <span className="hidden sm:inline">CRM</span>
+          </Link>
           <a 
             href={whatsappUrl} 
             target="_blank" 
@@ -724,9 +732,13 @@ function Home() {
         
         <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto text-sm text-text-muted font-medium">
           <div className="font-black text-primary mb-6 md:mb-0 text-2xl tracking-tighter">pixeloro</div>
-          <div className="flex gap-8">
+          <div className="flex items-center gap-6 sm:gap-8">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+            <Link to="/login" className="hover:text-primary transition-colors flex items-center gap-1.5 text-white/60 hover:text-white">
+              <Lock size={12} className="text-primary" />
+              <span>CRM Login</span>
+            </Link>
           </div>
         </div>
       </footer>
