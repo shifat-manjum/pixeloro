@@ -1,6 +1,6 @@
 import { 
-  BarChart3, Users, Settings, LogOut, Bell, Search, Menu, 
-  Trash2, Clock, Download, Check, Mail, X, RefreshCw, Save, DollarSign, Phone
+  BarChart3, Users, Settings, LogOut, Search, Menu, 
+  Trash2, Download, Check, X, RefreshCw, Save
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
