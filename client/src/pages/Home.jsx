@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
 import ShowcaseCarousel from '../components/ShowcaseCarousel';
 
@@ -341,8 +340,6 @@ function Home() {
     phone: ''
   });
 
-  const [openFaq, setOpenFaq] = useState(null);
-
   // Track page visit on mount
   useEffect(() => {
     // Basic deduplication using sessionStorage to prevent refreshing from counting as a new visit
@@ -381,6 +378,7 @@ function Home() {
         alert("Something went wrong. Please try again.");
       }
     } catch (err) {
+      console.error("Form submit error:", err);
       alert("Error submitting the form.");
     }
   };
