@@ -544,7 +544,7 @@ function Home() {
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-black/50 p-8 rounded-3xl border border-white/10">
             <h4 className="text-white/60 font-bold uppercase tracking-wider text-sm mb-4">Traditional Agency Setup</h4>
-            <div className="text-5xl font-black text-white/50 line-through">
+            <div className="text-5xl font-black text-primary">
               <CountUp end={2150} prefix="€" />
             </div>
           </div>
