@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles, Check, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronDown, ChevronUp, Sparkles, Check, ExternalLink, Eye, X } from 'lucide-react';
 
 const showcaseItems = [
   {
@@ -39,7 +39,7 @@ const showcaseItems = [
     desc: "Un'atmosfera esclusiva che trasmette artigianalità e qualità, ideale per attirare turisti e clienti alto-spendenti.",
     highlights: [
       "Vetrina dei piatti speciali dello Chef",
-      "100% ottimizzato per la visualizzazione da smartphone",
+      "100% ottimizzato per smartphone e tablet",
       "Hosting ultra-veloce su server dedicati con SSL",
       "Aggiornamenti illimitati inclusi nel piano"
     ]
@@ -89,46 +89,31 @@ const showcaseItems = [
 ];
 
 export default function ShowcaseCarousel({ lang = 'it', whatsappUrl }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  const [showAll, setShowAll] = useState(false);
+  const [selectedPreview, setSelectedPreview] = useState(null);
 
-  const prevSlide = () => {
-    setCurrentIndex(prev => (prev === 0 ? showcaseItems.length - 1 : prev - 1));
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex(prev => (prev === showcaseItems.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current - touchEndX.current > 50) {
-      nextSlide();
-    }
-    if (touchStartX.current - touchEndX.current < -50) {
-      prevSlide();
-    }
-  };
-
-  const currentItem = showcaseItems[currentIndex];
+  // Close preview modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedPreview(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const copy = {
     it: {
       badge: "Showcase dal Vivo & Portfolio",
       title: "Cosa Riceve il Tuo Ristorante per 55€/Mese",
       sub: "Esperienze digitali create su misura, ad alta conversione, progettate per riempire i tuoi tavoli ogni sera.",
-      cta: "Richiedi una Bozza Gratuita su WhatsApp",
+      cta: "Richiedi Bozza su WhatsApp",
       zeroUpfront: "0€ Iniziali",
       builtIn48h: "Bozza in 48h",
-      viewing: "Esempio"
+      seeMore: "Vedi altri siti demo (3)",
+      seeLess: "Mostra meno",
+      previewBtn: "Clicca per ingrandire",
+      modalCta: "Voglio una bozza per il mio ristorante su WhatsApp",
+      readyBadge: "Pronto per 55€/mese"
     },
     en: {
       badge: "Live Showcase & Portfolio",
@@ -137,7 +122,11 @@ export default function ShowcaseCarousel({ lang = 'it', whatsappUrl }) {
       cta: "Claim a Free Draft on WhatsApp",
       zeroUpfront: "€0 Upfront",
       builtIn48h: "Draft in 48h",
-      viewing: "Example"
+      seeMore: "See More Demo Websites (3)",
+      seeLess: "Show Less",
+      previewBtn: "Click to preview demo",
+      modalCta: "Claim this draft for my restaurant on WhatsApp",
+      readyBadge: "€55/mo Ready"
     },
     de: {
       badge: "Live Showcase & Portfolio",
@@ -146,7 +135,11 @@ export default function ShowcaseCarousel({ lang = 'it', whatsappUrl }) {
       cta: "Kostenlosen Entwurf auf WhatsApp anfragen",
       zeroUpfront: "0€ Anzahlung",
       builtIn48h: "Entwurf in 48h",
-      viewing: "Beispiel"
+      seeMore: "Weitere Demo-Websites anzeigen (3)",
+      seeLess: "Weniger anzeigen",
+      previewBtn: "Klicken für Vorschau",
+      modalCta: "Diesen Entwurf für mein Restaurant auf WhatsApp anfragen",
+      readyBadge: "Bereit für 55€/Monat"
     }
   }[lang] || {
     badge: "Live Showcase & Portfolio",
@@ -155,154 +148,202 @@ export default function ShowcaseCarousel({ lang = 'it', whatsappUrl }) {
     cta: "Claim a Free Draft on WhatsApp",
     zeroUpfront: "€0 Upfront",
     builtIn48h: "Draft in 48h",
-    viewing: "Example"
+    seeMore: "See More Demo Websites (3)",
+    seeLess: "Show Less",
+    previewBtn: "Click to preview demo",
+    modalCta: "Claim this draft for my restaurant on WhatsApp",
+    readyBadge: "€55/mo Ready"
   };
 
+  const visibleItems = showAll ? showcaseItems : showcaseItems.slice(0, 3);
+
   return (
-    <section className="py-24 px-4 max-w-6xl mx-auto overflow-hidden relative">
+    <section className="py-24 px-4 max-w-7xl mx-auto border-t border-white/5 relative">
       
-      {/* Header */}
-      <div className="text-center mb-12">
+      {/* Section Header */}
+      <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest mb-4">
           <Sparkles size={14} />
           {copy.badge}
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight max-w-3xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight max-w-4xl mx-auto">
           {copy.title}
         </h2>
-        <p className="text-text-muted mt-4 text-base sm:text-lg max-w-2xl mx-auto font-medium">
+        <p className="text-text-muted mt-4 text-base sm:text-lg max-w-2xl mx-auto font-medium leading-relaxed">
           {copy.sub}
         </p>
       </div>
 
-      {/* Main Single-Card Carousel Stage */}
-      <div className="relative flex items-center justify-center">
-        
-        {/* Left Arrow Button */}
-        <button
-          onClick={prevSlide}
-          aria-label="Previous showcase slide"
-          className="absolute left-0 sm:-left-6 z-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/20 bg-black/90 hover:bg-primary hover:text-black hover:border-primary text-white flex items-center justify-center transition-all duration-300 shadow-2xl group active:scale-95 cursor-pointer backdrop-blur-md"
-        >
-          <ChevronLeft size={28} className="group-hover:-translate-x-1 transition-transform" />
-        </button>
-
-        {/* Right Arrow Button */}
-        <button
-          onClick={nextSlide}
-          aria-label="Next showcase slide"
-          className="absolute right-0 sm:-right-6 z-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/20 bg-black/90 hover:bg-primary hover:text-black hover:border-primary text-white flex items-center justify-center transition-all duration-300 shadow-2xl group active:scale-95 cursor-pointer backdrop-blur-md"
-        >
-          <ChevronRight size={28} className="group-hover:translate-x-1 transition-transform" />
-        </button>
-
-        {/* The Active Showcase Card (Single Card in UI) */}
-        <div 
-          className="w-full max-w-4xl mx-auto bg-[#14141c] rounded-3xl sm:rounded-[2.5rem] border border-white/15 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-all duration-500 hover:border-primary/50"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
-            
-            {/* Left Column: Image Preview */}
-            <div className="lg:col-span-7 relative bg-black flex items-center justify-center overflow-hidden group">
+      {/* 3-Column Responsive Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {visibleItems.map((item) => (
+          <div
+            key={item.id}
+            className="bg-[#14141c] rounded-3xl border border-white/10 overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(229,193,88,0.15)] flex flex-col group text-left"
+          >
+            {/* Clickable Image Preview Header */}
+            <div 
+              onClick={() => setSelectedPreview(item)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPreview(item); }}
+              className="relative aspect-[16/10] overflow-hidden bg-black cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-primary"
+            >
               <img
-                key={currentItem.id}
-                src={currentItem.image}
-                alt={currentItem.title}
-                className="w-full h-full min-h-[300px] lg:min-h-[460px] object-cover object-top transition-all duration-700 hover:scale-105"
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#14141c] via-transparent to-black/30 lg:hidden"></div>
-              
+              <div className="absolute inset-0 bg-gradient-to-t from-[#14141c] via-transparent to-black/40"></div>
+
               {/* Badges on Top of Image */}
-              <div className="absolute top-4 left-4 flex gap-2">
-                <span className="bg-black/85 backdrop-blur-md text-primary text-xs font-black px-3.5 py-1.5 rounded-full border border-primary/40 uppercase tracking-wider shadow-lg">
+              <div className="absolute top-3.5 left-3.5 flex gap-2">
+                <span className="bg-black/85 backdrop-blur-md text-primary text-[11px] font-extrabold px-3 py-1 rounded-full border border-primary/30 uppercase tracking-wider shadow-md">
                   {copy.zeroUpfront}
                 </span>
-                <span className="bg-black/85 backdrop-blur-md text-white text-xs font-bold px-3.5 py-1.5 rounded-full border border-white/20 shadow-lg">
+                <span className="bg-black/85 backdrop-blur-md text-white/90 text-[11px] font-bold px-3 py-1 rounded-full border border-white/20 shadow-md">
                   {copy.builtIn48h}
                 </span>
               </div>
 
-              <div className="absolute bottom-4 left-4 text-xs font-bold text-primary bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
-                {currentItem.tag}
+              <div className="absolute bottom-3 left-3.5 text-xs font-semibold text-primary/95 bg-black/75 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/10">
+                {item.tag}
+              </div>
+
+              {/* Hover overlay hint */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                <span className="bg-primary text-black font-extrabold text-xs px-4 py-2 rounded-full flex items-center gap-1.5 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                  <Eye size={14} />
+                  {copy.previewBtn}
+                </span>
               </div>
             </div>
 
-            {/* Right Column: Card Details & WhatsApp CTA */}
-            <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+            {/* Card Content Body */}
+            <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between">
               <div>
-                
-                {/* Counter & Category */}
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs uppercase tracking-widest text-primary font-bold">
-                    {currentItem.category}
-                  </span>
-                  <span className="text-xs font-bold text-text-muted bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-                    {currentIndex + 1} / {showcaseItems.length}
-                  </span>
+                <div className="text-xs uppercase tracking-widest text-primary font-bold mb-1.5">
+                  {item.category}
                 </div>
-
-                {/* Title */}
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-3">
-                  {currentItem.title}
+                <h3 className="text-xl sm:text-2xl font-black text-white mb-3 group-hover:text-primary transition-colors leading-snug">
+                  {item.title}
                 </h3>
-
-                {/* Description */}
                 <p className="text-text-muted text-sm leading-relaxed mb-6 font-medium">
-                  {currentItem.desc}
+                  {item.desc}
                 </p>
 
-                {/* Features Highlights */}
-                <ul className="space-y-3 mb-8 text-sm text-text font-medium">
-                  {currentItem.highlights.map((highlight, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
+                {/* Features checklist */}
+                <ul className="space-y-2.5 mb-8 text-sm text-text-muted font-medium">
+                  {item.highlights.map((highlight, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
                       <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
-                        <Check size={13} className="stroke-[3]" />
+                        <Check size={12} className="stroke-[3]" />
                       </div>
-                      <span className="text-white/90">{highlight}</span>
+                      <span className="text-white/85 text-xs sm:text-sm">{highlight}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Direct WhatsApp CTA Button */}
-              <div>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full py-4 px-6 rounded-2xl bg-primary hover:bg-primary-hover text-black font-extrabold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 shadow-[0_0_25px_rgba(229,193,88,0.25)] hover:shadow-[0_0_35px_rgba(229,193,88,0.4)] active:scale-98"
-                >
-                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                  <span>{copy.cta}</span>
-                  <ExternalLink size={15} />
-                </a>
-              </div>
-
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-3.5 px-4 rounded-2xl bg-white/5 hover:bg-primary text-white hover:text-black font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 border border-white/10 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-[0_0_25px_rgba(229,193,88,0.3)] active:scale-98"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                <span>{copy.cta}</span>
+                <ExternalLink size={14} />
+              </a>
             </div>
-
           </div>
-        </div>
-
-      </div>
-
-      {/* Pagination Indicators / Slide Selector */}
-      <div className="flex justify-center items-center gap-2.5 mt-8">
-        {showcaseItems.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${
-              currentIndex === index
-                ? 'w-10 bg-primary shadow-[0_0_12px_rgba(229,193,88,0.6)]'
-                : 'w-3 bg-white/20 hover:bg-white/40'
-            }`}
-          />
         ))}
       </div>
+
+      {/* "See More" / "Show Less" Action Button */}
+      <div className="flex justify-center mt-14">
+        <button
+          onClick={() => setShowAll(prev => !prev)}
+          className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-primary/50 bg-primary/10 hover:bg-primary hover:text-black text-primary font-black text-sm sm:text-base transition-all duration-300 shadow-[0_0_25px_rgba(229,193,88,0.18)] hover:shadow-[0_0_40px_rgba(229,193,88,0.4)] cursor-pointer active:scale-95 group"
+        >
+          <span>{showAll ? copy.seeLess : copy.seeMore}</span>
+          {showAll ? (
+            <ChevronUp size={20} className="transition-transform duration-300 group-hover:-translate-y-1" />
+          ) : (
+            <ChevronDown size={20} className="transition-transform duration-300 group-hover:translate-y-1" />
+          )}
+        </button>
+      </div>
+
+      {/* Full-Screen Interactive Preview Modal */}
+      {selectedPreview && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          onClick={() => setSelectedPreview(null)}
+        >
+          <div 
+            className="relative max-w-5xl w-full bg-[#14141c] border border-primary/40 rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(229,193,88,0.3)] flex flex-col max-h-[92vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/70">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                <span className="text-white font-bold text-base sm:text-lg ml-2">
+                  {selectedPreview.title}
+                </span>
+                <span className="hidden sm:inline-block text-xs bg-primary/20 text-primary border border-primary/30 px-2.5 py-0.5 rounded-full font-medium">
+                  {selectedPreview.category}
+                </span>
+              </div>
+              <button 
+                onClick={() => setSelectedPreview(null)}
+                aria-label="Close modal"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary hover:text-black flex items-center justify-center transition-colors text-white cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Image Display */}
+            <div className="overflow-y-auto p-4 sm:p-6 flex-grow flex items-center justify-center bg-black/40">
+              <img 
+                src={selectedPreview.image} 
+                alt={selectedPreview.title} 
+                className="w-full h-auto max-h-[68vh] object-contain rounded-2xl border border-white/5 shadow-2xl"
+              />
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-4 border-t border-white/10 bg-black/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-2 text-xs">
+                {selectedPreview.highlights.slice(0, 3).map((feat, fIdx) => (
+                  <span key={fIdx} className="bg-white/5 border border-white/10 text-text-muted px-2.5 py-1 rounded-lg">
+                    ✓ {feat}
+                  </span>
+                ))}
+              </div>
+              <a 
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-black font-extrabold py-3 px-6 rounded-full text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(229,193,88,0.3)] text-center flex-shrink-0 flex items-center justify-center gap-2"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                <span>{copy.modalCta}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
     </section>
   );
