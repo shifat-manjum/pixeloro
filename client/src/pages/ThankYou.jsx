@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import Logo from '../components/Logo';
 
 export default function ThankYou() {
   const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '55');
@@ -18,7 +19,7 @@ export default function ThankYou() {
   }, []);
 
   const whatsappUrl = `https://wa.me/393481134181?text=${encodeURIComponent(
-    `Ciao! Ho appena inviato la richiesta per il nuovo sito del mio ristorante su Pixeloro (offerta ${monthlyPrice}€/mese).`
+    `Ciao! Ho appena inviato la richiesta per il nuovo sito del mio ristorante su Zentixx IT (offerta ${monthlyPrice}€/mese).`
   )}`;
 
   return (
@@ -31,7 +32,9 @@ export default function ThankYou() {
       <div className="max-w-2xl w-full bg-[#121218]/90 backdrop-blur-xl border border-white/10 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-14 text-center relative z-10 shadow-[0_0_60px_rgba(0,0,0,0.9)] hover:border-emerald-500/30 transition-all duration-500">
         
         {/* Brand mark */}
-        <div className="text-xl font-black tracking-tighter text-primary mb-6">pixeloro</div>
+        <div className="mb-6 flex justify-center">
+          <Logo size="md" />
+        </div>
 
         {/* Glowing Emerald Green Checkmark Tick */}
         <div className="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">

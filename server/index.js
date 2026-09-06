@@ -30,7 +30,7 @@ app.use('/api/payments', paymentRoutes);
 
 
 app.get('/', (req, res) => {
-    res.send('Pixeloro API is running.');
+    res.send('Zentixx IT API is running.');
 });
 
 app.listen(PORT, () => {

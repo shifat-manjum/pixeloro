@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock, CreditCard, Sparkles, Zap } from 'lucide-react';
+import Logo from '../components/Logo';
 
 const ShowcaseCarousel = lazy(() => import('../components/ShowcaseCarousel'));
 
@@ -59,7 +60,7 @@ const FAQAccordion = ({ question, answer }) => {
 const getTranslations = (price, lifetimePrice = '399') => ({
   en: {
     bookCall: "Chat on WhatsApp",
-    marketingSub: "WEB DESIGN BY PIXELORO",
+    marketingSub: "WEB DESIGN BY ZENTIXX IT",
     heroTitle1: "Get a luxury restaurant website built for",
     heroTitleHighlight: "€0 upfront.",
     heroTitle2: "",
@@ -110,12 +111,12 @@ const getTranslations = (price, lifetimePrice = '399') => ({
     lifetimeItem4: "High-speed hosting setup & custom domain connection.",
     lifetimeItem5: "Full source code export & complete admin handover.",
     lifetimeBtn: "Get Lifetime Access",
-    trustText: "Join the modern restaurants growing with Pixeloro.",
+    trustText: "Join the modern restaurants growing with Zentixx IT.",
     payNowhere: "See the design first, pay nothing upfront.",
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
     catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
-    catchP2: `If you love it, you can subscribe to our €${price}/month plan or buy it outright for €${lifetimePrice} forever with 2 years of free support. We handle the servers, security, and all tech headaches so you can focus on cooking great food.`,
+    catchP2: `If you love it, you can subscribe to our Zentixx Pro €${price}/month plan or buy it outright for €${lifetimePrice} forever with 2 years of free support. We handle the servers, security, and all tech headaches so you can focus on cooking great food.`,
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -148,16 +149,16 @@ const getTranslations = (price, lifetimePrice = '399') => ({
     limitTitle: "We take on 10 new restaurants a month.",
     limitSub: "To ensure the highest quality of service and real results, we limit our intake. Secure your spot now before we close the books for this month.",
     faqTitle: "Questions, answered straight",
-    aboutTitle: "About Pixeloro",
+    aboutTitle: "About Zentixx IT",
     aboutRole: "Founder & Developer",
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Passionate about technology and design.",
-    aboutDesc2: "I founded Pixeloro with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
+    aboutDesc2: "I founded Zentixx IT with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
     footerTitle: `Send us your menu. See your website in 48 hours. Free to build. €${price}/mo or €${lifetimePrice} lifetime only if you keep it.`,
   },
   it: {
     bookCall: "Scrivici su WhatsApp",
-    marketingSub: "MARKETING PER RISTORANTI DA PIXELORO",
+    marketingSub: "MARKETING PER RISTORANTI DA ZENTIXX IT",
     heroTitle1: "Scopri dove il tuo ristorante",
     heroTitleHighlight: "si posiziona",
     heroTitle2: "su Google.",
@@ -208,12 +209,12 @@ const getTranslations = (price, lifetimePrice = '399') => ({
     lifetimeItem4: "Configurazione hosting ultra-veloce e dominio.",
     lifetimeItem5: "Consegna completa di file, grafica e codice sorgente.",
     lifetimeBtn: "Acquista a Vita con Stripe",
-    trustText: "Più di 1.000 ristoranti ci affidano i loro dettagli.",
+    trustText: "Più di 1.000 ristoranti si affidano a Zentixx IT.",
     payNowhere: "Scopri di più, non pagarci nulla",
     catchTitle: "Quindi, dov'è la fregatura?",
     catchSub: "Non c'è nessuna fregatura. È esattamente come sembra.",
     catchP1: "Ti offriamo un enorme valore iniziale facendo il lavoro pesante e mostrandoti esattamente cosa non va nella tua attuale configurazione digitale. Tutto gratis. Nessuna carta richiesta.",
-    catchP2: `Se ti piace ciò che vedi, puoi abbonarti per soli ${price}€ al mese oppure acquistare il sito a vita a ${lifetimePrice}€ con 2 anni di supporto gratuito incluso. Altrimenti, non paghi assolutamente nulla.`,
+    catchP2: `Se ti piace ciò che vedi, puoi abbonarti a Zentixx Pro per soli ${price}€ al mese oppure acquistare il sito a vita a ${lifetimePrice}€ con 2 anni di supporto gratuito incluso. Altrimenti, non paghi assolutamente nulla.`,
     featuresTitle: "Cosa ottieni",
     f1Title: "Marketing a pagamento",
     f1Sub: "Gestiamo i tuoi Google Ads per darti maggiore visibilità quando conta di più.",
@@ -246,16 +247,16 @@ const getTranslations = (price, lifetimePrice = '399') => ({
     limitTitle: "Accettiamo 10 nuovi ristoranti al mese.",
     limitSub: "Per garantire la massima qualità del servizio, limitiamo le nostre iscrizioni. Assicurati il tuo posto ora.",
     faqTitle: "Domande, risposte dirette",
-    aboutTitle: "Informazioni su Pixeloro",
+    aboutTitle: "Informazioni su Zentixx IT",
     aboutRole: "Fondatore e Sviluppatore",
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Appassionato di tecnologia e design.",
-    aboutDesc2: "Ho fondato Pixeloro con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
+    aboutDesc2: "Ho fondato Zentixx IT con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
     footerTitle: `Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. ${price}€ al mese o ${lifetimePrice}€ a vita solo se lo mantieni.`,
   },
   de: {
     bookCall: "Auf WhatsApp schreiben",
-    marketingSub: "RESTAURANT-MARKETING VON PIXELORO",
+    marketingSub: "RESTAURANT-MARKETING VON ZENTIXX IT",
     heroTitle1: "Finden Sie heraus, wo Ihr Restaurant",
     heroTitleHighlight: "wirklich steht",
     heroTitle2: "auf Google.",
@@ -306,12 +307,12 @@ const getTranslations = (price, lifetimePrice = '399') => ({
     lifetimeItem4: "Schnelles Hosting-Setup & Domain-Verbindung.",
     lifetimeItem5: "Vollständiges Quellcode-Paket & Übergabe der Admin-Rechte.",
     lifetimeBtn: "Lifetime mit Stripe sichern",
-    trustText: "Mehr als 1.000 Restaurants vertrauen uns ihre Daten an.",
+    trustText: "Mehr als 1.000 Restaurants vertrauen auf Zentixx IT.",
     payNowhere: "Mehr erfahren, nichts bezahlen",
     catchTitle: "Also, was ist der Haken?",
     catchSub: "Es gibt keinen Haken. Es ist genau so, wie es klingt.",
     catchP1: "Wir bieten Ihnen frühzeitig massiven Wert, indem wir die schwere Arbeit übernehmen und Ihnen genau zeigen, was an Ihrem aktuellen digitalen Setup falsch ist. Alles kostenlos.",
-    catchP2: `Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur ${price} € im Monat abonnieren oder die Website für einmalig ${lifetimePrice} € mit 2 Jahren kostenlosem Support für immer kaufen.`,
+    catchP2: `Wenn Ihnen gefällt, was Sie sehen, können Sie uns für Zentixx Pro für nur ${price} € im Monat abonnieren oder die Website für einmalig ${lifetimePrice} € mit 2 Jahren kostenlosem Support für immer kaufen.`,
     featuresTitle: "Was Sie bekommen",
     f1Title: "Bezahltes Marketing",
     f1Sub: "Wir verwalten Ihre Google Ads, um Ihnen mehr Sichtbarkeit zu verschaffen.",
@@ -344,11 +345,11 @@ const getTranslations = (price, lifetimePrice = '399') => ({
     limitTitle: "Wir nehmen 10 neue Restaurants pro Monat auf.",
     limitSub: "Um die höchste Servicequalität zu gewährleisten, begrenzen wir unsere Aufnahme. Sichern Sie sich jetzt Ihren Platz.",
     faqTitle: "Fragen, direkt beantwortet",
-    aboutTitle: "Über Pixeloro",
+    aboutTitle: "Über Zentixx IT",
     aboutRole: "Gründer & Entwickler",
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Leidenschaftlich für Technologie und Design.",
-    aboutDesc2: "Ich habe Pixeloro mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
+    aboutDesc2: "Ich habe Zentixx IT mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
     footerTitle: `Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. ${price}€ im Monat oder ${lifetimePrice}€ Lifetime nur wenn Sie sie behalten.`,
   }
 });
@@ -529,7 +530,7 @@ function Home() {
         : "Our standard turnaround time is incredibly fast. We will have your complete custom website draft ready to review in 24-48 hours after receiving your menu and details." 
     },
     { 
-      q: lang === 'it' ? "Cosa include Pixeloro Pro?" : lang === 'de' ? "Was beinhaltet Pixeloro Pro?" : "What is Pixeloro Pro?", 
+      q: lang === 'it' ? "Cosa include Zentixx Pro?" : lang === 'de' ? "Was beinhaltet Zentixx Pro?" : "What is Zentixx Pro?", 
       a: lang === 'it'
         ? `È il nostro abbonamento all-inclusive da ${monthlyPrice}€/mese. Include hosting dedicato ultra-rapido, certificato di sicurezza SSL, manutenzione tecnica continua e modifiche illimitate a menu, testi e foto.`
         : lang === 'de'
@@ -550,7 +551,7 @@ function Home() {
     <div className="min-h-screen bg-gray-bg text-text font-sans selection:bg-primary selection:text-black">
       {/* Navbar: Clean on Mobile, Full on Desktop */}
       <header className="flex justify-between items-center py-5 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto border-b border-white/10">
-        <div className="text-2xl sm:text-3xl font-black tracking-tighter text-primary">pixeloro</div>
+        <Logo size="md" />
         
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Language Switcher */}
@@ -839,7 +840,7 @@ function Home() {
           </div>
           <div className="bg-primary/10 p-8 rounded-3xl border border-primary/50 relative shadow-[0_0_30px_rgba(229,193,88,0.2)]">
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-black text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
-              Pixeloro Setup
+              Zentixx Setup
             </div>
             <h4 className="text-primary font-bold uppercase tracking-wider text-sm mb-4 mt-2">What we charge to build</h4>
             <div className="text-6xl font-black text-primary">
@@ -979,7 +980,7 @@ function Home() {
         </a>
         
         <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto text-sm text-text-muted font-medium">
-          <div className="font-black text-primary mb-6 md:mb-0 text-2xl tracking-tighter">pixeloro</div>
+          <Logo size="md" />
           <div className="flex items-center gap-6 sm:gap-8">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>

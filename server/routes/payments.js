@@ -104,7 +104,7 @@ router.post('/create-checkout-session', async (req, res) => {
         price_data: {
           currency: 'eur',
           product_data: {
-            name: `Pixeloro Proprietà a Vita - ${restaurantName || 'Sito Web Ristorante'}`,
+            name: `Zentixx Proprietà a Vita - ${restaurantName || 'Sito Web Ristorante'}`,
             description: 'Acquisto una tantum con proprietà totale del sito web, codice sorgente e 2 anni di supporto tecnico gratuito incluso.',
           },
           unit_amount: Math.round(finalPrice * 100)
@@ -114,7 +114,7 @@ router.post('/create-checkout-session', async (req, res) => {
         price_data: {
           currency: 'eur',
           product_data: {
-            name: `Pixeloro Pro - ${restaurantName || 'Sito Web Ristorante'}`,
+            name: `Zentixx Pro - ${restaurantName || 'Sito Web Ristorante'}`,
             description: 'Abbonamento mensile: Hosting ad alte prestazioni, manutenzione continua, certificato SSL e supporto modifiche.',
           },
           unit_amount: Math.round(finalPrice * 100),

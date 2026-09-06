@@ -5,6 +5,7 @@ import {
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useState, useMemo } from 'react';
+import Logo from '../components/Logo';
 
 const dashTranslations = {
   it: {
@@ -336,7 +337,7 @@ function Dashboard() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `pixeloro_leads_${new Date().toISOString().slice(0,10)}.csv`);
+    link.setAttribute("download", `zentixx_leads_${new Date().toISOString().slice(0,10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -370,7 +371,7 @@ function Dashboard() {
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <div className="text-xl font-black tracking-tighter text-primary">pixeloro</div>
+          <Logo size="sm" linkTo="/dashboard" />
         </div>
 
         {/* Language Switcher on Mobile */}
@@ -389,8 +390,8 @@ function Dashboard() {
 
       {/* Sidebar Navigation */}
       <aside className={`w-full md:w-64 bg-black/90 border-r border-white/10 p-6 flex flex-col ${mobileMenuOpen ? 'block' : 'hidden md:flex'}`}>
-        <div className="text-3xl font-black tracking-tighter text-primary mb-10 hidden md:block">
-          pixeloro
+        <div className="mb-10 hidden md:block">
+          <Logo size="md" linkTo="/dashboard" />
         </div>
         
         <nav className="flex-1 space-y-2">
@@ -465,7 +466,7 @@ function Dashboard() {
               {t.welcome} {user?.displayName || 'KH Shifat'} 👋
             </h1>
             <p className="text-xs sm:text-sm text-text-muted mt-1">
-              Pixeloro CRM & Digital Growth Suite
+              Zentixx IT CRM & Digital Growth Suite
             </p>
           </div>
 
@@ -612,7 +613,7 @@ function Dashboard() {
                               {lead.phone && (
                                 <>
                                   <a 
-                                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
+                                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Zentixx%20IT%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
                                     target="_blank" 
                                     rel="noreferrer" 
                                     className="px-2.5 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1"
@@ -621,7 +622,7 @@ function Dashboard() {
                                     <span>💬</span> WhatsApp
                                   </a>
                                   <a 
-                                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento Pixeloro Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento Zentixx Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
                                     target="_blank" 
                                     rel="noreferrer" 
                                     className="px-2.5 py-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-primary/30"
@@ -715,7 +716,7 @@ function Dashboard() {
                           {lead.phone && (
                             <>
                               <a 
-                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Zentixx%20IT%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
                                 target="_blank" 
                                 rel="noreferrer" 
                                 className="px-2 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 text-[11px]"
@@ -723,7 +724,7 @@ function Dashboard() {
                                 <span>💬</span> WhatsApp
                               </a>
                               <a 
-                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento mensile Pixeloro Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento mensile Zentixx Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
                                 target="_blank" 
                                 rel="noreferrer" 
                                 className="px-2 py-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-primary/30 text-[11px]"
@@ -733,7 +734,7 @@ function Dashboard() {
                                 <span>{settings.monthlyPrice}€/m</span>
                               </a>
                               <a 
-                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per acquistare a vita il sito web Pixeloro per ${lead.restaurantName} (${settings.lifetimePrice || 399}€ una tantum con 2 anni di supporto tecnico gratuito inclusi): ${settings.stripeLifetimePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per acquistare a vita il sito web Zentixx IT per ${lead.restaurantName} (${settings.lifetimePrice || 399}€ una tantum con 2 anni di supporto tecnico gratuito inclusi): ${settings.stripeLifetimePaymentLink || `${window.location.origin}/#pricing`}`)}`}
                                 target="_blank" 
                                 rel="noreferrer" 
                                 className="px-2 py-1.5 bg-amber-500/20 hover:bg-amber-400 text-amber-300 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-amber-500/30 text-[11px]"

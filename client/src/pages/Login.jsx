@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Mail, Lock, ArrowRight, User, ShieldCheck, Sparkles } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -94,12 +95,10 @@ function Login() {
       <div className="w-full max-w-md mt-16 sm:mt-0">
         
         {/* Logo */}
-        <div className="text-center mb-8">
-          <a href="/" className="text-4xl font-black tracking-tighter text-primary hover:text-primary-hover transition-colors inline-block">
-            pixeloro
-          </a>
-          <p className="text-text-muted mt-2 font-medium">
-            {isLogin ? 'Welcome back to your CRM Dashboard.' : 'Start dominating local search.'}
+        <div className="text-center mb-8 flex flex-col items-center">
+          <Logo size="lg" />
+          <p className="text-text-muted mt-3 font-medium">
+            {isLogin ? 'Welcome back to your Zentixx IT CRM Dashboard.' : 'Start dominating local search with Zentixx IT.'}
           </p>
         </div>
 

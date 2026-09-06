@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, ShieldCheck, Sparkles, ExternalLink, Zap } from 'lucide-react';
+import Logo from '../components/Logo';
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
@@ -17,12 +18,12 @@ export default function PaymentSuccess() {
     it: {
       badge: isLifetime ? "Proprietà a Vita Acquistata con Successo" : "Abbonamento Attivato con Successo",
       title1: isLifetime ? "Congratulazioni!" : "Benvenuto in",
-      title2: isLifetime ? "Sito Web 100% Tuo!" : "Pixeloro Pro!",
+      title2: isLifetime ? "Sito Web 100% Tuo!" : "Zentixx Pro!",
       subtitle: isLifetime 
         ? "Il pagamento è andato a buon fine. Il sito web ti appartiene per sempre e include 2 anni di assistenza tecnica gratuita."
         : "Il pagamento è andato a buon fine. La gestione digitale del tuo ristorante è ora ufficialmente attiva.",
       orderSummary: isLifetime ? "Riepilogo Acquisto a Vita" : "Riepilogo Abbonamento",
-      planName: isLifetime ? "Pixeloro Proprietà a Vita (Full Buyout)" : "Pixeloro Pro — Piano Mensile",
+      planName: isLifetime ? "Zentixx Proprietà a Vita (Full Buyout)" : "Zentixx Pro — Piano Mensile",
       billing: isLifetime ? `${price}€ una tantum • Per Sempre` : `${price}€ / mese (Disdici quando vuoi)`,
       billingType: isLifetime ? "Pagamento Unico Stripe" : "Stripe Recurring",
       step1Title: isLifetime ? "1. Consegna Codici & Collegamento Dominio" : "1. Collegamento Dominio & Certificato SSL",
@@ -37,20 +38,20 @@ export default function PaymentSuccess() {
         : "Per qualsiasi modifica al menu, prezzi o foto, inviaci un messaggio su WhatsApp in qualsiasi momento.",
       whatsappBtn: "Conferma Dettagli su WhatsApp",
       whatsappText: isLifetime 
-        ? `Ciao Shifat! Ho appena completato l'acquisto a vita (${price}€) di Pixeloro per ${restaurantName}.`
-        : `Ciao Shifat! Ho appena completato l'abbonamento Pixeloro Pro per ${restaurantName}.`,
+        ? `Ciao Shifat! Ho appena completato l'acquisto a vita (${price}€) su Zentixx IT per ${restaurantName}.`
+        : `Ciao Shifat! Ho appena completato l'abbonamento Zentixx Pro per ${restaurantName}.`,
       homeBtn: "Torna alla Homepage",
       demoNotice: "Modalità Demo: Questo è un test di simulazione completato con successo."
     },
     en: {
       badge: isLifetime ? "Lifetime Ownership Successfully Purchased" : "Subscription Successfully Activated",
       title1: isLifetime ? "Congratulations!" : "Welcome to",
-      title2: isLifetime ? "100% Yours Forever!" : "Pixeloro Pro!",
+      title2: isLifetime ? "100% Yours Forever!" : "Zentixx Pro!",
       subtitle: isLifetime 
         ? "Your payment was successful. The website is 100% yours forever with 2 years of free technical support included."
         : "Your payment was successful. Your restaurant's digital presence and management are now officially live.",
       orderSummary: isLifetime ? "Lifetime Purchase Summary" : "Subscription Summary",
-      planName: isLifetime ? "Pixeloro Lifetime Ownership (Buyout)" : "Pixeloro Pro — Monthly Plan",
+      planName: isLifetime ? "Zentixx Lifetime Ownership (Buyout)" : "Zentixx Pro — Monthly Plan",
       billing: isLifetime ? `€${price} one-time • Forever` : `€${price} / month (Cancel anytime)`,
       billingType: isLifetime ? "One-Time Stripe Payment" : "Stripe Recurring",
       step1Title: isLifetime ? "1. Source Code Handover & Domain Setup" : "1. Custom Domain & SSL Setup",
@@ -65,20 +66,20 @@ export default function PaymentSuccess() {
         : "Whenever you need menu, price, or photo changes, message us directly on WhatsApp.",
       whatsappBtn: "Confirm Details on WhatsApp",
       whatsappText: isLifetime 
-        ? `Hi Shifat! I just completed the Lifetime Ownership purchase (€${price}) for ${restaurantName}.`
-        : `Hi Shifat! I just completed the Pixeloro Pro subscription for ${restaurantName}.`,
+        ? `Hi Shifat! I just completed the Lifetime Ownership purchase (€${price}) on Zentixx IT for ${restaurantName}.`
+        : `Hi Shifat! I just completed the Zentixx Pro subscription for ${restaurantName}.`,
       homeBtn: "Return to Homepage",
       demoNotice: "Demo Mode: This was a successful simulation test."
     },
     de: {
       badge: isLifetime ? "Lebenslanges Eigentum erfolgreich erworben" : "Abonnement erfolgreich aktiviert",
       title1: isLifetime ? "Herzlichen Glückwunsch!" : "Willkommen bei",
-      title2: isLifetime ? "100% Ihr Eigentum!" : "Pixeloro Pro!",
+      title2: isLifetime ? "100% Ihr Eigentum!" : "Zentixx Pro!",
       subtitle: isLifetime 
         ? "Ihre Zahlung war erfolgreich. Die Website gehört für immer Ihnen, inklusive 2 Jahre kostenlosem technischem Support."
         : "Ihre Zahlung war erfolgreich. Die digitale Verwaltung Ihres Restaurants ist nun offiziell aktiv.",
       orderSummary: isLifetime ? "Lifetime-Kauf Übersicht" : "Abonnement-Übersicht",
-      planName: isLifetime ? "Pixeloro Lifetime Ownership (Vollkauf)" : "Pixeloro Pro — Monatlicher Plan",
+      planName: isLifetime ? "Zentixx Lifetime Ownership (Vollkauf)" : "Zentixx Pro — Monatlicher Plan",
       billing: isLifetime ? `${price}€ einmalig • Für immer` : `${price}€ / Monat (Jederzeit kündbar)`,
       billingType: isLifetime ? "Einmalzahlung Stripe" : "Stripe Recurring",
       step1Title: isLifetime ? "1. Quellcode-Übergabe & Domain-Setup" : "1. Domain- & SSL-Einrichtung",
@@ -93,8 +94,8 @@ export default function PaymentSuccess() {
         : "Für Änderungen an Speisekarte oder Preisen schreiben Sie uns einfach auf WhatsApp.",
       whatsappBtn: "Details auf WhatsApp bestätigen",
       whatsappText: isLifetime 
-        ? `Hallo Shifat! Ich habe gerade den Lifetime-Kauf (${price}€) für ${restaurantName} abgeschlossen.`
-        : `Hallo Shifat! Ich habe gerade das Pixeloro Pro Abonnement für ${restaurantName} abgeschlossen.`,
+        ? `Hallo Shifat! Ich habe gerade den Lifetime-Kauf (${price}€) auf Zentixx IT für ${restaurantName} abgeschlossen.`
+        : `Hallo Shifat! Ich habe gerade das Zentixx Pro Abonnement für ${restaurantName} abgeschlossen.`,
       homeBtn: "Zur Startseite zurückkehren",
       demoNotice: "Demo-Modus: Dies war ein erfolgreicher Simulationstest."
     }
@@ -112,7 +113,9 @@ export default function PaymentSuccess() {
       <div className="max-w-2xl w-full bg-[#121218]/90 backdrop-blur-xl border border-white/10 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-14 text-center relative z-10 shadow-[0_0_70px_rgba(0,0,0,0.9)] hover:border-primary/40 transition-all duration-500">
         
         {/* Brand */}
-        <div className="text-xl font-black tracking-tighter text-primary mb-6">pixeloro</div>
+        <div className="mb-6 flex justify-center">
+          <Logo size="md" />
+        </div>
 
         {/* Glowing Gold / Emerald Icon */}
         <div className="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
