@@ -1,6 +1,6 @@
 import { 
   BarChart3, Users, Settings, LogOut, Search, Menu, 
-  Trash2, Download, Check, X, RefreshCw, Save, CreditCard, ShieldCheck, Key, ExternalLink
+  Trash2, Download, Check, X, RefreshCw, Save, CreditCard, ShieldCheck, Key, ExternalLink, Zap, Sparkles
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -33,24 +33,30 @@ const dashTranslations = {
     exportCsv: "Esporta CSV",
     filterAll: "Tutti i Lead",
     pricingSettingsTitle: "Prezzo & Configurazione Sito Web",
-    pricingSettingsSub: "Modifica il prezzo mostrato dinamicamente in tutte le sezioni del sito web.",
+    pricingSettingsSub: "Modifica i prezzi mostrati dinamicamente in tutte le sezioni del sito web.",
     monthlyPriceLabel: "Prezzo Abbonamento Mensile Mostrato nel Sito (€/mese)",
-    monthlyPriceHelp: "Questo valore aggiorna automaticamente tutti i testi del sito (es. 55€, 70€/mese, titoli, FAQ e messaggi WhatsApp).",
+    monthlyPriceHelp: "Questo valore aggiorna automaticamente tutti i prezzi mensili del sito (es. 55€, 70€/mese, titoli, FAQ e WhatsApp).",
+    lifetimePriceLabel: "Prezzo Proprietà a Vita (€ una tantum)",
+    lifetimePriceHelp: "Prezzo per l'acquisto definitivo del sito web (include 2 anni di supporto tecnico gratuito).",
     whatsappNumberLabel: "Numero WhatsApp per Ricevere i Lead",
     stripeConfigTitle: "Configurazione Stripe & Pagamenti Automatici",
-    stripeConfigSub: "Collega il tuo account Stripe per ricevere automaticamente gli abbonamenti mensili con Apple Pay, Carte e SEPA.",
+    stripeConfigSub: "Collega il tuo account Stripe per ricevere automaticamente gli abbonamenti mensili e i pagamenti a vita con Apple Pay, Carte e SEPA.",
     stripeSecretKeyLabel: "Stripe Secret Key (sk_live_... / sk_test_...)",
     stripePublishableKeyLabel: "Stripe Publishable Key (pk_live_... / pk_test_...)",
-    stripePaymentLinkLabel: "Stripe Payment Link Diretto (Opzionale)",
-    stripePaymentLinkHelp: "Se hai creato un link di pagamento ricorrente nella dashboard Stripe, incollalo qui per usarlo direttamente.",
+    stripePaymentLinkLabel: "Stripe Payment Link Mensile (Opzionale)",
+    stripePaymentLinkHelp: "Link di pagamento Stripe per l'abbonamento mensile.",
+    stripeLifetimePaymentLinkLabel: "Stripe Payment Link Proprietà a Vita (Opzionale)",
+    stripeLifetimePaymentLinkHelp: "Link di pagamento Stripe per l'acquisto a vita (€399).",
     stripeStatusActive: "Stripe Connesso & Pronto",
     stripeStatusDemo: "Modalità Demo Attiva (Inserisci le chiavi Stripe per ricevere pagamenti reali)",
     saveChanges: "Salva Modifiche",
     savedSuccess: "Impostazioni salvate e sincronizzate con successo!",
     deleteConfirm: "Sei sicuro di voler eliminare questo lead?",
     refresh: "Aggiorna Dati",
-    sendStripeLink: "Invia Link Pagamento",
+    sendStripeLink: "Invia Link Mese",
+    sendLifetimeLink: "Invia Link Lifetime",
     statusSubscribed: "Abbonato",
+    statusLifetime: "Proprietario a Vita",
     statusPending: "In Attesa Pagamento",
     statusLead: "Bozza Gratuita",
     statusCanceled: "Cancellato"
@@ -81,24 +87,30 @@ const dashTranslations = {
     exportCsv: "Export CSV",
     filterAll: "All Leads",
     pricingSettingsTitle: "Pricing & Website Configuration",
-    pricingSettingsSub: "Update the dynamic monthly price displayed across all sections of the live website.",
+    pricingSettingsSub: "Update dynamic prices displayed across all sections of the live website.",
     monthlyPriceLabel: "Monthly Subscription Price Shown on Website (€/month)",
-    monthlyPriceHelp: "This value automatically updates all prices across the website (e.g. €55, €70/month, titles, FAQs, and WhatsApp prefilled texts).",
+    monthlyPriceHelp: "Automatically updates monthly subscription pricing across the website and prefilled WhatsApp texts.",
+    lifetimePriceLabel: "Lifetime Buyout Price (€ one-time)",
+    lifetimePriceHelp: "One-time price for full website buyout with 2 years of free technical support included.",
     whatsappNumberLabel: "WhatsApp Phone Number to Receive Leads",
     stripeConfigTitle: "Stripe & Automated Payments Configuration",
-    stripeConfigSub: "Connect your Stripe account to automatically collect monthly subscriptions via Apple Pay, Cards, and SEPA.",
+    stripeConfigSub: "Connect your Stripe account to automatically collect monthly subscriptions & lifetime buyouts via Apple Pay, Cards, and SEPA.",
     stripeSecretKeyLabel: "Stripe Secret Key (sk_live_... / sk_test_...)",
     stripePublishableKeyLabel: "Stripe Publishable Key (pk_live_... / pk_test_...)",
-    stripePaymentLinkLabel: "Stripe Direct Payment Link (Optional)",
-    stripePaymentLinkHelp: "If you created a recurring payment link in Stripe Dashboard, paste it here to use directly.",
+    stripePaymentLinkLabel: "Stripe Direct Monthly Payment Link (Optional)",
+    stripePaymentLinkHelp: "Direct payment link for the monthly subscription.",
+    stripeLifetimePaymentLinkLabel: "Stripe Lifetime Buyout Payment Link (Optional)",
+    stripeLifetimePaymentLinkHelp: "Direct payment link for lifetime buyout (€399).",
     stripeStatusActive: "Stripe Connected & Ready",
     stripeStatusDemo: "Demo Mode Active (Add your Stripe keys to collect real payments)",
     saveChanges: "Save Changes",
     savedSuccess: "Settings saved and synchronized successfully!",
     deleteConfirm: "Are you sure you want to delete this lead?",
     refresh: "Refresh Data",
-    sendStripeLink: "Send Stripe Link",
+    sendStripeLink: "Send Monthly Link",
+    sendLifetimeLink: "Send Lifetime Link",
     statusSubscribed: "Subscribed",
+    statusLifetime: "Lifetime Owner",
     statusPending: "Pending Payment",
     statusLead: "Free Draft",
     statusCanceled: "Canceled"
@@ -132,21 +144,27 @@ const dashTranslations = {
     pricingSettingsSub: "Aktualisieren Sie den monatlichen Preis, der dynamisch auf der gesamten Website angezeigt wird.",
     monthlyPriceLabel: "Auf der Website angezeigter monatlicher Preis (€/Monat)",
     monthlyPriceHelp: "Dieser Wert aktualisiert automatisch alle Preise auf der Website (z. B. 55€, 70€/Monat, Titel, FAQs und WhatsApp-Nachrichten).",
+    lifetimePriceLabel: "Lebenslanger Kaufpreis (€ einmalig)",
+    lifetimePriceHelp: "Einmaliger Preis für den vollständigen Website-Kauf (inkl. 2 Jahre kostenlosem Support).",
     whatsappNumberLabel: "WhatsApp-Telefonnummer für Leads",
     stripeConfigTitle: "Stripe & Automatische Zahlungen",
-    stripeConfigSub: "Verbinden Sie Ihr Stripe-Konto, um monatliche Abonnements mit Apple Pay, Karten und SEPA automatisch einzuziehen.",
+    stripeConfigSub: "Verbinden Sie Ihr Stripe-Konto, um monatliche Abonnements und Lifetime-Zahlungen mit Apple Pay, Karten und SEPA automatisch einzuziehen.",
     stripeSecretKeyLabel: "Stripe Secret Key (sk_live_... / sk_test_...)",
     stripePublishableKeyLabel: "Stripe Publishable Key (pk_live_... / pk_test_...)",
-    stripePaymentLinkLabel: "Direkter Stripe-Zahlungslink (Optional)",
-    stripePaymentLinkHelp: "Wenn Sie einen Zahlungslink in Stripe erstellt haben, fügen Sie ihn hier ein.",
+    stripePaymentLinkLabel: "Monatlicher Stripe-Zahlungslink (Optional)",
+    stripePaymentLinkHelp: "Direkter Zahlungslink für das monatliche Abo.",
+    stripeLifetimePaymentLinkLabel: "Stripe-Zahlungslink für Lifetime-Kauf (Optional)",
+    stripeLifetimePaymentLinkHelp: "Direkter Zahlungslink für den einmaligen Lifetime-Kauf (€399).",
     stripeStatusActive: "Stripe Verbunden & Bereit",
     stripeStatusDemo: "Demo-Modus aktiv (Fügen Sie Ihre Stripe-Schlüssel für echte Zahlungen ein)",
     saveChanges: "Änderungen speichern",
     savedSuccess: "Einstellungen erfolgreich gespeichert und synchronisiert!",
     deleteConfirm: "Sind Sie sicher, dass Sie diesen Lead löschen möchten?",
     refresh: "Daten aktualisieren",
-    sendStripeLink: "Zahlungslink senden",
+    sendStripeLink: "Abo-Link senden",
+    sendLifetimeLink: "Lifetime-Link senden",
     statusSubscribed: "Abonniert",
+    statusLifetime: "Lifetime-Eigentümer",
     statusPending: "Zahlung ausstehend",
     statusLead: "Kostenloser Entwurf",
     statusCanceled: "Gekündigt"
@@ -172,12 +190,14 @@ function Dashboard() {
   // Dynamic Settings State
   const [settings, setSettings] = useState({
     monthlyPrice: '55',
+    lifetimePrice: '399',
     whatsappNumber: '+393481134181',
     whatsappAlerts: true,
     emailAlerts: true,
     stripePublishableKey: '',
     stripeSecretKey: '',
-    stripePaymentLink: ''
+    stripePaymentLink: '',
+    stripeLifetimePaymentLink: ''
   });
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [savingSettings, setSavingSettings] = useState(false);
@@ -671,9 +691,13 @@ function Dashboard() {
                         <div className="text-text-muted">{lead.email}</div>
                       </td>
                       <td className="p-4">
-                        {lead.status === 'subscribed' ? (
+                        {lead.status === 'lifetime' ? (
+                          <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1 w-fit shadow-[0_0_12px_rgba(168,85,247,0.25)]">
+                            <Zap size={12} className="fill-purple-300 stroke-[2]" /> {t.statusLifetime} ({lead.lifetimePricePaid || settings.lifetimePrice || 399}€)
+                          </span>
+                        ) : lead.status === 'subscribed' ? (
                           <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 w-fit">
-                            <Check size={12} className="stroke-[3]" /> {t.statusSubscribed}
+                            <Check size={12} className="stroke-[3]" /> {t.statusSubscribed} ({lead.monthlyPricePaid || settings.monthlyPrice}€/m)
                           </span>
                         ) : lead.status === 'pending_payment' ? (
                           <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center gap-1 w-fit">
@@ -687,32 +711,42 @@ function Dashboard() {
                       </td>
                       <td className="p-4 text-text-muted">{new Date(lead.createdAt).toLocaleDateString()}</td>
                       <td className="p-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                        <div className="flex items-center justify-end gap-1.5 flex-wrap">
                           {lead.phone && (
                             <>
                               <a 
                                 href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
                                 target="_blank" 
                                 rel="noreferrer" 
-                                className="px-2.5 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1"
+                                className="px-2 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 text-[11px]"
                               >
                                 <span>💬</span> WhatsApp
                               </a>
                               <a 
-                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento Pixeloro Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento mensile Pixeloro Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
                                 target="_blank" 
                                 rel="noreferrer" 
-                                className="px-2.5 py-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-primary/30"
-                                title="Invia Link Stripe su WhatsApp"
+                                className="px-2 py-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-primary/30 text-[11px]"
+                                title="Invia Link Abbonamento Mensile"
                               >
-                                <CreditCard size={13} />
-                                <span>Paga</span>
+                                <CreditCard size={12} />
+                                <span>{settings.monthlyPrice}€/m</span>
+                              </a>
+                              <a 
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per acquistare a vita il sito web Pixeloro per ${lead.restaurantName} (${settings.lifetimePrice || 399}€ una tantum con 2 anni di supporto tecnico gratuito inclusi): ${settings.stripeLifetimePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="px-2 py-1.5 bg-amber-500/20 hover:bg-amber-400 text-amber-300 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-amber-500/30 text-[11px]"
+                                title="Invia Link Acquisto a Vita (€399)"
+                              >
+                                <Zap size={12} className="fill-current" />
+                                <span>{settings.lifetimePrice || 399}€ Lifetime</span>
                               </a>
                             </>
                           )}
                           <button
                             onClick={() => handleDeleteLead(lead._id, lead.name)}
-                            className="p-1.5 text-text-muted hover:text-red-400 rounded-lg cursor-pointer hover:bg-red-500/10 transition-colors"
+                            className="p-1.5 text-text-muted hover:text-red-400 rounded-lg cursor-pointer hover:bg-red-500/10 transition-colors ml-1"
                           >
                             <Trash2 size={15} />
                           </button>
@@ -726,7 +760,7 @@ function Dashboard() {
           </div>
         )}
 
-        {/* TAB 3: SETTINGS (DYNAMIC MONTHLY PRICE & STRIPE CONFIG) */}
+        {/* TAB 3: SETTINGS (DYNAMIC MONTHLY PRICE, LIFETIME PRICE & STRIPE CONFIG) */}
         {currentTab === 'settings' && (
           <div className="max-w-3xl bg-[#14141c] rounded-3xl border border-white/10 p-6 sm:p-10 shadow-2xl">
             <div className="mb-8">
@@ -748,8 +782,10 @@ function Dashboard() {
 
             <form onSubmit={handleSaveSettings} className="space-y-8">
               
-              {/* Dynamic Monthly Price Input */}
-              <div className="bg-black/60 p-6 rounded-2xl border border-white/10 space-y-4">
+              {/* Dynamic Prices (Monthly & Lifetime) */}
+              <div className="bg-black/60 p-6 rounded-2xl border border-white/10 space-y-6">
+                
+                {/* Monthly Subscription Price */}
                 <div>
                   <label className="block text-sm font-black text-white mb-1">
                     {t.monthlyPriceLabel}
@@ -773,6 +809,35 @@ function Dashboard() {
                     />
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-xs text-text-muted font-bold">
                       / mese
+                    </div>
+                  </div>
+                </div>
+
+                {/* Lifetime Buyout Price */}
+                <div className="pt-4 border-t border-white/10">
+                  <label className="block text-sm font-black text-white mb-1 flex items-center gap-1.5">
+                    <Sparkles size={16} className="text-amber-400" />
+                    <span>{t.lifetimePriceLabel}</span>
+                  </label>
+                  <p className="text-xs text-text-muted mb-4">
+                    {t.lifetimePriceHelp}
+                  </p>
+                  <div className="relative max-w-xs">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-amber-400 font-black text-lg">
+                      €
+                    </div>
+                    <input 
+                      type="number" 
+                      min="1" 
+                      max="9999" 
+                      value={settings.lifetimePrice || '399'}
+                      onChange={(e) => setSettings({ ...settings, lifetimePrice: e.target.value })}
+                      className="w-full bg-[#171720] border-2 border-amber-500/60 focus:border-amber-400 text-white font-black text-xl rounded-xl py-3 pl-10 pr-24 focus:outline-none"
+                      placeholder="399"
+                      required
+                    />
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-xs text-amber-400/80 font-bold">
+                      una tantum
                     </div>
                   </div>
                 </div>
@@ -850,6 +915,23 @@ function Dashboard() {
                   />
                   <p className="text-[11px] text-text-muted mt-1">
                     {t.stripePaymentLinkHelp}
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-text-muted mb-1 flex items-center gap-1.5">
+                    <ExternalLink size={13} className="text-amber-400" />
+                    <span>{t.stripeLifetimePaymentLinkLabel}</span>
+                  </label>
+                  <input 
+                    type="url" 
+                    value={settings.stripeLifetimePaymentLink || ''}
+                    onChange={(e) => setSettings({ ...settings, stripeLifetimePaymentLink: e.target.value })}
+                    className="w-full bg-[#171720] border border-white/10 focus:border-primary text-white font-mono text-xs rounded-xl py-3 px-4 focus:outline-none placeholder:text-white/20"
+                    placeholder="https://buy.stripe.com/..."
+                  />
+                  <p className="text-[11px] text-text-muted mt-1">
+                    {t.stripeLifetimePaymentLinkHelp}
                   </p>
                 </div>
               </div>

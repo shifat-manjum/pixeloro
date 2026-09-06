@@ -24,8 +24,13 @@ const leadSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['lead', 'pending_payment', 'subscribed', 'canceled'],
+        enum: ['lead', 'pending_payment', 'subscribed', 'lifetime', 'canceled'],
         default: 'lead'
+    },
+    planType: {
+        type: String,
+        enum: ['monthly', 'lifetime'],
+        default: 'monthly'
     },
     stripeCustomerId: {
         type: String,
@@ -36,6 +41,10 @@ const leadSchema = new mongoose.Schema({
         default: null
     },
     monthlyPricePaid: {
+        type: Number,
+        default: 0
+    },
+    lifetimePricePaid: {
         type: Number,
         default: 0
     },

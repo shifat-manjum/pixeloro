@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, ShieldCheck, Sparkles, ExternalLink, Zap } from 'lucide-react';
 
@@ -6,66 +6,95 @@ export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const isDemo = searchParams.get('demo') === 'true';
-  const price = searchParams.get('price') || localStorage.getItem('pixeloro_monthly_price') || '55';
+  const plan = searchParams.get('plan') || 'monthly';
+  const isLifetime = plan === 'lifetime';
+  const price = searchParams.get('price') || (isLifetime ? (localStorage.getItem('pixeloro_lifetime_price') || '399') : (localStorage.getItem('pixeloro_monthly_price') || '55'));
   const restaurantName = searchParams.get('restaurant') || 'il tuo ristorante';
 
   const [lang, setLang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
 
   const copy = {
     it: {
-      badge: "Abbonamento Attivato con Successo",
-      title1: "Benvenuto in",
-      title2: "Pixeloro Pro!",
-      subtitle: "Il pagamento è andato a buon fine. La gestione digitale del tuo ristorante è ora ufficialmente attiva.",
-      orderSummary: "Riepilogo Abbonamento",
-      planName: "Pixeloro Pro — Piano Mensile",
-      billing: `${price}€ / mese (Disdici quando vuoi)`,
-      step1Title: "1. Collegamento Dominio & Certificato SSL",
-      step1Desc: "I nostri ingegneri stanno collegando il tuo dominio personalizzato e attivando la crittografia HTTPS ultra-veloce.",
+      badge: isLifetime ? "Proprietà a Vita Acquistata con Successo" : "Abbonamento Attivato con Successo",
+      title1: isLifetime ? "Congratulazioni!" : "Benvenuto in",
+      title2: isLifetime ? "Sito Web 100% Tuo!" : "Pixeloro Pro!",
+      subtitle: isLifetime 
+        ? "Il pagamento è andato a buon fine. Il sito web ti appartiene per sempre e include 2 anni di assistenza tecnica gratuita."
+        : "Il pagamento è andato a buon fine. La gestione digitale del tuo ristorante è ora ufficialmente attiva.",
+      orderSummary: isLifetime ? "Riepilogo Acquisto a Vita" : "Riepilogo Abbonamento",
+      planName: isLifetime ? "Pixeloro Proprietà a Vita (Full Buyout)" : "Pixeloro Pro — Piano Mensile",
+      billing: isLifetime ? `${price}€ una tantum • Per Sempre` : `${price}€ / mese (Disdici quando vuoi)`,
+      billingType: isLifetime ? "Pagamento Unico Stripe" : "Stripe Recurring",
+      step1Title: isLifetime ? "1. Consegna Codici & Collegamento Dominio" : "1. Collegamento Dominio & Certificato SSL",
+      step1Desc: isLifetime 
+        ? "I nostri sviluppatori collegano il tuo dominio e ti preparano i file completi con tutti i diritti amministrativi."
+        : "I nostri ingegneri stanno collegando il tuo dominio personalizzato e attivando la crittografia HTTPS ultra-veloce.",
       step2Title: "2. Messa Online del Sito & Indicizzazione Google",
       step2Desc: "Il tuo sito web sarà visibile a tutti i clienti su Google Maps e motori di ricerca nelle prossime 24 ore.",
-      step3Title: "3. Assistenza & Aggiornamenti Illimitati",
-      step3Desc: "Per qualsiasi modifica al menu, prezzi o foto, inviaci un messaggio su WhatsApp in qualsiasi momento.",
+      step3Title: isLifetime ? "3. 2 Anni di Assistenza Tecnica Gratuita" : "3. Assistenza & Aggiornamenti Illimitati",
+      step3Desc: isLifetime 
+        ? "Per i prossimi 2 anni hai supporto prioritario gratuito: per modifiche a menu, orari o foto, scrivici su WhatsApp."
+        : "Per qualsiasi modifica al menu, prezzi o foto, inviaci un messaggio su WhatsApp in qualsiasi momento.",
       whatsappBtn: "Conferma Dettagli su WhatsApp",
-      whatsappText: `Ciao Shifat! Ho appena completato l'abbonamento Pixeloro Pro per ${restaurantName}.`,
+      whatsappText: isLifetime 
+        ? `Ciao Shifat! Ho appena completato l'acquisto a vita (${price}€) di Pixeloro per ${restaurantName}.`
+        : `Ciao Shifat! Ho appena completato l'abbonamento Pixeloro Pro per ${restaurantName}.`,
       homeBtn: "Torna alla Homepage",
       demoNotice: "Modalità Demo: Questo è un test di simulazione completato con successo."
     },
     en: {
-      badge: "Subscription Successfully Activated",
-      title1: "Welcome to",
-      title2: "Pixeloro Pro!",
-      subtitle: "Your payment was successful. Your restaurant's digital presence and management are now officially live.",
-      orderSummary: "Subscription Summary",
-      planName: "Pixeloro Pro — Monthly Plan",
-      billing: `€${price} / month (Cancel anytime)`,
-      step1Title: "1. Custom Domain & SSL Setup",
-      step1Desc: "Our technical team is configuring your custom domain and high-speed HTTPS cloud servers.",
+      badge: isLifetime ? "Lifetime Ownership Successfully Purchased" : "Subscription Successfully Activated",
+      title1: isLifetime ? "Congratulations!" : "Welcome to",
+      title2: isLifetime ? "100% Yours Forever!" : "Pixeloro Pro!",
+      subtitle: isLifetime 
+        ? "Your payment was successful. The website is 100% yours forever with 2 years of free technical support included."
+        : "Your payment was successful. Your restaurant's digital presence and management are now officially live.",
+      orderSummary: isLifetime ? "Lifetime Purchase Summary" : "Subscription Summary",
+      planName: isLifetime ? "Pixeloro Lifetime Ownership (Buyout)" : "Pixeloro Pro — Monthly Plan",
+      billing: isLifetime ? `€${price} one-time • Forever` : `€${price} / month (Cancel anytime)`,
+      billingType: isLifetime ? "One-Time Stripe Payment" : "Stripe Recurring",
+      step1Title: isLifetime ? "1. Source Code Handover & Domain Setup" : "1. Custom Domain & SSL Setup",
+      step1Desc: isLifetime 
+        ? "Our team is connecting your custom domain and preparing your full code export with admin access."
+        : "Our technical team is configuring your custom domain and high-speed HTTPS cloud servers.",
       step2Title: "2. Live Launch & Google Search Indexing",
       step2Desc: "Your high-converting website is being published live on Google Maps and search engines.",
-      step3Title: "3. 24/7 Support & Unlimited Updates",
-      step3Desc: "Whenever you need menu, price, or photo changes, message us directly on WhatsApp.",
+      step3Title: isLifetime ? "3. 2 Years Free Technical Support" : "3. 24/7 Support & Unlimited Updates",
+      step3Desc: isLifetime 
+        ? "You have 2 full years of free priority support: whenever you need text, menu, or photo updates, message us on WhatsApp."
+        : "Whenever you need menu, price, or photo changes, message us directly on WhatsApp.",
       whatsappBtn: "Confirm Details on WhatsApp",
-      whatsappText: `Hi Shifat! I just completed the Pixeloro Pro subscription for ${restaurantName}.`,
+      whatsappText: isLifetime 
+        ? `Hi Shifat! I just completed the Lifetime Ownership purchase (€${price}) for ${restaurantName}.`
+        : `Hi Shifat! I just completed the Pixeloro Pro subscription for ${restaurantName}.`,
       homeBtn: "Return to Homepage",
       demoNotice: "Demo Mode: This was a successful simulation test."
     },
     de: {
-      badge: "Abonnement erfolgreich aktiviert",
-      title1: "Willkommen bei",
-      title2: "Pixeloro Pro!",
-      subtitle: "Ihre Zahlung war erfolgreich. Die digitale Verwaltung Ihres Restaurants ist nun offiziell aktiv.",
-      orderSummary: "Abonnement-Übersicht",
-      planName: "Pixeloro Pro — Monatlicher Plan",
-      billing: `${price}€ / Monat (Jederzeit kündbar)`,
-      step1Title: "1. Domain- & SSL-Einrichtung",
-      step1Desc: "Unser technisches Team richtet Ihre individuelle Domain und sichere Server ein.",
+      badge: isLifetime ? "Lebenslanges Eigentum erfolgreich erworben" : "Abonnement erfolgreich aktiviert",
+      title1: isLifetime ? "Herzlichen Glückwunsch!" : "Willkommen bei",
+      title2: isLifetime ? "100% Ihr Eigentum!" : "Pixeloro Pro!",
+      subtitle: isLifetime 
+        ? "Ihre Zahlung war erfolgreich. Die Website gehört für immer Ihnen, inklusive 2 Jahre kostenlosem technischem Support."
+        : "Ihre Zahlung war erfolgreich. Die digitale Verwaltung Ihres Restaurants ist nun offiziell aktiv.",
+      orderSummary: isLifetime ? "Lifetime-Kauf Übersicht" : "Abonnement-Übersicht",
+      planName: isLifetime ? "Pixeloro Lifetime Ownership (Vollkauf)" : "Pixeloro Pro — Monatlicher Plan",
+      billing: isLifetime ? `${price}€ einmalig • Für immer` : `${price}€ / Monat (Jederzeit kündbar)`,
+      billingType: isLifetime ? "Einmalzahlung Stripe" : "Stripe Recurring",
+      step1Title: isLifetime ? "1. Quellcode-Übergabe & Domain-Setup" : "1. Domain- & SSL-Einrichtung",
+      step1Desc: isLifetime 
+        ? "Unser Team richtet Ihre Domain ein und übergibt Ihnen das vollständige Code-Paket mit Admin-Rechten."
+        : "Unser technisches Team richtet Ihre individuelle Domain und sichere Server ein.",
       step2Title: "2. Live-Schaltung & Google-Indexierung",
       step2Desc: "Ihre neue Website wird live geschaltet und auf Google Maps optimiert.",
-      step3Title: "3. 24/7 Support & Unbegrenzte Updates",
-      step3Desc: "Für Änderungen an Speisekarte oder Preisen schreiben Sie uns einfach auf WhatsApp.",
+      step3Title: isLifetime ? "3. 2 Jahre kostenloser technischer Support" : "3. 24/7 Support & Unbegrenzte Updates",
+      step3Desc: isLifetime 
+        ? "Sie erhalten 2 Jahre kostenlosen Support für alle Text-, Menü- oder Bildänderungen über WhatsApp."
+        : "Für Änderungen an Speisekarte oder Preisen schreiben Sie uns einfach auf WhatsApp.",
       whatsappBtn: "Details auf WhatsApp bestätigen",
-      whatsappText: `Hallo Shifat! Ich habe gerade das Pixeloro Pro Abonnement für ${restaurantName} abgeschlossen.`,
+      whatsappText: isLifetime 
+        ? `Hallo Shifat! Ich habe gerade den Lifetime-Kauf (${price}€) für ${restaurantName} abgeschlossen.`
+        : `Hallo Shifat! Ich habe gerade das Pixeloro Pro Abonnement für ${restaurantName} abgeschlossen.`,
       homeBtn: "Zur Startseite zurückkehren",
       demoNotice: "Demo-Modus: Dies war ein erfolgreicher Simulationstest."
     }
@@ -123,7 +152,7 @@ export default function PaymentSuccess() {
             </div>
             <div className="text-right">
               <div className="text-lg font-black text-primary">{copy.billing}</div>
-              <div className="text-[11px] text-text-muted font-medium">Stripe Recurring</div>
+              <div className="text-[11px] text-text-muted font-medium">{copy.billingType || 'Stripe'}</div>
             </div>
           </div>
 

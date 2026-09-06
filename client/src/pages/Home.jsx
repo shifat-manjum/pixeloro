@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock, CreditCard } from 'lucide-react';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock, CreditCard, Sparkles, Zap } from 'lucide-react';
 
 const ShowcaseCarousel = lazy(() => import('../components/ShowcaseCarousel'));
 
@@ -56,7 +56,7 @@ const FAQAccordion = ({ question, answer }) => {
     </div>
   );
 };
-const getTranslations = (price) => ({
+const getTranslations = (price, lifetimePrice = '399') => ({
   en: {
     bookCall: "Chat on WhatsApp",
     marketingSub: "WEB DESIGN BY PIXELORO",
@@ -81,7 +81,7 @@ const getTranslations = (price) => ({
     valueSub: "A bad website costs you bookings every single day. We build digital experiences that make your food look irresistible and drive reservations.",
     findOutMore: "Chat with us on WhatsApp",
     pricingTitle: "Simple, transparent pricing",
-    pricingSub: "No massive upfront costs. Just a simple monthly subscription.",
+    pricingSub: "No massive upfront costs. Choose a simple monthly subscription or lifetime ownership.",
     freeTierTitle: "Phase 1: The Build",
     freeTierPrice: "€0",
     freeTierUnit: "upfront",
@@ -89,7 +89,7 @@ const getTranslations = (price) => ({
     freeItem2: "Mobile-optimized for hungry guests on the go.",
     freeItem3: "Menu integration & contact forms.",
     freeItem4: "Delivered in 24 hours to review.",
-    proBadge: "Phase 2",
+    proBadge: "Phase 2: Monthly",
     proTierTitle: "Hosting & Management",
     proTierPrice: `€${price}`,
     proTierUnit: "/ month + VAT",
@@ -98,12 +98,24 @@ const getTranslations = (price) => ({
     proItem3: "Continuous technical maintenance & security.",
     proItem4: "Basic SEO to keep you ranking locally.",
     proItem5: "Cancel anytime. You own your domain.",
+    proBtn: "Subscribe with Stripe",
+    lifetimeBadge: "Phase 3: Buyout",
+    lifetimeTierTitle: "Lifetime Ownership",
+    lifetimeTierPrice: `€${lifetimePrice}`,
+    lifetimeTierUnit: "one-time • forever",
+    lifetimeSupportBadge: "✨ 2 Years Free Support Included",
+    lifetimeItem1: "100% full website & code ownership forever.",
+    lifetimeItem2: "2 Years of dedicated technical support for free.",
+    lifetimeItem3: "Zero monthly fees or mandatory subscriptions.",
+    lifetimeItem4: "High-speed hosting setup & custom domain connection.",
+    lifetimeItem5: "Full source code export & complete admin handover.",
+    lifetimeBtn: "Get Lifetime Access",
     trustText: "Join the modern restaurants growing with Pixeloro.",
     payNowhere: "See the design first, pay nothing upfront.",
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
     catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
-    catchP2: `If you love it, you simply subscribe to our €${price}/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.`,
+    catchP2: `If you love it, you can subscribe to our €${price}/month plan or buy it outright for €${lifetimePrice} forever with 2 years of free support. We handle the servers, security, and all tech headaches so you can focus on cooking great food.`,
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -141,7 +153,7 @@ const getTranslations = (price) => ({
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Passionate about technology and design.",
     aboutDesc2: "I founded Pixeloro with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
-    footerTitle: `Send us your menu. See your website in 48 hours. Free to build. €${price} a month only if you keep it.`,
+    footerTitle: `Send us your menu. See your website in 48 hours. Free to build. €${price}/mo or €${lifetimePrice} lifetime only if you keep it.`,
   },
   it: {
     bookCall: "Scrivici su WhatsApp",
@@ -166,30 +178,42 @@ const getTranslations = (price) => ({
     valueTitleHighlight: "Google e ChatGPT.",
     valueSub: "Assicurati di apparire per primo quando cercano \"ristoranti vicino a me\". Ti aiutiamo a ottimizzare la tua presenza digitale.",
     findOutMore: "Contattaci su WhatsApp",
-    pricingTitle: "Cosa ottieni davvero",
-    pricingSub: "Smetti di indovinare. Ottieni dati reali e piani d'azione.",
-    freeTierTitle: "La tua situazione attuale",
+    pricingTitle: "Tariffe semplici e trasparenti",
+    pricingSub: "Nessun costo iniziale nascosto. Scegli tra abbonamento mensile o proprietà a vita con 2 anni di supporto gratis.",
+    freeTierTitle: "Fase 1: La Creazione",
     freeTierPrice: "€0",
-    freeTierUnit: "/ audit",
-    freeItem1: "Audit completo del Profilo Google & SEO. Scopri esattamente dove ti trovi.",
-    freeItem2: "Lista dei tuoi concorrenti locali. E cosa fanno meglio di te.",
-    freeItem3: "Feedback di base sul sito web.",
-    freeItem4: "Chat diretta su WhatsApp senza impegno.",
-    proBadge: "Solo se lo desideri",
-    proTierTitle: "Pixeloro Pro",
+    freeTierUnit: "iniziale",
+    freeItem1: "Design personalizzato su misura per il tuo brand.",
+    freeItem2: "Ottimizzato per smartphone e clienti in movimento.",
+    freeItem3: "Integrazione menu digitale e modulo contatti.",
+    freeItem4: "Bozza pronta in sole 24-48 ore per la tua revisione.",
+    proBadge: "Fase 2: Mensile",
+    proTierTitle: "Hosting & Gestione",
     proTierPrice: `${price}€`,
     proTierUnit: "/ mese + IVA",
-    proItem1: "Facciamo tutto noi per te. Rilassati e goditi i risultati.",
-    proItem2: "Google My Business ottimizzato. Massimizza la ricerca locale.",
-    proItem3: "Sito web ad alta conversione. Progettato per ottenere prenotazioni.",
-    proItem4: "Generazione automatica di recensioni. Ottieni più recensioni a 5 stelle.",
-    proItem5: "Report mensili sulle prestazioni. Controlla il tuo ROI.",
+    proItem1: "Hosting dedicato ad alte prestazioni ultra-veloce.",
+    proItem2: "Modifiche illimitate a menu, testi e immagini.",
+    proItem3: "Manutenzione tecnica continua e sicurezza SSL.",
+    proItem4: "Ottimizzazione SEO locale per posizionamento Google.",
+    proItem5: "Disdici quando vuoi. Il dominio resta tuo.",
+    proBtn: "Attiva Abbonamento Stripe",
+    lifetimeBadge: "Fase 3: Acquisto Diretto",
+    lifetimeTierTitle: "Proprietà a Vita",
+    lifetimeTierPrice: `${lifetimePrice}€`,
+    lifetimeTierUnit: "una tantum • per sempre",
+    lifetimeSupportBadge: "✨ 2 Anni di Assistenza Tecnica Gratis Inclusa",
+    lifetimeItem1: "Proprietà totale al 100% del sito web per sempre.",
+    lifetimeItem2: "2 Anni di assistenza tecnica e aggiornamenti inclusi gratis.",
+    lifetimeItem3: "Zero canoni mensili o costi ricorrenti futuri.",
+    lifetimeItem4: "Configurazione hosting ultra-veloce e dominio.",
+    lifetimeItem5: "Consegna completa di file, grafica e codice sorgente.",
+    lifetimeBtn: "Acquista a Vita con Stripe",
     trustText: "Più di 1.000 ristoranti ci affidano i loro dettagli.",
     payNowhere: "Scopri di più, non pagarci nulla",
     catchTitle: "Quindi, dov'è la fregatura?",
     catchSub: "Non c'è nessuna fregatura. È esattamente come sembra.",
     catchP1: "Ti offriamo un enorme valore iniziale facendo il lavoro pesante e mostrandoti esattamente cosa non va nella tua attuale configurazione digitale. Tutto gratis. Nessuna carta richiesta.",
-    catchP2: `Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli ${price}€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.`,
+    catchP2: `Se ti piace ciò che vedi, puoi abbonarti per soli ${price}€ al mese oppure acquistare il sito a vita a ${lifetimePrice}€ con 2 anni di supporto gratuito incluso. Altrimenti, non paghi assolutamente nulla.`,
     featuresTitle: "Cosa ottieni",
     f1Title: "Marketing a pagamento",
     f1Sub: "Gestiamo i tuoi Google Ads per darti maggiore visibilità quando conta di più.",
@@ -227,7 +251,7 @@ const getTranslations = (price) => ({
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Appassionato di tecnologia e design.",
     aboutDesc2: "Ho fondato Pixeloro con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
-    footerTitle: `Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. ${price}€ al mese solo se lo mantieni.`,
+    footerTitle: `Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. ${price}€ al mese o ${lifetimePrice}€ a vita solo se lo mantieni.`,
   },
   de: {
     bookCall: "Auf WhatsApp schreiben",
@@ -252,30 +276,42 @@ const getTranslations = (price) => ({
     valueTitleHighlight: "Google und ChatGPT.",
     valueSub: "Stellen Sie sicher, dass Sie als Erster erscheinen, wenn sie nach \"Restaurants in meiner Nähe\" suchen. Wir optimieren Ihren digitalen Fußabdruck.",
     findOutMore: "Auf WhatsApp kontaktieren",
-    pricingTitle: "Was Sie tatsächlich bekommen",
-    pricingSub: "Hören Sie auf zu raten. Erhalten Sie echte Einblicke und Aktionspläne.",
-    freeTierTitle: "Ihr aktuelles Setup",
+    pricingTitle: "Einfache, transparente Preise",
+    pricingSub: "Keine versteckten Vorabkosten. Wählen Sie ein flexibles Monatsabo oder lebenslanges Eigentum mit 2 Jahren Support.",
+    freeTierTitle: "Phase 1: Die Erstellung",
     freeTierPrice: "€0",
-    freeTierUnit: "/ Audit",
-    freeItem1: "Vollständiges Google-Profil & SEO-Audit. Wissen Sie genau, wo Sie stehen.",
-    freeItem2: "Liste Ihrer lokalen Konkurrenten. Und was sie besser machen.",
-    freeItem3: "Grundlegendes Website-Feedback.",
-    freeItem4: "Chat auf WhatsApp für alle Details.",
-    proBadge: "Nur wenn Sie es wollen",
-    proTierTitle: "Pixeloro Pro",
+    freeTierUnit: "vorab",
+    freeItem1: "Individuelles Webdesign, abgestimmt auf Ihre Marke.",
+    freeItem2: "Mobil-optimiert für Gäste von unterwegs.",
+    freeItem3: "Menü-Integration & Kontaktformulare.",
+    freeItem4: "In 24-48 Stunden zur Überprüfung geliefert.",
+    proBadge: "Phase 2: Monatlich",
+    proTierTitle: "Hosting & Betreuung",
     proTierPrice: `${price}€`,
     proTierUnit: "/ Monat + MwSt",
-    proItem1: "Wir erledigen alles für Sie. Lehnen Sie sich zurück.",
-    proItem2: "Optimiertes Google My Business. Maximieren Sie die lokale Suche.",
-    proItem3: "Konversionsstarke Website. Entwickelt, um Buchungen zu erhalten.",
-    proItem4: "Automatisierte Bewertungserstellung. Mehr 5-Sterne-Bewertungen.",
-    proItem5: "Monatliche Leistungsberichte. Sehen Sie den ROI.",
+    proItem1: "Premium, blitzschnelles Hosting.",
+    proItem2: "Unbegrenzte Änderungen an Menü, Texten und Bildern.",
+    proItem3: "Kontinuierliche technische Wartung & SSL-Sicherheit.",
+    proItem4: "Lokale SEO-Optimierung für Google-Rankings.",
+    proItem5: "Jederzeit kündbar. Sie besitzen Ihre Domain.",
+    proBtn: "Mit Stripe abonnieren",
+    lifetimeBadge: "Phase 3: Einmalkauf",
+    lifetimeTierTitle: "Lebenslanges Eigentum",
+    lifetimeTierPrice: `${lifetimePrice}€`,
+    lifetimeTierUnit: "einmalig • für immer",
+    lifetimeSupportBadge: "✨ 2 Jahre Gratis-Support inklusive",
+    lifetimeItem1: "100% volles Eigentum an Website & Code für immer.",
+    lifetimeItem2: "2 Jahre technischer Support & Wartung kostenlos inklusive.",
+    lifetimeItem3: "Keine monatlichen Gebühren oder Pflichtabonnements.",
+    lifetimeItem4: "Schnelles Hosting-Setup & Domain-Verbindung.",
+    lifetimeItem5: "Vollständiges Quellcode-Paket & Übergabe der Admin-Rechte.",
+    lifetimeBtn: "Lifetime mit Stripe sichern",
     trustText: "Mehr als 1.000 Restaurants vertrauen uns ihre Daten an.",
     payNowhere: "Mehr erfahren, nichts bezahlen",
     catchTitle: "Also, was ist der Haken?",
     catchSub: "Es gibt keinen Haken. Es ist genau so, wie es klingt.",
     catchP1: "Wir bieten Ihnen frühzeitig massiven Wert, indem wir die schwere Arbeit übernehmen und Ihnen genau zeigen, was an Ihrem aktuellen digitalen Setup falsch ist. Alles kostenlos.",
-    catchP2: `Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur ${price} € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.`,
+    catchP2: `Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur ${price} € im Monat abonnieren oder die Website für einmalig ${lifetimePrice} € mit 2 Jahren kostenlosem Support für immer kaufen.`,
     featuresTitle: "Was Sie bekommen",
     f1Title: "Bezahltes Marketing",
     f1Sub: "Wir verwalten Ihre Google Ads, um Ihnen mehr Sichtbarkeit zu verschaffen.",
@@ -313,7 +349,7 @@ const getTranslations = (price) => ({
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Leidenschaftlich für Technologie und Design.",
     aboutDesc2: "Ich habe Pixeloro mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
-    footerTitle: `Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. ${price}€ im Monat, nur wenn Sie sie behalten.`,
+    footerTitle: `Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. ${price}€ im Monat oder ${lifetimePrice}€ Lifetime nur wenn Sie sie behalten.`,
   }
 });
 
@@ -339,20 +375,27 @@ const FeatureCard = ({ icon: Icon, title, desc }) => {
 function Home() {
   const [lang, setLang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
   const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '55');
+  const [lifetimePrice, setLifetimePrice] = useState(() => localStorage.getItem('pixeloro_lifetime_price') || '399');
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/settings`)
       .then(res => res.json())
       .then(data => {
-        if (data && data.monthlyPrice) {
-          setMonthlyPrice(String(data.monthlyPrice));
-          localStorage.setItem('pixeloro_monthly_price', String(data.monthlyPrice));
+        if (data) {
+          if (data.monthlyPrice) {
+            setMonthlyPrice(String(data.monthlyPrice));
+            localStorage.setItem('pixeloro_monthly_price', String(data.monthlyPrice));
+          }
+          if (data.lifetimePrice) {
+            setLifetimePrice(String(data.lifetimePrice));
+            localStorage.setItem('pixeloro_lifetime_price', String(data.lifetimePrice));
+          }
         }
       })
       .catch(err => console.error("Error fetching settings:", err));
   }, []);
 
-  const allTranslations = getTranslations(monthlyPrice);
+  const allTranslations = getTranslations(monthlyPrice, lifetimePrice);
   const t = allTranslations[lang] || allTranslations.it;
 
   const [formData, setFormData] = useState({
@@ -375,16 +418,16 @@ function Home() {
   const phoneNumber = "+393481134181";
   const whatsappUrl = `https://wa.me/393481134181?text=${encodeURIComponent(
     lang === 'it' 
-      ? `Ciao! Vorrei maggiori informazioni sulla bozza gratuita in 48 ore del nuovo sito web per il mio ristorante (offerta ${monthlyPrice}€/mese).` 
+      ? `Ciao! Vorrei maggiori informazioni sulla bozza gratuita in 48 ore del nuovo sito web per il mio ristorante (offerta ${monthlyPrice}€/mese o ${lifetimePrice}€ a vita).` 
       : lang === 'de'
-      ? `Hallo! Ich interessiere mich für einen kostenlosen Website-Entwurf innerhalb von 48 Stunden für mein Restaurant (${monthlyPrice}€/Monat).`
-      : `Hi! I would like more information about getting a free 48h custom website build for my restaurant (€${monthlyPrice}/mo).`
+      ? `Hallo! Ich interessiere mich für einen kostenlosen Website-Entwurf innerhalb von 48 Stunden für mein Restaurant (${monthlyPrice}€/Monat oder ${lifetimePrice}€ Lifetime).`
+      : `Hi! I would like more information about getting a free 48h custom website build for my restaurant (€${monthlyPrice}/mo or €${lifetimePrice} lifetime).`
   )}`;
 
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [checkingOut, setCheckingOut] = useState(false);
+  const [checkingOut, setCheckingOut] = useState(null); // null | 'monthly' | 'lifetime'
 
   const handleLanguageChange = (l) => {
     setLang(l);
@@ -395,15 +438,17 @@ function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleStripeCheckout = async () => {
-    setCheckingOut(true);
+  const handleStripeCheckout = async (planType = 'monthly') => {
+    setCheckingOut(planType);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/payments/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          planType,
           monthlyPrice,
-          price: monthlyPrice,
+          lifetimePrice,
+          price: planType === 'lifetime' ? lifetimePrice : monthlyPrice,
           customerName: formData.name || undefined,
           customerEmail: formData.email || undefined,
           restaurantName: formData.restaurantName || undefined,
@@ -420,7 +465,7 @@ function Home() {
       console.error('Stripe checkout error:', e);
       alert('Error connecting to Stripe checkout.');
     } finally {
-      setCheckingOut(false);
+      setCheckingOut(null);
     }
   };
 
@@ -454,10 +499,18 @@ function Home() {
     { 
       q: lang === 'it' ? "È davvero gratis?" : lang === 'de' ? "Ist es wirklich kostenlos?" : "Is it really free?", 
       a: lang === 'it' 
-        ? `Sì, progettiamo e costruiamo la prima bozza completa del tuo sito web al 100% gratis. Paghi solo ${monthlyPrice}€ al mese se decidi di tenerlo attivo con il nostro hosting ultra-veloce e la manutenzione continua.`
+        ? `Sì, progettiamo e costruiamo la prima bozza completa del tuo sito web al 100% gratis. Paghi solo ${monthlyPrice}€ al mese (o ${lifetimePrice}€ per l'acquisto a vita) se decidi di tenerlo attivo con il nostro hosting ultra-veloce e la manutenzione.`
         : lang === 'de'
-        ? `Ja, wir entwerfen und erstellen Ihren ersten Website-Entwurf zu 100% kostenlos. Sie zahlen nur die ${monthlyPrice}€/Monat, wenn Sie sich entscheiden, die Website zu behalten und unseren Hosting-Service zu nutzen.`
-        : `Yes, we design, build, and present your initial custom website 100% for free. You only pay €${monthlyPrice}/month if you decide to keep it live on your custom domain with our hosting & management.` 
+        ? `Ja, wir entwerfen und erstellen Ihren ersten Website-Entwurf zu 100% kostenlos. Sie zahlen nur die ${monthlyPrice}€/Monat (oder ${lifetimePrice}€ für Lifetime), wenn Sie sich entscheiden, die Website zu behalten.`
+        : `Yes, we design, build, and present your initial custom website 100% for free. You only pay €${monthlyPrice}/month (or €${lifetimePrice} lifetime buyout) if you decide to keep it live.` 
+    },
+    { 
+      q: lang === 'it' ? "Posso acquistare il sito per sempre senza abbonamento mensile?" : lang === 'de' ? "Kann ich die Website für immer kaufen, ohne monatliches Abo?" : "Can I buy the website outright without a monthly subscription?", 
+      a: lang === 'it'
+        ? `Certamente! Con la nostra opzione Fase 3 (Proprietà a Vita a ${lifetimePrice}€ una tantum), il sito web diventa al 100% di tua proprietà per sempre, senza alcun canone mensile, e ricevi 2 anni di assistenza tecnica e supporto inclusi gratuitamente.`
+        : lang === 'de'
+        ? `Absolut! Mit unserer Phase 3 (Lebenslanges Eigentum für einmalig ${lifetimePrice}€) gehört die Website für immer Ihnen – ohne monatliche Gebühren und inklusive 2 Jahre kostenlosem technischen Support und Wartung.`
+        : `Absolutely! With our Phase 3 Lifetime Ownership (€${lifetimePrice} one-time), the website and code belong 100% to you forever with zero recurring fees, and you still get 2 full years of dedicated technical support and maintenance for free.` 
     },
     { 
       q: lang === 'it' ? "Come funziona il processo?" : lang === 'de' ? "Wie funktioniert der Ablauf?" : "How does the process work?", 
@@ -622,69 +675,139 @@ function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-24 px-4 max-w-5xl mx-auto">
+      <section id="pricing" className="py-24 px-4 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black mb-3 text-white">{t.pricingTitle}</h2>
-          <p className="text-text-muted font-medium">{t.pricingSub}</p>
+          <h2 className="text-4xl sm:text-5xl font-black mb-4 text-white">{t.pricingTitle}</h2>
+          <p className="text-text-muted font-medium text-base sm:text-lg max-w-2xl mx-auto">{t.pricingSub}</p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
-          {/* Free Tier */}
-          <div className="bg-card p-10 rounded-[2rem] border border-white/10 flex flex-col hover:border-white/20 transition-colors">
-            <h3 className="font-bold text-xl mb-2 text-white">{t.freeTierTitle}</h3>
-            <div className="flex items-end gap-1 mb-8">
-              <span className="text-6xl font-black text-primary">{t.freeTierPrice}</span>
-              <span className="text-text-muted font-bold mb-2">{t.freeTierUnit}</span>
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          {/* Phase 1: Free Build */}
+          <div className="bg-card p-8 sm:p-10 rounded-[2rem] border border-white/10 flex flex-col hover:border-white/20 transition-all hover:-translate-y-1 duration-300">
+            <div className="text-xs font-extrabold text-white/50 uppercase tracking-wider mb-2">Fase 01</div>
+            <h3 className="font-black text-2xl mb-2 text-white">{t.freeTierTitle}</h3>
+            <div className="flex items-end gap-1.5 mb-6">
+              <span className="text-5xl sm:text-6xl font-black text-primary">{t.freeTierPrice}</span>
+              <span className="text-text-muted font-bold mb-2 text-xs uppercase">{t.freeTierUnit}</span>
             </div>
-            <ul className="space-y-5 font-medium text-text-muted flex-grow">
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.freeItem1}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.freeItem2}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.freeItem3}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.freeItem4}</div></li>
+            <p className="text-xs text-text-muted mb-6 pb-6 border-b border-white/10 font-medium">
+              {lang === 'it' ? 'Creiamo la prima versione su misura del tuo sito senza alcun pagamento anticipato.' : lang === 'de' ? 'Wir erstellen den ersten kompletten Entwurf ohne Vorauszahlung.' : 'We design and build the first full version of your website with zero risk.'}
+            </p>
+            <ul className="space-y-4 font-medium text-text-muted flex-grow text-sm">
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.freeItem1}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.freeItem2}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.freeItem3}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.freeItem4}</div></li>
             </ul>
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <a
+                href="#hero-form"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="w-full py-3.5 px-6 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-bold text-sm flex items-center justify-center gap-2 border border-white/10 hover:border-white/20 transition-all text-center cursor-pointer"
+              >
+                {t.submitBtn}
+              </a>
+            </div>
           </div>
 
-          {/* Paid Tier */}
-          <div className="bg-card p-10 rounded-[2rem] border-2 border-primary relative flex flex-col shadow-[0_0_30px_rgba(229,193,88,0.1)]">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-black text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+          {/* Phase 2: Monthly Subscription */}
+          <div className="bg-card p-8 sm:p-10 rounded-[2rem] border-2 border-primary relative flex flex-col shadow-[0_0_35px_rgba(229,193,88,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-black text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-[0_0_15px_rgba(229,193,88,0.4)] whitespace-nowrap">
               {t.proBadge}
             </div>
-            <h3 className="font-bold text-xl mb-2 text-white mt-2">{t.proTierTitle}</h3>
-            <div className="flex items-end gap-1 mb-8">
-              <span className="text-6xl font-black text-primary">{t.proTierPrice}</span>
-              <span className="text-text-muted font-bold mb-2">{t.proTierUnit}</span>
+            <div className="text-xs font-extrabold text-primary uppercase tracking-wider mb-2 mt-2">Fase 02</div>
+            <h3 className="font-black text-2xl mb-2 text-white">{t.proTierTitle}</h3>
+            <div className="flex items-end gap-1.5 mb-6">
+              <span className="text-5xl sm:text-6xl font-black text-primary">{t.proTierPrice}</span>
+              <span className="text-text-muted font-bold mb-2 text-xs uppercase">{t.proTierUnit}</span>
             </div>
-            <ul className="space-y-4 sm:space-y-5 font-medium text-text-muted flex-grow text-sm sm:text-base">
-              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem1}</div></li>
-              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem2}</div></li>
-              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem3}</div></li>
-              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem4}</div></li>
-              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem5}</div></li>
+            <p className="text-xs text-text-muted mb-6 pb-6 border-b border-white/10 font-medium">
+              {lang === 'it' ? 'Gestione continua: hosting ultra-rapido, sicurezza SSL, modifiche illimitate e supporto.' : lang === 'de' ? 'Vollständige Betreuung: Hosting, Sicherheit, unbegrenzte Updates & Support.' : 'Hands-off peace of mind: premium hosting, continuous updates, and local SEO.'}
+            </p>
+            <ul className="space-y-4 font-medium text-text-muted flex-grow text-sm">
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.proItem1}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.proItem2}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.proItem3}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.proItem4}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.proItem5}</div></li>
             </ul>
 
             {/* Direct Stripe Subscription Button */}
             <div className="mt-8 pt-6 border-t border-white/10 space-y-3">
               <button
-                onClick={handleStripeCheckout}
-                disabled={checkingOut}
-                className="w-full py-4 px-6 rounded-2xl bg-primary hover:bg-primary-hover text-black font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(229,193,88,0.3)] hover:shadow-[0_0_35px_rgba(229,193,88,0.5)] transition-all active:scale-98 cursor-pointer disabled:opacity-50"
+                onClick={() => handleStripeCheckout('monthly')}
+                disabled={checkingOut === 'monthly'}
+                className="w-full py-4 px-6 rounded-2xl bg-primary hover:bg-primary-hover text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(229,193,88,0.3)] hover:shadow-[0_0_35px_rgba(229,193,88,0.5)] transition-all active:scale-98 cursor-pointer disabled:opacity-50"
               >
-                {checkingOut ? (
+                {checkingOut === 'monthly' ? (
                   <>
-                    <Loader2 size={18} className="animate-spin" />
-                    <span>{lang === 'it' ? 'Apertura Stripe...' : lang === 'de' ? 'Checkout wird geöffnet...' : 'Opening Stripe...'}</span>
+                    <Loader2 size={17} className="animate-spin" />
+                    <span>{lang === 'it' ? 'Apertura Stripe...' : lang === 'de' ? 'Wird geöffnet...' : 'Opening Stripe...'}</span>
                   </>
                 ) : (
                   <>
-                    <CreditCard size={18} />
-                    <span>{lang === 'it' ? 'Attiva Abbonamento Stripe' : lang === 'de' ? 'Mit Stripe abonnieren' : 'Subscribe with Stripe'}</span>
+                    <CreditCard size={17} />
+                    <span>{t.proBtn || (lang === 'it' ? 'Attiva Abbonamento Stripe' : lang === 'de' ? 'Mit Stripe abonnieren' : 'Subscribe with Stripe')}</span>
                   </>
                 )}
               </button>
               
-              <div className="flex items-center justify-center gap-2 text-[11px] text-text-muted font-semibold text-center">
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-text-muted font-medium text-center">
                 <ShieldCheck size={13} className="text-primary flex-shrink-0" />
                 <span>{lang === 'it' ? 'Apple Pay, Carte, SEPA • Disdici quando vuoi' : lang === 'de' ? 'Apple Pay, Karten, SEPA • Jederzeit kündbar' : 'Apple Pay, Cards, SEPA • Cancel anytime'}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Phase 3: Lifetime Ownership (399€ Buyout + 2 Years Free Support) */}
+          <div className="bg-gradient-to-b from-[#181622] to-card p-8 sm:p-10 rounded-[2rem] border-2 border-amber-500/60 relative flex flex-col shadow-[0_0_40px_rgba(245,158,11,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.5)] whitespace-nowrap">
+              {t.lifetimeBadge}
+            </div>
+            <div className="text-xs font-extrabold text-amber-400 uppercase tracking-wider mb-2 mt-2">Fase 03</div>
+            <h3 className="font-black text-2xl mb-2 text-white">{t.lifetimeTierTitle}</h3>
+            <div className="flex items-end gap-1.5 mb-4">
+              <span className="text-5xl sm:text-6xl font-black text-amber-400">{t.lifetimeTierPrice}</span>
+              <span className="text-text-muted font-bold mb-2 text-xs uppercase">{t.lifetimeTierUnit}</span>
+            </div>
+
+            {/* Special Support Badge */}
+            <div className="mb-4 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 text-center">
+              <Sparkles size={14} className="text-amber-400 flex-shrink-0" />
+              <span>{t.lifetimeSupportBadge}</span>
+            </div>
+
+            <ul className="space-y-4 font-medium text-text-muted flex-grow text-sm">
+              <li className="flex gap-3 items-start"><Check className="text-amber-400 flex-shrink-0 mt-0.5 w-4 h-4" /> <div className="text-white/90">{t.lifetimeItem1}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-amber-400 flex-shrink-0 mt-0.5 w-4 h-4" /> <div className="text-amber-300 font-bold">{t.lifetimeItem2}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-amber-400 flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.lifetimeItem3}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-amber-400 flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.lifetimeItem4}</div></li>
+              <li className="flex gap-3 items-start"><Check className="text-amber-400 flex-shrink-0 mt-0.5 w-4 h-4" /> <div>{t.lifetimeItem5}</div></li>
+            </ul>
+
+            {/* Direct Stripe Lifetime Button */}
+            <div className="mt-8 pt-6 border-t border-white/10 space-y-3">
+              <button
+                onClick={() => handleStripeCheckout('lifetime')}
+                disabled={checkingOut === 'lifetime'}
+                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(245,158,11,0.35)] hover:shadow-[0_0_35px_rgba(245,158,11,0.6)] transition-all active:scale-98 cursor-pointer disabled:opacity-50"
+              >
+                {checkingOut === 'lifetime' ? (
+                  <>
+                    <Loader2 size={17} className="animate-spin" />
+                    <span>{lang === 'it' ? 'Apertura Stripe...' : lang === 'de' ? 'Wird geöffnet...' : 'Opening Stripe...'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap size={17} className="fill-black" />
+                    <span>{t.lifetimeBtn || (lang === 'it' ? 'Acquista a Vita con Stripe' : lang === 'de' ? 'Lifetime mit Stripe sichern' : 'Get Lifetime Access')}</span>
+                  </>
+                )}
+              </button>
+              
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-amber-400/80 font-medium text-center">
+                <ShieldCheck size={13} className="text-amber-400 flex-shrink-0" />
+                <span>{lang === 'it' ? 'Pagamento unico • 2 Anni di Assistenza Inclusa' : lang === 'de' ? 'Einmalige Zahlung • 2 Jahre Support inklusive' : 'One-time payment • 2 Years Support Included'}</span>
               </div>
             </div>
           </div>

@@ -5,12 +5,14 @@ const Setting = require('../models/Setting');
 // Default fallback settings
 const DEFAULT_SETTINGS = {
   monthlyPrice: '55',
+  lifetimePrice: '399',
   whatsappNumber: '+393481134181',
   whatsappAlerts: true,
   emailAlerts: true,
   stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
   stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
-  stripePaymentLink: process.env.STRIPE_PAYMENT_LINK || ''
+  stripePaymentLink: process.env.STRIPE_PAYMENT_LINK || '',
+  stripeLifetimePaymentLink: process.env.STRIPE_LIFETIME_PAYMENT_LINK || ''
 };
 
 // GET /api/settings
