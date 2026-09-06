@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2 } from 'lucide-react';
 import ShowcaseCarousel from '../components/ShowcaseCarousel';
 
 
@@ -88,7 +89,7 @@ const translations = {
     freeItem4: "Delivered in 24 hours to review.",
     proBadge: "Phase 2",
     proTierTitle: "Hosting & Management",
-    proTierPrice: "€85",
+    proTierPrice: "€55",
     proTierUnit: "/ month + VAT",
     proItem1: "Premium, lightning-fast hosting.",
     proItem2: "Unlimited minor text/image updates.",
@@ -100,7 +101,7 @@ const translations = {
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
     catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
-    catchP2: "If you love it, you simply subscribe to our €85/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
+    catchP2: "If you love it, you simply subscribe to our €55/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -138,7 +139,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Passionate about technology and design.",
     aboutDesc2: "I founded Pixeloro with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
-    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €85 a month only if you keep it.",
+    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €55 a month only if you keep it.",
   },
   it: {
     bookCall: "Scrivici su WhatsApp",
@@ -172,7 +173,7 @@ const translations = {
     freeItem4: "Chiamata di consulenza di 15 minuti. Senza impegno.",
     proBadge: "Solo se lo desideri",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€85",
+    proTierPrice: "€55",
     proTierUnit: "/ mese + IVA",
     proItem1: "Facciamo tutto noi per te. Rilassati e goditi i risultati.",
     proItem2: "Google My Business ottimizzato. Massimizza la ricerca locale.",
@@ -184,7 +185,7 @@ const translations = {
     catchTitle: "Quindi, dov'è la fregatura?",
     catchSub: "Non c'è nessuna fregatura. È esattamente come sembra.",
     catchP1: "Ti offriamo un enorme valore iniziale facendo il lavoro pesante e mostrandoti esattamente cosa non va nella tua attuale configurazione digitale. Tutto gratis. Nessuna carta richiesta.",
-    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli 85€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.",
+    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli 55€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.",
     featuresTitle: "Cosa ottieni",
     f1Title: "Marketing a pagamento",
     f1Sub: "Gestiamo i tuoi Google Ads per darti maggiore visibilità quando conta di più.",
@@ -222,7 +223,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Appassionato di tecnologia e design.",
     aboutDesc2: "Ho fondato Pixeloro con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
-    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 85€ al mese solo se lo mantieni.",
+    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 55€ al mese solo se lo mantieni.",
   },
   de: {
     bookCall: "Auf WhatsApp schreiben",
@@ -256,7 +257,7 @@ const translations = {
     freeItem4: "Chat auf WhatsApp für alle Details.",
     proBadge: "Nur wenn Sie es wollen",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€85",
+    proTierPrice: "€55",
     proTierUnit: "/ Monat + MwSt",
     proItem1: "Wir erledigen alles für Sie. Lehnen Sie sich zurück.",
     proItem2: "Optimiertes Google My Business. Maximieren Sie die lokale Suche.",
@@ -268,7 +269,7 @@ const translations = {
     catchTitle: "Also, was ist der Haken?",
     catchSub: "Es gibt keinen Haken. Es ist genau so, wie es klingt.",
     catchP1: "Wir bieten Ihnen frühzeitig massiven Wert, indem wir die schwere Arbeit übernehmen und Ihnen genau zeigen, was an Ihrem aktuellen digitalen Setup falsch ist. Alles kostenlos.",
-    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 85 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
+    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 55 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
     featuresTitle: "Was Sie bekommen",
     f1Title: "Bezahltes Marketing",
     f1Sub: "Wir verwalten Ihre Google Ads, um Ihnen mehr Sichtbarkeit zu verschaffen.",
@@ -306,7 +307,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Leidenschaftlich für Technologie und Design.",
     aboutDesc2: "Ich habe Pixeloro mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
-    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 85€ im Monat, nur wenn Sie sie behalten.",
+    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 55€ im Monat, nur wenn Sie sie behalten.",
   }
 };
 
@@ -359,12 +360,17 @@ function Home() {
       : "Hi! I would like more information about getting a free 48h custom website build for my restaurant."
   )}`;
 
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/leads`, {
         method: 'POST',
@@ -372,22 +378,27 @@ function Home() {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        alert("Thanks! We'll be in touch soon.");
+        setIsSuccess(true);
         setFormData({ restaurantName: '', name: '', email: '', phone: '' });
+        setTimeout(() => {
+          navigate('/thank-you');
+        }, 1200);
       } else {
         alert("Something went wrong. Please try again.");
+        setIsSubmitting(false);
       }
     } catch (err) {
       console.error("Form submit error:", err);
       alert("Error submitting the form.");
+      setIsSubmitting(false);
     }
   };
 
   const faqs = [
-    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €85/month if you decide to keep it and use our hosting & maintenance." },
+    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €55/month if you decide to keep it and use our hosting & maintenance." },
     { q: "How does the process work?", a: "Simply send us your current menu and some details. We will build a high-converting website draft. If you love it, we make it live." },
     { q: "How long does it take?", a: "Our standard turnaround time is incredibly fast. We will have your new website ready in 24-48 hours after receiving your menu and details." },
-    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €85/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
+    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €55/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
     { q: "Are there any hidden fees or contracts?", a: "No hidden fees, no long-term contracts. You can cancel your subscription at any time with no questions asked." }
   ];
 
@@ -456,8 +467,32 @@ function Home() {
               <label className="block text-sm font-semibold mb-2 text-text-muted">{t.phoneLabel || 'Phone Number'}</label>
               <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full border border-white/10 rounded-xl p-3.5 bg-black text-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-white/30" placeholder={t.phonePlace || '+39 123 456'} required />
             </div>
-            <button type="submit" className="w-full bg-primary hover:bg-primary-hover text-black font-bold py-4 rounded-xl mt-4 transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] hover:shadow-[0_0_30px_rgba(229,193,88,0.4)]">
-              {t.submitBtn}
+            <button 
+              type="submit" 
+              disabled={isSubmitting || isSuccess}
+              className={`w-full font-bold py-4 rounded-xl mt-4 transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] flex items-center justify-center gap-2 cursor-pointer ${
+                isSuccess
+                  ? 'bg-emerald-500 text-black shadow-[0_0_25px_rgba(16,185,129,0.5)]'
+                  : 'bg-primary hover:bg-primary-hover text-black hover:shadow-[0_0_30px_rgba(229,193,88,0.4)]'
+              }`}
+            >
+              {isSuccess ? (
+                <div className="flex items-center gap-2 text-black font-extrabold">
+                  <div className="w-6 h-6 rounded-full bg-black/20 flex items-center justify-center">
+                    <Check size={16} className="text-black stroke-[3]" />
+                  </div>
+                  <span>
+                    {lang === 'it' ? 'Richiesta Inviata con Successo!' : lang === 'de' ? 'Anfrage erfolgreich gesendet!' : 'Request Received Successfully!'}
+                  </span>
+                </div>
+              ) : isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 size={18} className="animate-spin" />
+                  <span>{lang === 'it' ? 'Invio in corso...' : lang === 'de' ? 'Wird gesendet...' : 'Submitting...'}</span>
+                </div>
+              ) : (
+                <span>{t.submitBtn}</span>
+              )}
             </button>
           </form>
           <p className="text-xs text-center text-text-muted mt-5">{t.noCreditCard}</p>
@@ -559,7 +594,7 @@ function Home() {
           </div>
           <div className="bg-black/50 p-8 rounded-3xl border border-white/10">
             <h4 className="text-white/60 font-bold uppercase tracking-wider text-sm mb-4">Turnaround Time</h4>
-            <div className="text-5xl font-black text-white">
+            <div className="text-5xl font-black text-primary">
               <CountUp end={48} suffix=" Hours" duration={1500} />
             </div>
           </div>
@@ -623,24 +658,6 @@ function Home() {
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             {t.bookCall}
           </a>
-        </div>
-      </section>
-
-      {/* Stats Banner */}
-      <section className="bg-black text-white py-20 px-4 border-b border-white/5">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-          <div className="py-4">
-            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat1Value}</div>
-            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat1Label}</div>
-          </div>
-          <div className="py-4">
-            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat2Value}</div>
-            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat2Label}</div>
-          </div>
-          <div className="py-4">
-            <div className="text-5xl font-black text-primary mb-3 text-shadow-glow">{t.stat3Value}</div>
-            <div className="text-white/60 font-bold uppercase tracking-wider text-sm">{t.stat3Label}</div>
-          </div>
         </div>
       </section>
 
