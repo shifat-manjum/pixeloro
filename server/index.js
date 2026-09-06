@@ -20,9 +20,12 @@ mongoose.connect(mongoURI)
 // Routes
 const leadRoutes = require('./routes/leads');
 const statRoutes = require('./routes/stats');
+const settingRoutes = require('./routes/settings');
 
 app.use('/api/leads', leadRoutes);
 app.use('/api/stats', statRoutes);
+app.use('/api/settings', settingRoutes);
+
 
 app.get('/', (req, res) => {
     res.send('Pixeloro API is running.');

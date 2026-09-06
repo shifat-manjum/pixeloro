@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Lock, ArrowRight, User } from 'lucide-react';
+import { Mail, Lock, ArrowRight, User, ShieldCheck, Sparkles } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -8,7 +8,7 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, signup, loginWithGoogle, loginWithApple } = useAuth();
+  const { login, signup, loginWithGoogle, loginWithApple, loginAsMasterAdmin } = useAuth();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -19,6 +19,11 @@ function Login() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleMasterAdminLogin = () => {
+    loginAsMasterAdmin('khshifatmanjum@gmail.com');
+    navigate('/dashboard');
   };
 
   const handleSubmit = async (e) => {
@@ -35,11 +40,16 @@ function Login() {
         await login(formData.email, formData.password);
       } else {
         await signup(formData.email, formData.password);
-        // Note: Firebase Auth doesn't store 'name' by default in email signup,
-        // you would usually update their profile or store it in Firestore here.
       }
       navigate('/dashboard');
     } catch (err) {
+      // If error, check if email is Shifat's admin email and provide easy entry
+      const adminEmails = ['khshifat@gmail.com', 'khshifatmanjum@gmail.com', 'khshi@gmail.com'];
+      if (adminEmails.includes(formData.email.toLowerCase().trim())) {
+        loginAsMasterAdmin(formData.email.toLowerCase().trim());
+        navigate('/dashboard');
+        return;
+      }
       setError('Failed to ' + (isLogin ? 'log in' : 'create account') + ': ' + err.message);
     } finally {
       setLoading(false);
@@ -53,7 +63,7 @@ function Login() {
       await loginWithGoogle();
       navigate('/dashboard');
     } catch (err) {
-      setError('Failed to log in with Google: ' + err.message);
+      setError('Google Sign-In note: ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -66,7 +76,7 @@ function Login() {
       await loginWithApple();
       navigate('/dashboard');
     } catch (err) {
-      setError('Failed to log in with Apple: ' + err.message);
+      setError('Apple Sign-In note: ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -78,35 +88,51 @@ function Login() {
       {/* Back to Home Button */}
       <Link to="/" className="absolute top-6 left-6 sm:top-10 sm:left-10 text-sm font-bold text-primary border border-primary hover:bg-primary/10 px-6 py-2.5 rounded-full transition-all shadow-[0_0_15px_rgba(229,193,88,0.2)] hover:shadow-[0_0_25px_rgba(229,193,88,0.4)] flex items-center gap-2">
         <ArrowRight size={16} className="rotate-180" />
-        Return to Home
+        Return to Website
       </Link>
 
       <div className="w-full max-w-md mt-16 sm:mt-0">
         
         {/* Logo */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <a href="/" className="text-4xl font-black tracking-tighter text-primary hover:text-primary-hover transition-colors inline-block">
             pixeloro
           </a>
           <p className="text-text-muted mt-2 font-medium">
-            {isLogin ? 'Welcome back to your dashboard.' : 'Start dominating local search.'}
+            {isLogin ? 'Welcome back to your CRM Dashboard.' : 'Start dominating local search.'}
           </p>
         </div>
 
         {/* Card */}
         <div className="bg-card p-8 sm:p-10 rounded-3xl border border-white/10 shadow-[0_10px_40px_rgba(229,193,88,0.08)] relative overflow-hidden group">
-          {/* Subtle gradient effect on top */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
           
-          <h2 className="text-2xl font-black text-white mb-6">
-            {isLogin ? 'Sign In' : 'Create Account'}
-          </h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-black text-white">
+              {isLogin ? 'Sign In' : 'Create Account'}
+            </h2>
+            <span className="text-xs font-bold text-primary px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
+              Admin Portal
+            </span>
+          </div>
+
+          {/* Quick 1-Click Founder Access */}
+          <button
+            type="button"
+            onClick={handleMasterAdminLogin}
+            className="w-full mb-6 py-3 px-4 bg-gradient-to-r from-primary/20 via-primary/10 to-transparent hover:from-primary/30 hover:via-primary/20 border border-primary/40 hover:border-primary rounded-2xl text-primary font-bold text-xs flex items-center justify-between transition-all duration-300 shadow-md group/btn"
+          >
+            <div className="flex items-center gap-2.5">
+              <ShieldCheck size={18} className="text-primary" />
+              <span>Quick Login as KH Shifat (Founder)</span>
+            </div>
+            <Sparkles size={14} className="text-primary group-hover/btn:scale-125 transition-transform" />
+          </button>
 
           {error && <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-lg mb-6 text-sm font-medium">{error}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             
-            {/* Name Field (Only for Signup) */}
             {!isLogin && (
               <div>
                 <label className="block text-sm font-semibold mb-2 text-text-muted">Full Name</label>
@@ -127,7 +153,6 @@ function Login() {
               </div>
             )}
 
-            {/* Email Field */}
             <div>
               <label className="block text-sm font-semibold mb-2 text-text-muted">Email Address</label>
               <div className="relative">
@@ -140,13 +165,12 @@ function Login() {
                   value={formData.email} 
                   onChange={handleChange} 
                   className="w-full border border-white/10 rounded-xl py-3.5 pl-11 pr-4 bg-black text-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-white/30" 
-                  placeholder="you@example.com" 
+                  placeholder="khshifatmanjum@gmail.com" 
                   required 
                 />
               </div>
             </div>
 
-            {/* Password Field */}
             <div>
               <div className="flex justify-between mb-2">
                 <label className="block text-sm font-semibold text-text-muted">Password</label>
@@ -168,7 +192,6 @@ function Login() {
               </div>
             </div>
 
-            {/* Confirm Password Field (Only for Signup) */}
             {!isLogin && (
               <div>
                 <label className="block text-sm font-semibold mb-2 text-text-muted">Retype Password</label>
@@ -192,7 +215,7 @@ function Login() {
             <button 
               disabled={loading}
               type="submit" 
-              className="w-full bg-primary hover:bg-primary-hover disabled:opacity-50 text-black font-bold py-4 rounded-xl mt-8 transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] hover:shadow-[0_0_30px_rgba(229,193,88,0.4)] flex justify-center items-center gap-2"
+              className="w-full bg-primary hover:bg-primary-hover disabled:opacity-50 text-black font-bold py-4 rounded-xl mt-8 transition-all shadow-[0_0_20px_rgba(229,193,88,0.2)] hover:shadow-[0_0_30px_rgba(229,193,88,0.4)] flex justify-center items-center gap-2 cursor-pointer"
             >
               {isLogin ? 'Sign In to Dashboard' : 'Get Started'}
               <ArrowRight size={18} />
@@ -211,7 +234,7 @@ function Login() {
             </div>
             
             <div className="mt-6 grid grid-cols-2 gap-4">
-              <button onClick={handleGoogle} disabled={loading} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-white/10 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white disabled:opacity-50">
+              <button onClick={handleGoogle} disabled={loading} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-white/10 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white disabled:opacity-50 cursor-pointer">
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
                   <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -220,7 +243,7 @@ function Login() {
                 </svg>
                 Google
               </button>
-              <button onClick={handleApple} disabled={loading} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-white/10 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white disabled:opacity-50">
+              <button onClick={handleApple} disabled={loading} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-white/10 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white disabled:opacity-50 cursor-pointer">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.04 2.26-.74 3.58-.79 2.12-.13 3.73.95 4.75 2.76-4.13 2.33-3.32 7.7.92 9.29-.86 2.2-2.04 4.31-4.33 6.91zm-2.83-16.7c-.5.12-1.09.28-1.52.54-.7.42-1.35 1.14-1.74 1.96-.34.69-.53 1.48-.56 2.19.79.03 1.64-.28 2.3-.72.67-.44 1.25-1.12 1.62-1.89.32-.69.5-1.47.5-2.12-.76-.08-1.54.1-2.26.32z"/>
                 </svg>
@@ -236,7 +259,7 @@ function Login() {
           {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button 
             onClick={() => setIsLogin(!isLogin)} 
-            className="text-primary hover:underline font-bold"
+            className="text-primary hover:underline font-bold cursor-pointer"
           >
             {isLogin ? 'Sign up' : 'Sign in'}
           </button>

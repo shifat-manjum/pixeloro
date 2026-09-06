@@ -56,7 +56,7 @@ const FAQAccordion = ({ question, answer }) => {
     </div>
   );
 };
-const translations = {
+const getTranslations = (price) => ({
   en: {
     bookCall: "Chat on WhatsApp",
     marketingSub: "WEB DESIGN BY PIXELORO",
@@ -91,7 +91,7 @@ const translations = {
     freeItem4: "Delivered in 24 hours to review.",
     proBadge: "Phase 2",
     proTierTitle: "Hosting & Management",
-    proTierPrice: "€55",
+    proTierPrice: `€${price}`,
     proTierUnit: "/ month + VAT",
     proItem1: "Premium, lightning-fast hosting.",
     proItem2: "Unlimited minor text/image updates.",
@@ -103,7 +103,7 @@ const translations = {
     catchTitle: "So what's the catch?",
     catchSub: "There is no catch. It's exactly how it sounds.",
     catchP1: "We take on all the risk. We build your website for free. If you don't like it, you walk away and pay absolutely nothing.",
-    catchP2: "If you love it, you simply subscribe to our €55/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.",
+    catchP2: `If you love it, you simply subscribe to our €${price}/month plan. We handle the hosting, the servers, the security, and all the annoying tech stuff so you can focus on cooking great food.`,
     featuresTitle: "What you get",
     f1Title: "Paid marketing",
     f1Sub: "We handle your Google Ads to get you more visibility when it matters most.",
@@ -141,7 +141,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Passionate about technology and design.",
     aboutDesc2: "I founded Pixeloro with a simple mission: to bring Italian businesses into the digital world with websites that actually make a difference and drive results.",
-    footerTitle: "Send us your menu. See your website in 48 hours. Free to build. €55 a month only if you keep it.",
+    footerTitle: `Send us your menu. See your website in 48 hours. Free to build. €${price} a month only if you keep it.`,
   },
   it: {
     bookCall: "Scrivici su WhatsApp",
@@ -157,6 +157,8 @@ const translations = {
     yourNamePlace: "Mario Rossi",
     emailLabel: "Indirizzo Email",
     emailPlace: "mario@esempio.it",
+    phoneLabel: "Numero di Telefono",
+    phonePlace: "+39 333 123 4567",
     submitBtn: "Mostrami il mio posizionamento",
     noCreditCard: "100% gratis. Nessuna carta di credito richiesta.",
     terms: "* Si applicano termini e condizioni. La privacy dei dati è la nostra priorità. Non vendiamo i tuoi dati.",
@@ -172,10 +174,10 @@ const translations = {
     freeItem1: "Audit completo del Profilo Google & SEO. Scopri esattamente dove ti trovi.",
     freeItem2: "Lista dei tuoi concorrenti locali. E cosa fanno meglio di te.",
     freeItem3: "Feedback di base sul sito web.",
-    freeItem4: "Chiamata di consulenza di 15 minuti. Senza impegno.",
+    freeItem4: "Chat diretta su WhatsApp senza impegno.",
     proBadge: "Solo se lo desideri",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€55",
+    proTierPrice: `${price}€`,
     proTierUnit: "/ mese + IVA",
     proItem1: "Facciamo tutto noi per te. Rilassati e goditi i risultati.",
     proItem2: "Google My Business ottimizzato. Massimizza la ricerca locale.",
@@ -187,7 +189,7 @@ const translations = {
     catchTitle: "Quindi, dov'è la fregatura?",
     catchSub: "Non c'è nessuna fregatura. È esattamente come sembra.",
     catchP1: "Ti offriamo un enorme valore iniziale facendo il lavoro pesante e mostrandoti esattamente cosa non va nella tua attuale configurazione digitale. Tutto gratis. Nessuna carta richiesta.",
-    catchP2: "Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli 55€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.",
+    catchP2: `Se ti piace ciò che vedi e vuoi che lo sistemiamo, puoi assumerci per soli ${price}€ al mese. Altrimenti, prendi l'audit e lo sistemi da solo. È un vantaggio per tutti.`,
     featuresTitle: "Cosa ottieni",
     f1Title: "Marketing a pagamento",
     f1Sub: "Gestiamo i tuoi Google Ads per darti maggiore visibilità quando conta di più.",
@@ -196,7 +198,7 @@ const translations = {
     f3Title: "Supporto 24/7",
     f3Sub: "Ogni volta che hai una domanda, il nostro team dedicato è qui per aiutarti.",
     f4Title: "Dashboard semplici",
-    f4Sub: "Tieni traccia della tua crescita in tempo reale con metricas facili da capire.",
+    f4Sub: "Tieni traccia della tua crescita in tempo reale con metriche facili da capire.",
     f5Title: "Configurazione Google Maps",
     f5Sub: "Assicurati di essere il primo pin che appare quando qualcuno cerca.",
     f6Title: "Ottimizzazione sito web",
@@ -225,7 +227,7 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Appassionato di tecnologia e design.",
     aboutDesc2: "Ho fondato Pixeloro con una semplice missione: portare le aziende italiane nel mondo digitale con siti web che facciano davvero la differenza e portino risultati.",
-    footerTitle: "Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. 55€ al mese solo se lo mantieni.",
+    footerTitle: `Inviaci il tuo menu. Vedi il tuo sito in 48 ore. Gratis da costruire. ${price}€ al mese solo se lo mantieni.`,
   },
   de: {
     bookCall: "Auf WhatsApp schreiben",
@@ -241,6 +243,8 @@ const translations = {
     yourNamePlace: "Max Mustermann",
     emailLabel: "E-Mail Adresse",
     emailPlace: "max@beispiel.de",
+    phoneLabel: "Telefonnummer",
+    phonePlace: "+49 123 456789",
     submitBtn: "Zeig mir mein Ranking",
     noCreditCard: "100% kostenlos. Keine Kreditkarte erforderlich.",
     terms: "* Es gelten die AGB. Datenschutz ist unsere höchste Priorität. Wir verkaufen Ihre Daten nicht.",
@@ -259,7 +263,7 @@ const translations = {
     freeItem4: "Chat auf WhatsApp für alle Details.",
     proBadge: "Nur wenn Sie es wollen",
     proTierTitle: "Pixeloro Pro",
-    proTierPrice: "€55",
+    proTierPrice: `${price}€`,
     proTierUnit: "/ Monat + MwSt",
     proItem1: "Wir erledigen alles für Sie. Lehnen Sie sich zurück.",
     proItem2: "Optimiertes Google My Business. Maximieren Sie die lokale Suche.",
@@ -271,7 +275,7 @@ const translations = {
     catchTitle: "Also, was ist der Haken?",
     catchSub: "Es gibt keinen Haken. Es ist genau so, wie es klingt.",
     catchP1: "Wir bieten Ihnen frühzeitig massiven Wert, indem wir die schwere Arbeit übernehmen und Ihnen genau zeigen, was an Ihrem aktuellen digitalen Setup falsch ist. Alles kostenlos.",
-    catchP2: "Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur 55 € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.",
+    catchP2: `Wenn Ihnen gefällt, was Sie sehen, können Sie uns für nur ${price} € im Monat beauftragen. Wenn nicht, nehmen Sie einfach das Audit und beheben es selbst. Eine Win-Win-Situation.`,
     featuresTitle: "Was Sie bekommen",
     f1Title: "Bezahltes Marketing",
     f1Sub: "Wir verwalten Ihre Google Ads, um Ihnen mehr Sichtbarkeit zu verschaffen.",
@@ -309,9 +313,9 @@ const translations = {
     aboutName: "KH Shifat Manjum",
     aboutDesc1: "Leidenschaftlich für Technologie und Design.",
     aboutDesc2: "Ich habe Pixeloro mit einer einfachen Mission gegründet: italienische Unternehmen in die digitale Welt zu bringen, mit Websites, die wirklich einen Unterschied machen und Ergebnisse liefern.",
-    footerTitle: "Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. 55€ im Monat, nur wenn Sie sie behalten.",
+    footerTitle: `Senden Sie uns Ihr Menü. Sehen Sie Ihre Website in 48 Stunden. Kostenlos zu erstellen. ${price}€ im Monat, nur wenn Sie sie behalten.`,
   }
-};
+});
 
 const FeatureCard = ({ icon: Icon, title, desc }) => {
   const [ref, inView] = useInView();
@@ -333,8 +337,23 @@ const FeatureCard = ({ icon: Icon, title, desc }) => {
 };
 
 function Home() {
-  const [lang, setLang] = useState('en');
-  const t = translations[lang];
+  const [lang, setLang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
+  const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '55');
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/settings`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.monthlyPrice) {
+          setMonthlyPrice(String(data.monthlyPrice));
+          localStorage.setItem('pixeloro_monthly_price', String(data.monthlyPrice));
+        }
+      })
+      .catch(err => console.error("Error fetching settings:", err));
+  }, []);
+
+  const allTranslations = getTranslations(monthlyPrice);
+  const t = allTranslations[lang] || allTranslations.it;
 
   const [formData, setFormData] = useState({
     restaurantName: '',
@@ -356,15 +375,20 @@ function Home() {
   const phoneNumber = "+393481134181";
   const whatsappUrl = `https://wa.me/393481134181?text=${encodeURIComponent(
     lang === 'it' 
-      ? "Ciao! Vorrei maggiori informazioni sulla bozza gratuita in 48 ore del nuovo sito web per il mio ristorante." 
+      ? `Ciao! Vorrei maggiori informazioni sulla bozza gratuita in 48 ore del nuovo sito web per il mio ristorante (offerta ${monthlyPrice}€/mese).` 
       : lang === 'de'
-      ? "Hallo! Ich interessiere mich für einen kostenlosen Website-Entwurf innerhalb von 48 Stunden für mein Restaurant."
-      : "Hi! I would like more information about getting a free 48h custom website build for my restaurant."
+      ? `Hallo! Ich interessiere mich für einen kostenlosen Website-Entwurf innerhalb von 48 Stunden für mein Restaurant (${monthlyPrice}€/Monat).`
+      : `Hi! I would like more information about getting a free 48h custom website build for my restaurant (€${monthlyPrice}/mo).`
   )}`;
 
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleLanguageChange = (l) => {
+    setLang(l);
+    localStorage.setItem('pixeloro_lang', l);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -397,43 +421,84 @@ function Home() {
   };
 
   const faqs = [
-    { q: "Is it really free?", a: "Yes, we design, build, and launch your initial website 100% for free. You only pay the €55/month if you decide to keep it and use our hosting & maintenance." },
-    { q: "How does the process work?", a: "Simply send us your current menu and some details. We will build a high-converting website draft. If you love it, we make it live." },
-    { q: "How long does it take?", a: "Our standard turnaround time is incredibly fast. We will have your new website ready in 24-48 hours after receiving your menu and details." },
-    { q: "What is Pixeloro Pro?", a: "It's our all-inclusive €55/month subscription. It covers premium hosting, SSL security, continuous technical maintenance, and unlimited minor text/image updates." },
-    { q: "Are there any hidden fees or contracts?", a: "No hidden fees, no long-term contracts. You can cancel your subscription at any time with no questions asked." }
+    { 
+      q: lang === 'it' ? "È davvero gratis?" : lang === 'de' ? "Ist es wirklich kostenlos?" : "Is it really free?", 
+      a: lang === 'it' 
+        ? `Sì, progettiamo e costruiamo la prima bozza completa del tuo sito web al 100% gratis. Paghi solo ${monthlyPrice}€ al mese se decidi di tenerlo attivo con il nostro hosting ultra-veloce e la manutenzione continua.`
+        : lang === 'de'
+        ? `Ja, wir entwerfen und erstellen Ihren ersten Website-Entwurf zu 100% kostenlos. Sie zahlen nur die ${monthlyPrice}€/Monat, wenn Sie sich entscheiden, die Website zu behalten und unseren Hosting-Service zu nutzen.`
+        : `Yes, we design, build, and present your initial custom website 100% for free. You only pay €${monthlyPrice}/month if you decide to keep it live on your custom domain with our hosting & management.` 
+    },
+    { 
+      q: lang === 'it' ? "Come funziona il processo?" : lang === 'de' ? "Wie funktioniert der Ablauf?" : "How does the process work?", 
+      a: lang === 'it'
+        ? "Inviaci semplicemente il tuo menu attuale e alcuni dettagli. Creiamo una bozza ad alta conversione in sole 24-48 ore. Se ti piace, la colleghiamo al tuo dominio e la mettiamo online."
+        : lang === 'de'
+        ? "Senden Sie uns einfach Ihre Speisekarte und Details. Wir erstellen innerhalb von 24-48 Stunden einen Entwurf. Wenn er Ihnen gefällt, schalten wir ihn live."
+        : "Simply send us your current menu and some details. We will build a high-converting website draft in 24-48 hours. If you love it, we connect your domain and make it live." 
+    },
+    { 
+      q: lang === 'it' ? "Quanto tempo ci vuole?" : lang === 'de' ? "Wie lange dauert es?" : "How long does it take?", 
+      a: lang === 'it'
+        ? "I nostri tempi di consegna sono rapidissimi: riceverai la bozza completa del tuo nuovo sito web su misura in sole 24-48 ore."
+        : lang === 'de'
+        ? "Unsere Bearbeitungszeit ist extrem schnell: Sie erhalten Ihren individuellen Website-Entwurf in nur 24-48 Stunden."
+        : "Our standard turnaround time is incredibly fast. We will have your complete custom website draft ready to review in 24-48 hours after receiving your menu and details." 
+    },
+    { 
+      q: lang === 'it' ? "Cosa include Pixeloro Pro?" : lang === 'de' ? "Was beinhaltet Pixeloro Pro?" : "What is Pixeloro Pro?", 
+      a: lang === 'it'
+        ? `È il nostro abbonamento all-inclusive da ${monthlyPrice}€/mese. Include hosting dedicato ultra-rapido, certificato di sicurezza SSL, manutenzione tecnica continua e modifiche illimitate a menu, testi e foto.`
+        : lang === 'de'
+        ? `Es ist unser All-Inclusive-Abonnement für ${monthlyPrice}€/Monat. Es beinhaltet blitzschnelles Hosting, SSL-Zertifikat, kontinuierliche Wartung und unbegrenzte Änderungen an Menü, Texten und Bildern.`
+        : `It's our all-inclusive €${monthlyPrice}/month subscription. It covers high-speed dedicated hosting, SSL security certificates, continuous technical maintenance, and unlimited minor updates to your menu, texts, and images.` 
+    },
+    { 
+      q: lang === 'it' ? "Ci sono costi nascosti o contratti vincolanti?" : lang === 'de' ? "Gibt es versteckte Kosten oder Verträge?" : "Are there any hidden fees or contracts?", 
+      a: lang === 'it'
+        ? "Nessun costo nascosto e nessun vincolo a lungo termine. Il dominio rimane di tua proprietà e puoi disdire l'abbonamento in qualsiasi momento senza penali."
+        : lang === 'de'
+        ? "Keine versteckten Gebühren, keine langfristigen Verträge. Sie besitzen Ihre Domain und können das Abonnement jederzeit kündigen."
+        : "No hidden fees and no lock-in contracts. You own your domain name, and you can cancel your subscription at any time with no questions asked." 
+    }
   ];
 
   return (
     <div className="min-h-screen bg-gray-bg text-text font-sans selection:bg-primary selection:text-black">
-      {/* Navbar */}
-      <header className="flex justify-between items-center py-6 px-8 md:px-16 max-w-7xl mx-auto border-b border-white/10">
-        <div className="text-3xl font-black tracking-tighter text-primary">pixeloro</div>
-        <div className="flex items-center gap-4">
+      {/* Navbar: Clean on Mobile, Full on Desktop */}
+      <header className="flex justify-between items-center py-5 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto border-b border-white/10">
+        <div className="text-2xl sm:text-3xl font-black tracking-tighter text-primary">pixeloro</div>
+        
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* Language Switcher */}
           <div className="flex bg-white/5 rounded-full border border-white/10 p-1">
             {['it', 'en', 'de'].map(l => (
               <button 
                 key={l}
-                onClick={() => setLang(l)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all uppercase ${lang === l ? 'bg-primary text-black' : 'text-text-muted hover:text-white'}`}
+                onClick={() => handleLanguageChange(l)}
+                className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all uppercase cursor-pointer ${lang === l ? 'bg-primary text-black' : 'text-text-muted hover:text-white'}`}
               >
                 {l}
               </button>
             ))}
           </div>
+
+          {/* CRM Access */}
           <Link 
             to="/login"
-            className="text-xs font-bold text-white/70 hover:text-primary transition-all py-2 px-3.5 rounded-full hover:bg-white/5 flex items-center gap-1.5 border border-white/10 hover:border-primary/40 cursor-pointer"
+            className="text-xs font-bold text-white/70 hover:text-primary transition-all py-2 px-3 sm:px-3.5 rounded-full hover:bg-white/5 flex items-center gap-1.5 border border-white/10 hover:border-primary/40 cursor-pointer"
             title="Access CRM Dashboard"
           >
             <Lock size={13} className="text-primary" />
             <span>CRM</span>
           </Link>
+
+          {/* WhatsApp Action Button - Hidden on mobile to keep navbar clean, visible on desktop/tablets */}
           <a 
             href={whatsappUrl} 
             target="_blank" 
             rel="noreferrer" 
-            className="bg-primary hover:bg-primary-hover text-black font-bold py-2.5 px-6 rounded-full transition-all text-sm shadow-[0_0_15px_rgba(229,193,88,0.3)] inline-flex items-center gap-2"
+            className="bg-primary hover:bg-primary-hover text-black font-bold py-2.5 px-5 sm:px-6 rounded-full transition-all text-xs sm:text-sm shadow-[0_0_15px_rgba(229,193,88,0.3)] hidden sm:inline-flex items-center gap-2 cursor-pointer"
           >
             <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             {t.bookCall}
@@ -632,9 +697,9 @@ function Home() {
         </div>
       </section>
 
-      {/* Live Showcase & Portfolio Carousel */}
+      {/* Live Showcase & Portfolio (Mobile: 1 Card + Toggle, Desktop: 3 Columns) */}
       <Suspense fallback={<div className="py-24 text-center text-primary/40"><div className="w-8 h-8 mx-auto border-2 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
-        <ShowcaseCarousel lang={lang} whatsappUrl={whatsappUrl} />
+        <ShowcaseCarousel lang={lang} whatsappUrl={whatsappUrl} monthlyPrice={monthlyPrice} />
       </Suspense>
 
       {/* How it works */}

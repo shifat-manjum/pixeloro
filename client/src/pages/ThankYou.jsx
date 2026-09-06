@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, Clock, ShieldCheck, Sparkles } from 'lucide-react';
 
 export default function ThankYou() {
-  const whatsappUrl = "https://wa.me/393481134181?text=Ciao!%20Ho%20appena%20inviato%20la%20richiesta%20per%20il%20nuovo%20sito%20del%20mio%20ristorante%20su%20Pixeloro.";
+  const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '55');
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/settings`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.monthlyPrice) {
+          setMonthlyPrice(String(data.monthlyPrice));
+          localStorage.setItem('pixeloro_monthly_price', String(data.monthlyPrice));
+        }
+      })
+      .catch(err => console.error("Error fetching settings:", err));
+  }, []);
+
+  const whatsappUrl = `https://wa.me/393481134181?text=${encodeURIComponent(
+    `Ciao! Ho appena inviato la richiesta per il nuovo sito del mio ristorante su Pixeloro (offerta ${monthlyPrice}€/mese).`
+  )}`;
 
   return (
     <div className="min-h-screen bg-[#0A0A0E] text-white flex items-center justify-center p-4 sm:p-6 relative overflow-hidden font-sans selection:bg-primary selection:text-black">
@@ -73,8 +89,8 @@ export default function ThankYou() {
                 3
               </div>
               <div>
-                <p className="text-white text-sm font-semibold">Decidi Tu: 0€ Anticipo, 55€/mese solo se lo tieni</p>
-                <p className="text-text-muted text-xs sm:text-sm mt-0.5">Se ti piace lo pubblichiamo online sul tuo dominio a 55€/mese tutto compreso. Se non ti convince, amici come prima senza spendere un centesimo.</p>
+                <p className="text-white text-sm font-semibold">Decidi Tu: 0€ Anticipo, {monthlyPrice}€/mese solo se lo tieni</p>
+                <p className="text-text-muted text-xs sm:text-sm mt-0.5">Se ti piace lo pubblichiamo online sul tuo dominio a {monthlyPrice}€/mese tutto compreso. Se non ti convince, amici come prima senza spendere un centesimo.</p>
               </div>
             </div>
           </div>
