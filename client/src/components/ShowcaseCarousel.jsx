@@ -6,7 +6,7 @@ const showcaseItems = [
     id: 1,
     title: "Trattoria & Osteria Tradizionale",
     category: "Cucina Romana & Wine Bar",
-    image: "/showcase-1.jpg",
+    image: "/showcase-1.webp",
     tag: "Rome & Florence Style",
     desc: "Sito web ad alto impatto visivo con focus sul menu tipico, piatti caldi della tradizione e prenotazione diretta al tavolo.",
     highlights: [
@@ -20,7 +20,7 @@ const showcaseItems = [
     id: 2,
     title: "Pizzeria Napoletana D.O.C.",
     category: "Pizze a Lievitazione Naturale & Craft Beer",
-    image: "/showcase-2.jpg",
+    image: "/showcase-2.webp",
     tag: "High-Converting Pizza UI",
     desc: "Layout studiato per valorizzare le pizze gourmet, gli impasti speciali e raccogliere ordini d'asporto e tavoli senza intermediari.",
     highlights: [
@@ -34,7 +34,7 @@ const showcaseItems = [
     id: 3,
     title: "Artisanal Pasta Bar & Bistrot",
     category: "Pasta Fresca & Cucina d'Autore",
-    image: "/showcase-3.jpg",
+    image: "/showcase-3.webp",
     tag: "Luxury Dark & Gold Theme",
     desc: "Un'atmosfera esclusiva che trasmette artigianalità e qualità, ideale per attirare turisti e clienti alto-spendenti.",
     highlights: [
@@ -48,7 +48,7 @@ const showcaseItems = [
     id: 4,
     title: "Ristorante di Pesce & Crudi",
     category: "Cucina Marinara & Frutti di Mare",
-    image: "/showcase-4.jpg",
+    image: "/showcase-4.webp",
     tag: "Seafood & Coastal Dining",
     desc: "Design fresco ed elegante con sezione 'Pescato del Giorno' aggiornabile in 30 secondi con un messaggio WhatsApp.",
     highlights: [
@@ -62,7 +62,7 @@ const showcaseItems = [
     id: 5,
     title: "Steakhouse, Braceria & Grill",
     category: "Carni Pregiate & Dry Aged Selection",
-    image: "/showcase-5.jpg",
+    image: "/showcase-5.webp",
     tag: "Prime Cuts Experience",
     desc: "Interfaccia audace e moderna per bracerie che vogliono mettere in risalto la frollatura delle carni e le selezioni di vini.",
     highlights: [
@@ -76,7 +76,7 @@ const showcaseItems = [
     id: 6,
     title: "Caffetteria, Bakery & Gelato",
     category: "Pasticceria Artigianale & Specialty Coffee",
-    image: "/showcase-6.jpg",
+    image: "/showcase-6.webp",
     tag: "Pastry & Coffee Aesthetic",
     desc: "Grafica pulita e accogliente per colazioni, brunch e pause caffè, con integrazione diretta dei contenuti social.",
     highlights: [
@@ -192,7 +192,10 @@ export default function ShowcaseCarousel({ lang = 'it', whatsappUrl }) {
               <img
                 src={item.image}
                 alt={item.title}
+                width="800"
+                height="500"
                 loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#14141c] via-transparent to-black/40"></div>
@@ -316,6 +319,9 @@ export default function ShowcaseCarousel({ lang = 'it', whatsappUrl }) {
               <img 
                 src={selectedPreview.image} 
                 alt={selectedPreview.title} 
+                width="1000"
+                height="625"
+                decoding="async"
                 className="w-full h-auto max-h-[68vh] object-contain rounded-2xl border border-white/5 shadow-2xl"
               />
             </div>

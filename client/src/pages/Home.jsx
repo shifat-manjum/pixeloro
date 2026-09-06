@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock } from 'lucide-react';
-import ShowcaseCarousel from '../components/ShowcaseCarousel';
+
+const ShowcaseCarousel = lazy(() => import('../components/ShowcaseCarousel'));
+
 
 
 function useInView(options = { threshold: 0.1 }) {
@@ -631,7 +633,9 @@ function Home() {
       </section>
 
       {/* Live Showcase & Portfolio Carousel */}
-      <ShowcaseCarousel lang={lang} whatsappUrl={whatsappUrl} />
+      <Suspense fallback={<div className="py-24 text-center text-primary/40"><div className="w-8 h-8 mx-auto border-2 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+        <ShowcaseCarousel lang={lang} whatsappUrl={whatsappUrl} />
+      </Suspense>
 
       {/* How it works */}
       <section className="py-24 px-4 border-y border-white/5 bg-card">
@@ -695,7 +699,7 @@ function Home() {
         
         <div className="max-w-xl mx-auto bg-[#1A1A1A] rounded-3xl p-10 border border-primary/30 text-center shadow-[0_0_30px_rgba(229,193,88,0.2)] hover:shadow-[0_0_40px_rgba(229,193,88,0.3)] transition-all duration-500 group">
           <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 flex-shrink-0 border-2 border-primary/80 shadow-[0_0_20px_rgba(229,193,88,0.4)] transition-all duration-500">
-             <img src="/founder.jpg" alt="KH Shifat Manjum" loading="lazy" fetchpriority="low" decoding="async" className="w-full h-full object-cover object-top" />
+             <img src="/founder.webp" alt="KH Shifat Manjum" width="128" height="128" loading="lazy" fetchpriority="low" decoding="async" className="w-full h-full object-cover object-top" />
           </div>
           <h3 className="text-2xl font-semibold text-[#E5E5E5] tracking-wide mb-2">{t.aboutName}</h3>
           <p className="text-primary font-medium text-sm mb-6">{t.aboutRole}</p>

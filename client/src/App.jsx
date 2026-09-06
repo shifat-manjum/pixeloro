@@ -1,30 +1,55 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import ThankYou from './pages/ThankYou';
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import PageLoader from './components/PageLoader';
+
+const ThankYou = lazy(() => import('./pages/ThankYou'));
+const AuthWrapper = lazy(() => import('./components/AuthWrapper'));
+const Login = lazy(() => import('./pages/Login'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'));
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/thank-you" element={<ThankYou />} />
-          <Route path="/login" element={<Login />} />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route 
+          path="/thank-you" 
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ThankYou />
+            </Suspense>
+          } 
+        />
+        <Route 
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <AuthWrapper />
+            </Suspense>
+          }
+        >
+          <Route 
+            path="/login" 
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <Login />
+              </Suspense>
+            } 
+          />
           <Route 
             path="/dashboard" 
             element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
+              <Suspense fallback={<PageLoader />}>
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              </Suspense>
             } 
           />
-        </Routes>
-      </Router>
-    </AuthProvider>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
