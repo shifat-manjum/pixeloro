@@ -1,6 +1,6 @@
 import { 
   BarChart3, Users, Settings, LogOut, Search, Menu, 
-  Trash2, Download, Check, X, RefreshCw, Save
+  Trash2, Download, Check, X, RefreshCw, Save, CreditCard, ShieldCheck, Key, ExternalLink
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -27,6 +27,7 @@ const dashTranslations = {
     tableName: "Nome",
     tableRestaurant: "Ristorante",
     tableContact: "Contatto",
+    tableStatus: "Stato Abbonamento",
     tableDate: "Data",
     tableActions: "Azioni",
     exportCsv: "Esporta CSV",
@@ -36,10 +37,23 @@ const dashTranslations = {
     monthlyPriceLabel: "Prezzo Abbonamento Mensile Mostrato nel Sito (€/mese)",
     monthlyPriceHelp: "Questo valore aggiorna automaticamente tutti i testi del sito (es. 55€, 70€/mese, titoli, FAQ e messaggi WhatsApp).",
     whatsappNumberLabel: "Numero WhatsApp per Ricevere i Lead",
+    stripeConfigTitle: "Configurazione Stripe & Pagamenti Automatici",
+    stripeConfigSub: "Collega il tuo account Stripe per ricevere automaticamente gli abbonamenti mensili con Apple Pay, Carte e SEPA.",
+    stripeSecretKeyLabel: "Stripe Secret Key (sk_live_... / sk_test_...)",
+    stripePublishableKeyLabel: "Stripe Publishable Key (pk_live_... / pk_test_...)",
+    stripePaymentLinkLabel: "Stripe Payment Link Diretto (Opzionale)",
+    stripePaymentLinkHelp: "Se hai creato un link di pagamento ricorrente nella dashboard Stripe, incollalo qui per usarlo direttamente.",
+    stripeStatusActive: "Stripe Connesso & Pronto",
+    stripeStatusDemo: "Modalità Demo Attiva (Inserisci le chiavi Stripe per ricevere pagamenti reali)",
     saveChanges: "Salva Modifiche",
     savedSuccess: "Impostazioni salvate e sincronizzate con successo!",
     deleteConfirm: "Sei sicuro di voler eliminare questo lead?",
-    refresh: "Aggiorna Dati"
+    refresh: "Aggiorna Dati",
+    sendStripeLink: "Invia Link Pagamento",
+    statusSubscribed: "Abbonato",
+    statusPending: "In Attesa Pagamento",
+    statusLead: "Bozza Gratuita",
+    statusCanceled: "Cancellato"
   },
   en: {
     overview: "Overview",
@@ -61,6 +75,7 @@ const dashTranslations = {
     tableName: "Name",
     tableRestaurant: "Restaurant",
     tableContact: "Contact Info",
+    tableStatus: "Subscription Status",
     tableDate: "Date",
     tableActions: "Actions",
     exportCsv: "Export CSV",
@@ -70,10 +85,23 @@ const dashTranslations = {
     monthlyPriceLabel: "Monthly Subscription Price Shown on Website (€/month)",
     monthlyPriceHelp: "This value automatically updates all prices across the website (e.g. €55, €70/month, titles, FAQs, and WhatsApp prefilled texts).",
     whatsappNumberLabel: "WhatsApp Phone Number to Receive Leads",
+    stripeConfigTitle: "Stripe & Automated Payments Configuration",
+    stripeConfigSub: "Connect your Stripe account to automatically collect monthly subscriptions via Apple Pay, Cards, and SEPA.",
+    stripeSecretKeyLabel: "Stripe Secret Key (sk_live_... / sk_test_...)",
+    stripePublishableKeyLabel: "Stripe Publishable Key (pk_live_... / pk_test_...)",
+    stripePaymentLinkLabel: "Stripe Direct Payment Link (Optional)",
+    stripePaymentLinkHelp: "If you created a recurring payment link in Stripe Dashboard, paste it here to use directly.",
+    stripeStatusActive: "Stripe Connected & Ready",
+    stripeStatusDemo: "Demo Mode Active (Add your Stripe keys to collect real payments)",
     saveChanges: "Save Changes",
     savedSuccess: "Settings saved and synchronized successfully!",
     deleteConfirm: "Are you sure you want to delete this lead?",
-    refresh: "Refresh Data"
+    refresh: "Refresh Data",
+    sendStripeLink: "Send Stripe Link",
+    statusSubscribed: "Subscribed",
+    statusPending: "Pending Payment",
+    statusLead: "Free Draft",
+    statusCanceled: "Canceled"
   },
   de: {
     overview: "Übersicht",
@@ -95,6 +123,7 @@ const dashTranslations = {
     tableName: "Name",
     tableRestaurant: "Restaurant",
     tableContact: "Kontaktdaten",
+    tableStatus: "Abo-Status",
     tableDate: "Datum",
     tableActions: "Aktionen",
     exportCsv: "CSV exportieren",
@@ -104,10 +133,23 @@ const dashTranslations = {
     monthlyPriceLabel: "Auf der Website angezeigter monatlicher Preis (€/Monat)",
     monthlyPriceHelp: "Dieser Wert aktualisiert automatisch alle Preise auf der Website (z. B. 55€, 70€/Monat, Titel, FAQs und WhatsApp-Nachrichten).",
     whatsappNumberLabel: "WhatsApp-Telefonnummer für Leads",
+    stripeConfigTitle: "Stripe & Automatische Zahlungen",
+    stripeConfigSub: "Verbinden Sie Ihr Stripe-Konto, um monatliche Abonnements mit Apple Pay, Karten und SEPA automatisch einzuziehen.",
+    stripeSecretKeyLabel: "Stripe Secret Key (sk_live_... / sk_test_...)",
+    stripePublishableKeyLabel: "Stripe Publishable Key (pk_live_... / pk_test_...)",
+    stripePaymentLinkLabel: "Direkter Stripe-Zahlungslink (Optional)",
+    stripePaymentLinkHelp: "Wenn Sie einen Zahlungslink in Stripe erstellt haben, fügen Sie ihn hier ein.",
+    stripeStatusActive: "Stripe Verbunden & Bereit",
+    stripeStatusDemo: "Demo-Modus aktiv (Fügen Sie Ihre Stripe-Schlüssel für echte Zahlungen ein)",
     saveChanges: "Änderungen speichern",
     savedSuccess: "Einstellungen erfolgreich gespeichert und synchronisiert!",
     deleteConfirm: "Sind Sie sicher, dass Sie diesen Lead löschen möchten?",
-    refresh: "Daten aktualisieren"
+    refresh: "Daten aktualisieren",
+    sendStripeLink: "Zahlungslink senden",
+    statusSubscribed: "Abonniert",
+    statusPending: "Zahlung ausstehend",
+    statusLead: "Kostenloser Entwurf",
+    statusCanceled: "Gekündigt"
   }
 };
 
@@ -133,6 +175,9 @@ function Dashboard() {
     whatsappNumber: '+393481134181',
     whatsappAlerts: true,
     emailAlerts: true,
+    stripePublishableKey: '',
+    stripeSecretKey: '',
+    stripePaymentLink: ''
   });
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [savingSettings, setSavingSettings] = useState(false);
@@ -493,15 +538,16 @@ function Dashboard() {
                       <th className="p-4 font-bold">{t.tableName}</th>
                       <th className="p-4 font-bold">{t.tableRestaurant}</th>
                       <th className="p-4 font-bold">{t.tableContact}</th>
+                      <th className="p-4 font-bold">{t.tableStatus}</th>
                       <th className="p-4 font-bold">{t.tableDate}</th>
                       <th className="p-4 font-bold text-right">{t.tableActions}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5 text-xs">
                     {loading ? (
-                      <tr><td colSpan="5" className="p-8 text-center text-text-muted">Caricamento lead...</td></tr>
+                      <tr><td colSpan="6" className="p-8 text-center text-text-muted">Caricamento lead...</td></tr>
                     ) : filteredLeads.length === 0 ? (
-                      <tr><td colSpan="5" className="p-8 text-center text-text-muted">{t.noLeads}</td></tr>
+                      <tr><td colSpan="6" className="p-8 text-center text-text-muted">{t.noLeads}</td></tr>
                     ) : (
                       filteredLeads.slice(0, visibleCount).map((lead) => (
                         <tr key={lead._id} className="hover:bg-white/5 transition-colors">
@@ -519,21 +565,52 @@ function Dashboard() {
                               <div className="text-text-muted">{lead.email}</div>
                             </div>
                           </td>
+                          <td className="p-4">
+                            {lead.status === 'subscribed' ? (
+                              <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 w-fit">
+                                <Check size={12} className="stroke-[3]" /> {t.statusSubscribed}
+                              </span>
+                            ) : lead.status === 'pending_payment' ? (
+                              <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center gap-1 w-fit">
+                                <CreditCard size={12} /> {t.statusPending}
+                              </span>
+                            ) : lead.status === 'canceled' ? (
+                              <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-red-500/20 text-red-400 border border-red-500/30 w-fit">
+                                {t.statusCanceled}
+                              </span>
+                            ) : (
+                              <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/10 text-text-muted border border-white/10 w-fit">
+                                {t.statusLead}
+                              </span>
+                            )}
+                          </td>
                           <td className="p-4 text-text-muted whitespace-nowrap">
                             {new Date(lead.createdAt).toLocaleDateString()}
                           </td>
                           <td className="p-4 text-right">
                             <div className="flex items-center justify-end gap-2">
                               {lead.phone && (
-                                <a 
-                                  href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
-                                  target="_blank" 
-                                  rel="noreferrer" 
-                                  className="px-2.5 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1"
-                                  title="Chat on WhatsApp"
-                                >
-                                  <span>💬</span> WhatsApp
-                                </a>
+                                <>
+                                  <a 
+                                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
+                                    target="_blank" 
+                                    rel="noreferrer" 
+                                    className="px-2.5 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1"
+                                    title="Chat on WhatsApp"
+                                  >
+                                    <span>💬</span> WhatsApp
+                                  </a>
+                                  <a 
+                                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento Pixeloro Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                    target="_blank" 
+                                    rel="noreferrer" 
+                                    className="px-2.5 py-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-primary/30"
+                                    title="Invia Link Stripe su WhatsApp"
+                                  >
+                                    <CreditCard size={13} />
+                                    <span>Paga</span>
+                                  </a>
+                                </>
                               )}
                               <button
                                 onClick={() => handleDeleteLead(lead._id, lead.name)}
@@ -561,11 +638,11 @@ function Dashboard() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
               <div>
                 <h2 className="text-xl font-black text-white">{t.leads}</h2>
-                <p className="text-xs text-text-muted">Gestisci ed esporta tutti i contatti raccolti dal sito web</p>
+                <p className="text-xs text-text-muted">Gestisci contatti, invia link Stripe ed esporta i dati</p>
               </div>
               <button 
                 onClick={handleExportCSV}
-                className="px-4 py-2.5 bg-primary hover:bg-primary-hover text-black rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-lg"
+                className="px-4 py-2.5 bg-primary hover:bg-primary-hover text-black rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-lg cursor-pointer"
               >
                 <Download size={15} />
                 {t.exportCsv}
@@ -579,6 +656,7 @@ function Dashboard() {
                     <th className="p-4 font-bold">{t.tableName}</th>
                     <th className="p-4 font-bold">{t.tableRestaurant}</th>
                     <th className="p-4 font-bold">{t.tableContact}</th>
+                    <th className="p-4 font-bold">{t.tableStatus}</th>
                     <th className="p-4 font-bold">{t.tableDate}</th>
                     <th className="p-4 font-bold text-right">{t.tableActions}</th>
                   </tr>
@@ -589,25 +667,52 @@ function Dashboard() {
                       <td className="p-4 font-bold text-white">{lead.name}</td>
                       <td className="p-4 text-primary font-semibold">{lead.restaurantName}</td>
                       <td className="p-4 text-text-muted">
-                        <div>{lead.phone}</div>
-                        <div>{lead.email}</div>
+                        <div className="text-white font-mono">{lead.phone}</div>
+                        <div className="text-text-muted">{lead.email}</div>
+                      </td>
+                      <td className="p-4">
+                        {lead.status === 'subscribed' ? (
+                          <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 w-fit">
+                            <Check size={12} className="stroke-[3]" /> {t.statusSubscribed}
+                          </span>
+                        ) : lead.status === 'pending_payment' ? (
+                          <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center gap-1 w-fit">
+                            <CreditCard size={12} /> {t.statusPending}
+                          </span>
+                        ) : (
+                          <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/10 text-text-muted border border-white/10 w-fit">
+                            {t.statusLead}
+                          </span>
+                        )}
                       </td>
                       <td className="p-4 text-text-muted">{new Date(lead.createdAt).toLocaleDateString()}</td>
                       <td className="p-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           {lead.phone && (
-                            <a 
-                              href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
-                              target="_blank" 
-                              rel="noreferrer" 
-                              className="px-2.5 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors"
-                            >
-                              WhatsApp
-                            </a>
+                            <>
+                              <a 
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=Ciao%20${encodeURIComponent(lead.name)}!%20Ti%20contatto%20da%20Pixeloro%20per%20la%20bozza%20del%20tuo%20nuovo%20sito.`} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="px-2.5 py-1.5 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1"
+                              >
+                                <span>💬</span> WhatsApp
+                              </a>
+                              <a 
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Ciao ${lead.name}! Ecco il link sicuro per attivare l'abbonamento Pixeloro Pro per ${lead.restaurantName} (${settings.monthlyPrice}€/mese): ${settings.stripePaymentLink || `${window.location.origin}/#pricing`}`)}`}
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="px-2.5 py-1.5 bg-primary/20 hover:bg-primary text-primary hover:text-black rounded-lg font-bold transition-colors flex items-center gap-1 border border-primary/30"
+                                title="Invia Link Stripe su WhatsApp"
+                              >
+                                <CreditCard size={13} />
+                                <span>Paga</span>
+                              </a>
+                            </>
                           )}
                           <button
                             onClick={() => handleDeleteLead(lead._id, lead.name)}
-                            className="p-1.5 text-text-muted hover:text-red-400 rounded-lg"
+                            className="p-1.5 text-text-muted hover:text-red-400 rounded-lg cursor-pointer hover:bg-red-500/10 transition-colors"
                           >
                             <Trash2 size={15} />
                           </button>
@@ -621,7 +726,7 @@ function Dashboard() {
           </div>
         )}
 
-        {/* TAB 3: SETTINGS (DYNAMIC MONTHLY PRICE & CONFIG) */}
+        {/* TAB 3: SETTINGS (DYNAMIC MONTHLY PRICE & STRIPE CONFIG) */}
         {currentTab === 'settings' && (
           <div className="max-w-3xl bg-[#14141c] rounded-3xl border border-white/10 p-6 sm:p-10 shadow-2xl">
             <div className="mb-8">
@@ -641,55 +746,118 @@ function Dashboard() {
               </div>
             )}
 
-            <form onSubmit={handleSaveSettings} className="space-y-6">
+            <form onSubmit={handleSaveSettings} className="space-y-8">
               
               {/* Dynamic Monthly Price Input */}
-              <div className="bg-black/60 p-6 rounded-2xl border border-white/10">
-                <label className="block text-sm font-black text-white mb-1">
-                  {t.monthlyPriceLabel}
-                </label>
-                <p className="text-xs text-text-muted mb-4">
-                  {t.monthlyPriceHelp}
-                </p>
-                <div className="relative max-w-xs">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary font-black text-lg">
-                    €
+              <div className="bg-black/60 p-6 rounded-2xl border border-white/10 space-y-4">
+                <div>
+                  <label className="block text-sm font-black text-white mb-1">
+                    {t.monthlyPriceLabel}
+                  </label>
+                  <p className="text-xs text-text-muted mb-4">
+                    {t.monthlyPriceHelp}
+                  </p>
+                  <div className="relative max-w-xs">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-primary font-black text-lg">
+                      €
+                    </div>
+                    <input 
+                      type="number" 
+                      min="1" 
+                      max="999" 
+                      value={settings.monthlyPrice}
+                      onChange={(e) => setSettings({ ...settings, monthlyPrice: e.target.value })}
+                      className="w-full bg-[#171720] border-2 border-primary/60 focus:border-primary text-white font-black text-xl rounded-xl py-3 pl-10 pr-16 focus:outline-none"
+                      placeholder="55"
+                      required
+                    />
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-xs text-text-muted font-bold">
+                      / mese
+                    </div>
                   </div>
+                </div>
+
+                {/* WhatsApp Phone Number */}
+                <div className="pt-4 border-t border-white/10">
+                  <label className="block text-sm font-black text-white mb-1">
+                    {t.whatsappNumberLabel}
+                  </label>
                   <input 
-                    type="number" 
-                    min="1" 
-                    max="999" 
-                    value={settings.monthlyPrice}
-                    onChange={(e) => setSettings({ ...settings, monthlyPrice: e.target.value })}
-                    className="w-full bg-[#171720] border-2 border-primary/60 focus:border-primary text-white font-black text-xl rounded-xl py-3 pl-10 pr-16 focus:outline-none"
-                    placeholder="55"
+                    type="text" 
+                    value={settings.whatsappNumber}
+                    onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
+                    className="w-full bg-[#171720] border border-white/10 focus:border-primary text-white font-mono text-sm rounded-xl py-3 px-4 focus:outline-none max-w-md"
+                    placeholder="+393481134181"
                     required
                   />
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-xs text-text-muted font-bold">
-                    / mese
-                  </div>
                 </div>
               </div>
 
-              {/* WhatsApp Phone Number */}
-              <div className="bg-black/60 p-6 rounded-2xl border border-white/10">
-                <label className="block text-sm font-black text-white mb-1">
-                  {t.whatsappNumberLabel}
-                </label>
-                <input 
-                  type="text" 
-                  value={settings.whatsappNumber}
-                  onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
-                  className="w-full bg-[#171720] border border-white/10 focus:border-primary text-white font-mono text-sm rounded-xl py-3 px-4 focus:outline-none max-w-md"
-                  placeholder="+393481134181"
-                  required
-                />
+              {/* Stripe Payment Gateway Settings */}
+              <div className="bg-black/60 p-6 rounded-2xl border border-white/10 space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                  <div className="flex items-center gap-2.5">
+                    <CreditCard size={20} className="text-primary" />
+                    <div>
+                      <h3 className="text-sm font-black text-white">{t.stripeConfigTitle}</h3>
+                      <p className="text-xs text-text-muted">{t.stripeConfigSub}</p>
+                    </div>
+                  </div>
+                  <div className="text-xs font-bold px-3 py-1 rounded-full border bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                    {settings.stripeSecretKey || settings.stripePaymentLink ? t.stripeStatusActive : t.stripeStatusDemo}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-text-muted mb-1 flex items-center gap-1.5">
+                    <Key size={13} className="text-primary" />
+                    <span>{t.stripeSecretKeyLabel}</span>
+                  </label>
+                  <input 
+                    type="password" 
+                    value={settings.stripeSecretKey || ''}
+                    onChange={(e) => setSettings({ ...settings, stripeSecretKey: e.target.value })}
+                    className="w-full bg-[#171720] border border-white/10 focus:border-primary text-white font-mono text-xs rounded-xl py-3 px-4 focus:outline-none placeholder:text-white/20"
+                    placeholder="sk_live_... oppure sk_test_..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-text-muted mb-1 flex items-center gap-1.5">
+                    <ShieldCheck size={13} className="text-primary" />
+                    <span>{t.stripePublishableKeyLabel}</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    value={settings.stripePublishableKey || ''}
+                    onChange={(e) => setSettings({ ...settings, stripePublishableKey: e.target.value })}
+                    className="w-full bg-[#171720] border border-white/10 focus:border-primary text-white font-mono text-xs rounded-xl py-3 px-4 focus:outline-none placeholder:text-white/20"
+                    placeholder="pk_live_... oppure pk_test_..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-text-muted mb-1 flex items-center gap-1.5">
+                    <ExternalLink size={13} className="text-primary" />
+                    <span>{t.stripePaymentLinkLabel}</span>
+                  </label>
+                  <input 
+                    type="url" 
+                    value={settings.stripePaymentLink || ''}
+                    onChange={(e) => setSettings({ ...settings, stripePaymentLink: e.target.value })}
+                    className="w-full bg-[#171720] border border-white/10 focus:border-primary text-white font-mono text-xs rounded-xl py-3 px-4 focus:outline-none placeholder:text-white/20"
+                    placeholder="https://buy.stripe.com/..."
+                  />
+                  <p className="text-[11px] text-text-muted mt-1">
+                    {t.stripePaymentLinkHelp}
+                  </p>
+                </div>
               </div>
 
               <button
                 type="submit"
                 disabled={savingSettings}
-                className="py-3.5 px-8 bg-primary hover:bg-primary-hover text-black font-extrabold text-sm rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-primary/20 cursor-pointer disabled:opacity-50"
+                className="py-4 px-10 bg-primary hover:bg-primary-hover text-black font-extrabold text-sm rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-primary/20 cursor-pointer disabled:opacity-50"
               >
                 <Save size={16} />
                 {savingSettings ? 'Salvataggio...' : t.saveChanges}

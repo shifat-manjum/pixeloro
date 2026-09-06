@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import PageLoader from './components/PageLoader';
 
 const ThankYou = lazy(() => import('./pages/ThankYou'));
+const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'));
 const AuthWrapper = lazy(() => import('./components/AuthWrapper'));
 const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -19,6 +20,14 @@ function App() {
           element={
             <Suspense fallback={<PageLoader />}>
               <ThankYou />
+            </Suspense>
+          } 
+        />
+        <Route 
+          path="/payment-success" 
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <PaymentSuccess />
             </Suspense>
           } 
         />

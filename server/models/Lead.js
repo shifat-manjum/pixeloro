@@ -22,6 +22,27 @@ const leadSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    status: {
+        type: String,
+        enum: ['lead', 'pending_payment', 'subscribed', 'canceled'],
+        default: 'lead'
+    },
+    stripeCustomerId: {
+        type: String,
+        default: null
+    },
+    stripeSubscriptionId: {
+        type: String,
+        default: null
+    },
+    monthlyPricePaid: {
+        type: Number,
+        default: 0
+    },
+    subscribedAt: {
+        type: Date,
+        default: null
+    },
     createdAt: {
         type: Date,
         default: Date.now

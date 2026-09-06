@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock } from 'lucide-react';
+import { Rocket, Search, ShieldCheck, BarChart3, MapPin, Smartphone, Check, ChevronDown, Loader2, Lock, CreditCard } from 'lucide-react';
 
 const ShowcaseCarousel = lazy(() => import('../components/ShowcaseCarousel'));
 
@@ -384,6 +384,7 @@ function Home() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [checkingOut, setCheckingOut] = useState(false);
 
   const handleLanguageChange = (l) => {
     setLang(l);
@@ -392,6 +393,35 @@ function Home() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleStripeCheckout = async () => {
+    setCheckingOut(true);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/payments/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          monthlyPrice,
+          price: monthlyPrice,
+          customerName: formData.name || undefined,
+          customerEmail: formData.email || undefined,
+          restaurantName: formData.restaurantName || undefined,
+          phone: formData.phone || undefined
+        })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || 'Failed to start Stripe checkout session');
+      }
+    } catch (e) {
+      console.error('Stripe checkout error:', e);
+      alert('Error connecting to Stripe checkout.');
+    } finally {
+      setCheckingOut(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -624,13 +654,39 @@ function Home() {
               <span className="text-6xl font-black text-primary">{t.proTierPrice}</span>
               <span className="text-text-muted font-bold mb-2">{t.proTierUnit}</span>
             </div>
-            <ul className="space-y-5 font-medium text-text-muted flex-grow">
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem1}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem2}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem3}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem4}</div></li>
-              <li className="flex gap-4 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem5}</div></li>
+            <ul className="space-y-4 sm:space-y-5 font-medium text-text-muted flex-grow text-sm sm:text-base">
+              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem1}</div></li>
+              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem2}</div></li>
+              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem3}</div></li>
+              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem4}</div></li>
+              <li className="flex gap-3.5 items-start"><Check className="text-primary flex-shrink-0 mt-1" /> <div>{t.proItem5}</div></li>
             </ul>
+
+            {/* Direct Stripe Subscription Button */}
+            <div className="mt-8 pt-6 border-t border-white/10 space-y-3">
+              <button
+                onClick={handleStripeCheckout}
+                disabled={checkingOut}
+                className="w-full py-4 px-6 rounded-2xl bg-primary hover:bg-primary-hover text-black font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(229,193,88,0.3)] hover:shadow-[0_0_35px_rgba(229,193,88,0.5)] transition-all active:scale-98 cursor-pointer disabled:opacity-50"
+              >
+                {checkingOut ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>{lang === 'it' ? 'Apertura Stripe...' : lang === 'de' ? 'Checkout wird geöffnet...' : 'Opening Stripe...'}</span>
+                  </>
+                ) : (
+                  <>
+                    <CreditCard size={18} />
+                    <span>{lang === 'it' ? 'Attiva Abbonamento Stripe' : lang === 'de' ? 'Mit Stripe abonnieren' : 'Subscribe with Stripe'}</span>
+                  </>
+                )}
+              </button>
+              
+              <div className="flex items-center justify-center gap-2 text-[11px] text-text-muted font-semibold text-center">
+                <ShieldCheck size={13} className="text-primary flex-shrink-0" />
+                <span>{lang === 'it' ? 'Apple Pay, Carte, SEPA • Disdici quando vuoi' : lang === 'de' ? 'Apple Pay, Karten, SEPA • Jederzeit kündbar' : 'Apple Pay, Cards, SEPA • Cancel anytime'}</span>
+              </div>
+            </div>
           </div>
         </div>
         

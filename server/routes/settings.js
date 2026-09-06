@@ -7,7 +7,10 @@ const DEFAULT_SETTINGS = {
   monthlyPrice: '55',
   whatsappNumber: '+393481134181',
   whatsappAlerts: true,
-  emailAlerts: true
+  emailAlerts: true,
+  stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
+  stripePaymentLink: process.env.STRIPE_PAYMENT_LINK || ''
 };
 
 // GET /api/settings

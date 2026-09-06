@@ -21,10 +21,12 @@ mongoose.connect(mongoURI)
 const leadRoutes = require('./routes/leads');
 const statRoutes = require('./routes/stats');
 const settingRoutes = require('./routes/settings');
+const paymentRoutes = require('./routes/payments');
 
 app.use('/api/leads', leadRoutes);
 app.use('/api/stats', statRoutes);
 app.use('/api/settings', settingRoutes);
+app.use('/api/payments', paymentRoutes);
 
 
 app.get('/', (req, res) => {
