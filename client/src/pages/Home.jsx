@@ -425,7 +425,7 @@ function Home() {
             title="Access CRM Dashboard"
           >
             <Lock size={13} className="text-primary" />
-            <span className="hidden sm:inline">CRM</span>
+            <span>CRM</span>
           </Link>
           <a 
             href={whatsappUrl} 
