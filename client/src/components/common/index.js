@@ -6,5 +6,6 @@ export { default as FAQAccordion, FAQItem } from "./FAQAccordion";
 export { default as StatsBar, CountUp } from "./StatsBar";
 export { default as WhatsAppFloat } from "./WhatsAppFloat";
 export { default as LanguageSwitcher } from "./LanguageSwitcher";
-export { default as PixelAnalytics, trackPixel, trackGA, trackAnalyticsEvent } from "./PixelAnalytics";
+export { default as PixelAnalytics } from "./PixelAnalytics";
+export { trackPixel, trackGA, trackAnalyticsEvent } from "./analytics";
 export { default as Footer } from "./Footer";

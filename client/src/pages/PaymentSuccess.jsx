@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { CheckCircle2, ArrowRight, ShieldCheck, Sparkles, ExternalLink, Zap } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 import Logo from '../components/Logo';
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get('session_id');
   const isDemo = searchParams.get('demo') === 'true';
   const plan = searchParams.get('plan') || 'monthly';
   const isLifetime = plan === 'lifetime';
   const price = searchParams.get('price') || (isLifetime ? (localStorage.getItem('pixeloro_lifetime_price') || '399') : (localStorage.getItem('pixeloro_monthly_price') || '55'));
   const restaurantName = searchParams.get('restaurant') || 'il tuo ristorante';
 
-  const [lang, setLang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
+  const [lang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
 
   const copy = {
     it: {

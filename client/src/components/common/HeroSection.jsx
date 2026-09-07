@@ -1,6 +1,6 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, Check, ChevronDown } from "lucide-react";
+import { Sparkles, Check } from "lucide-react";
 
 /**
  * Reusable Hero Section

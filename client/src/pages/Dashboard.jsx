@@ -184,7 +184,6 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState('overview'); // 'overview' | 'leads' | 'settings'
   const [searchQuery, setSearchQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(15);
   const [deletingId, setDeletingId] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

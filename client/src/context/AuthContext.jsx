@@ -50,7 +50,7 @@ export function AuthProvider({ children }) {
         setUser(null);
         try {
             await signOut(auth);
-        } catch (e) {}
+        } catch {}
     }
 
     useEffect(() => {
