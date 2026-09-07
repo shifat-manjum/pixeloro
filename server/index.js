@@ -1,18 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config(); // Fallback to process.cwd()
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
 // IMPORTANT: Twilio sends webhooks as application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB connection (placeholder for local dev)
-const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/pixeloro';
+// MongoDB connection
+const mongoURI = process.env.MONGO_URI || 'mongodb+srv://khshifatmanjum_db_user:Dtmkv5WKtSMqpTEh@cluster0.h8ljzpx.mongodb.net/pixeloro?retryWrites=true&w=majority';
 mongoose.connect(mongoURI)
 .then(() => console.log('MongoDB connected successfully'))
 .catch(err => console.error('MongoDB connection error:', err));

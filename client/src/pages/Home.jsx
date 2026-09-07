@@ -1,10 +1,8 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Check, ChevronDown, Loader2, Lock, Zap, ArrowDown, UtensilsCrossed, CheckCircle2 } from 'lucide-react';
 import Logo from '../components/Logo';
-
-const ShowcaseCarousel = lazy(() => import('../components/ShowcaseCarousel'));
-
+import ShowcaseCarousel from '../components/ShowcaseCarousel';
 
 const FAQAccordion = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +31,10 @@ const getTranslations = (price = '55', lifetimePrice = '399') => ({
     setupSub: "100% free initial build",
     priceMonthly: `€${price}/MONTH`,
     priceSub: "Hosting, updates & maintenance",
+    heroLifetimePrice: `€${lifetimePrice}`,
+    heroLifetimeTitle: "Lifetime Ownership",
+    heroLifetimeBadge: "LIFETIME BUYOUT",
+    heroLifetimeSub: "Pay once, own forever",
     noUpfront: "No large upfront website-development cost.",
     primaryCta: "GET MY FREE WEBSITE",
     trustItem1: "24-48h Delivery",
@@ -142,6 +144,10 @@ const getTranslations = (price = '55', lifetimePrice = '399') => ({
     setupSub: "Bozza su misura 100% gratuita",
     priceMonthly: `${price}€/MESE`,
     priceSub: "Hosting, modifiche & manutenzione",
+    heroLifetimePrice: `${lifetimePrice}€`,
+    heroLifetimeTitle: "Proprietà a Vita",
+    heroLifetimeBadge: "ACQUISTO A VITA",
+    heroLifetimeSub: "Paghi una volta, tuo per sempre",
     noUpfront: "Nessun costo elevato di sviluppo iniziale.",
     primaryCta: "OTTIENI IL TUO SITO GRATIS",
     trustItem1: "Bozza Pronta in 24-48h",
@@ -251,6 +257,10 @@ const getTranslations = (price = '55', lifetimePrice = '399') => ({
     setupSub: "100% kostenloser Entwurf",
     priceMonthly: `${price}€/MONAT`,
     priceSub: "Hosting, Updates & Wartung",
+    heroLifetimePrice: `${lifetimePrice}€`,
+    heroLifetimeTitle: "Lebenslanges Eigentum",
+    heroLifetimeBadge: "LIFETIME-KAUF",
+    heroLifetimeSub: "Einmal zahlen, für immer besitzen",
     noUpfront: "Keine hohen Vorabkosten für die Website-Entwicklung.",
     primaryCta: "KOSTENLOSE WEBSITE SICHERN",
     trustItem1: "Entwurf in 24-48h",
@@ -353,13 +363,15 @@ const getTranslations = (price = '55', lifetimePrice = '399') => ({
   }
 });
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5001' : 'https://pixeloro.onrender.com');
+
 function Home() {
   const [lang, setLang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
   const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '55');
   const [lifetimePrice, setLifetimePrice] = useState(() => localStorage.getItem('pixeloro_lifetime_price') || '399');
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/settings`)
+    fetch(`${API_BASE_URL}/api/settings`)
       .then(res => res.json())
       .then(data => {
         if (data) {
@@ -391,7 +403,7 @@ function Home() {
   // Track page visit on mount
   useEffect(() => {
     if (!sessionStorage.getItem('hasVisited')) {
-      fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/stats/visit`, { method: 'POST' })
+      fetch(`${API_BASE_URL}/api/stats/visit`, { method: 'POST' })
         .then(() => sessionStorage.setItem('hasVisited', 'true'))
         .catch(err => console.error("Error tracking visit:", err));
     }
@@ -429,7 +441,7 @@ function Home() {
   const handleStripeCheckout = async (planType = 'monthly') => {
     setCheckingOut(planType);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/payments/create-checkout-session`, {
+      const res = await fetch(`${API_BASE_URL}/api/payments/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -467,7 +479,7 @@ function Home() {
         email: formData.email,
         phone: formData.hasWebsite === 'yes' ? `${formData.phone} [Has site: yes]` : formData.phone,
       };
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/leads`, {
+      const res = await fetch(`${API_BASE_URL}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -591,10 +603,10 @@ function Home() {
           {t.heroSubtitle}
         </p>
 
-        {/* Pricing Highlight Boxes: €0 Setup + €45/Month */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-6">
+        {/* Pricing Highlight Boxes: €0 Setup + Monthly + €399 Lifetime Buyout */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-6">
           {/* €0 Setup */}
-          <div className="bg-card/90 border-2 border-primary/70 rounded-2xl p-5 sm:p-6 text-center shadow-[0_0_30px_rgba(229,193,88,0.15)] relative overflow-hidden">
+          <div className="bg-card/90 border-2 border-primary/70 rounded-2xl p-5 text-center shadow-[0_0_30px_rgba(229,193,88,0.15)] relative overflow-hidden flex flex-col justify-center">
             <div className="absolute top-0 right-0 bg-primary text-black text-[10px] font-black uppercase px-3 py-0.5 rounded-bl-lg tracking-wider">
               {lang === 'it' ? 'Zero Rischi' : lang === 'de' ? 'Null Risiko' : 'Zero Risk'}
             </div>
@@ -606,13 +618,29 @@ function Home() {
             </div>
           </div>
 
-          {/* €45/Month */}
-          <div className="bg-card/90 border border-white/15 rounded-2xl p-5 sm:p-6 text-center shadow-lg relative overflow-hidden">
+          {/* Monthly */}
+          <div className="bg-card/90 border border-white/15 rounded-2xl p-5 text-center shadow-lg relative overflow-hidden flex flex-col justify-center">
             <div className="text-3xl sm:text-4xl font-black text-white mb-1">
               {t.priceMonthly}
             </div>
             <div className="text-xs sm:text-sm font-medium text-text-muted">
               {t.priceSub}
+            </div>
+          </div>
+
+          {/* €399 Lifetime Buyout */}
+          <div className="bg-card/90 border border-white/15 hover:border-primary/40 rounded-2xl p-5 text-center shadow-lg relative overflow-hidden flex flex-col justify-center transition-all">
+            <div className="absolute top-0 right-0 bg-primary/20 text-primary border-b border-l border-primary/30 text-[9px] font-black uppercase px-2.5 py-0.5 rounded-bl-lg tracking-wider">
+              {t.heroLifetimeBadge}
+            </div>
+            <div className="text-3xl sm:text-4xl font-black text-white mb-1">
+              {t.heroLifetimePrice}
+            </div>
+            <div className="text-xs sm:text-sm font-semibold text-primary">
+              {t.heroLifetimeTitle}
+            </div>
+            <div className="text-[11px] text-text-muted mt-0.5">
+              {t.heroLifetimeSub}
             </div>
           </div>
         </div>
@@ -655,9 +683,7 @@ function Home() {
       </section>
 
       {/* Demos Immediately Below Hero */}
-      <Suspense fallback={<div className="py-24 text-center text-primary/40"><div className="w-8 h-8 mx-auto border-2 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
-        <ShowcaseCarousel lang={lang} monthlyPrice={monthlyPrice} onGetStarted={scrollToLeadForm} />
-      </Suspense>
+      <ShowcaseCarousel lang={lang} monthlyPrice={monthlyPrice} onGetStarted={scrollToLeadForm} />
 
       {/* Transparent Restaurant Offer Section (2 Distinct Offer Cards: Monthly & Lifetime) */}
       <section className="py-20 px-4 max-w-6xl mx-auto">
@@ -999,12 +1025,16 @@ function Home() {
       {/* Sticky Mobile CTA Bar */}
       <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-md border-t border-primary/30 p-3 px-4 flex items-center justify-between gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
         <div>
-          <div className="text-xs font-black text-primary uppercase leading-tight">{t.setupZero}</div>
-          <div className="text-[10px] font-bold text-white/80">{t.priceMonthly}</div>
+          <div className="text-xs font-black text-primary uppercase leading-tight">
+            {t.setupZero} • {t.priceMonthly}
+          </div>
+          <div className="text-[10px] font-bold text-white/70">
+            {t.heroLifetimePrice} • {t.heroLifetimeTitle}
+          </div>
         </div>
         <button
           onClick={scrollToLeadForm}
-          className="bg-primary hover:bg-primary-hover text-black font-black text-xs py-2.5 px-4 rounded-full shadow-[0_0_15px_rgba(229,193,88,0.4)] active:scale-95 transition-all uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+          className="bg-primary hover:bg-primary-hover text-black font-black text-xs py-2.5 px-4 rounded-full shadow-[0_0_15px_rgba(229,193,88,0.4)] active:scale-95 transition-all uppercase tracking-wider flex items-center gap-1.5 cursor-pointer flex-shrink-0"
         >
           <span>{t.primaryCta}</span>
           <ArrowDown size={14} className="stroke-[3]" />
