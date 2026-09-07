@@ -23,7 +23,7 @@ const FAQAccordion = ({ question, answer }) => {
     </div>
   );
 };
-const getTranslations = (price = '45', lifetimePrice = '399') => ({
+const getTranslations = (price = '55', lifetimePrice = '399') => ({
   en: {
     heroBadge: "SPECIFICALLY FOR RESTAURANTS",
     heroTitleLead: "Your Restaurant Deserves a",
@@ -44,21 +44,53 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
     offerBadge: "TRANSPARENT RESTAURANT OFFER",
     offerTitle: "Restaurant Website",
     offerSubtitle: "Get your restaurant online without a large upfront website-development cost.",
-    offerFeatures: [
+    
+    // Monthly Card
+    monthlyOfferTitle: "Monthly Subscription",
+    monthlyOfferBadge: "POPULAR & ZERO RISK",
+    monthlyPriceTag: `€${price}/mo`,
+    monthlySetupTag: "€0 SETUP",
+    monthlyOfferSub: "No upfront development cost. Flexible monthly plan.",
+    monthlyIncludeBadge: "Domain & Business Email Included Free for 1 Year",
+    monthlyFeatures: [
+      "Custom Domain Included",
+      "Free Business Email for 1 Year",
       "Professional restaurant website",
-      "Mobile responsive design",
+      "100% mobile responsive design",
       "Digital menu & QR code",
-      "High-resolution photo gallery",
+      "High-resolution dish photo gallery",
       "Google Maps & local discovery setup",
-      "Contact & table reservation features",
       "WhatsApp direct booking button",
-      "Ultra-fast dedicated hosting",
-      "SSL security certificate",
+      "Ultra-fast dedicated hosting & SSL",
       "Continuous technical maintenance",
-      "Unlimited menu & text updates",
-      "Multilingual support (IT/EN/DE)"
+      "Unlimited menu & text updates"
     ],
-    offerFootnote: "No hidden fees. Cancel anytime. You own your domain name.",
+    monthlyCta: "GET MY FREE WEBSITE",
+    monthlyFootnote: "No hidden fees. Cancel anytime.",
+
+    // Lifetime Card
+    lifetimeOfferTitle: "Lifetime Ownership",
+    lifetimeOfferBadge: "ONE-TIME PAYMENT",
+    lifetimePriceTag: `€${lifetimePrice}`,
+    lifetimeSetupTag: "PAY ONCE, OWN FOREVER",
+    lifetimeOfferSub: "Zero recurring fees. Own your entire website outright.",
+    lifetimeSupportBadge: "2 Years Free Technical Support Included",
+    lifetimeIncludeBadge: "Domain & Business Email Included Free for 1 Year",
+    lifetimeFeatures: [
+      "100% Complete Website Ownership Forever",
+      "2 Years Free Technical Support & Maintenance",
+      "Custom Domain Included",
+      "Free Business Email for 1 Year",
+      "Professional restaurant website",
+      "100% mobile responsive design",
+      "Digital menu & QR code",
+      "High-resolution dish photo gallery",
+      "Google Maps & local discovery setup",
+      "WhatsApp direct booking button",
+      "Ultra-fast dedicated hosting & SSL setup"
+    ],
+    lifetimeCta: `Own For Lifetime (€${lifetimePrice})`,
+    lifetimeFootnote: "One-time payment • No recurring monthly fees",
 
     // Form Section
     formBadge: "CLAIM YOUR WEBSITE",
@@ -83,10 +115,6 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
     noCreditCard: "100% free build. No credit card required. No upfront cost.",
     terms: "* We will contact you via WhatsApp or Email to gather your menu and logo to create your draft.",
 
-    lifetimeOptionTitle: "Or Prefer Full Lifetime Ownership?",
-    lifetimeOptionSub: `If you prefer not to have a monthly subscription, own your website outright for €${lifetimePrice} one-time with 2 years of free technical support.`,
-    lifetimeBtn: "Own It For Lifetime (€399)",
-    
     howItWorks: "How It Works in 3 Simple Steps",
     hw1Title: "1. Tell Us About Your Restaurant",
     hw1Sub: "Fill out the quick form with your restaurant name and contact info.",
@@ -125,21 +153,53 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
     offerBadge: "OFFERTA TRASPARENTE PER RISTORANTI",
     offerTitle: "Sito Web per Ristoranti",
     offerSubtitle: "Porta il tuo ristorante online senza costi elevati di sviluppo iniziale.",
-    offerFeatures: [
+
+    // Monthly Card
+    monthlyOfferTitle: "Abbonamento Mensile",
+    monthlyOfferBadge: "POPOLARE & ZERO RISCHI",
+    monthlyPriceTag: `${price}€/mese`,
+    monthlySetupTag: "0€ SETUP",
+    monthlyOfferSub: "Nessun costo iniziale di sviluppo. Massima flessibilità.",
+    monthlyIncludeBadge: "Dominio & Email Aziendale Inclusi Gratis per 1 Anno",
+    monthlyFeatures: [
+      "Dominio Personalizzato Incluso",
+      "Email Aziendale Gratuita per 1 Anno",
       "Sito web professionale per ristoranti",
       "Design 100% responsive per smartphone",
       "Menu digitale interattivo con QR code",
       "Galleria fotografica piatti in alta definizione",
       "Integrazione Google Maps e posizione locale",
-      "Funzionalità contatto e richiesta prenotazione",
       "Pulsante prenotazione diretta WhatsApp",
-      "Hosting dedicato ultra-veloce",
-      "Certificato di sicurezza SSL incluso",
+      "Hosting dedicato ultra-veloce & SSL",
       "Manutenzione tecnica continua e sicurezza",
-      "Aggiornamenti illimitati di testi e menu",
-      "Supporto multilingua (Italiano, Inglese, Tedesco)"
+      "Aggiornamenti illimitati di testi e menu"
     ],
-    offerFootnote: "Nessun costo nascosto. Disdici quando vuoi. Il dominio resta di tua proprietà.",
+    monthlyCta: "OTTIENI IL TUO SITO GRATIS",
+    monthlyFootnote: "Nessun costo nascosto. Disdici quando vuoi.",
+
+    // Lifetime Card
+    lifetimeOfferTitle: "Proprietà a Vita",
+    lifetimeOfferBadge: "PAGAMENTO UNICO",
+    lifetimePriceTag: `${lifetimePrice}€`,
+    lifetimeSetupTag: "PAGHI UNA VOLTA, TUO PER SEMPRE",
+    lifetimeOfferSub: "Zero canoni mensili. Il sito è al 100% tuo per sempre.",
+    lifetimeSupportBadge: "2 Anni di Assistenza Tecnica Gratuita Inclusa",
+    lifetimeIncludeBadge: "Dominio & Email Aziendale Inclusi Gratis per 1 Anno",
+    lifetimeFeatures: [
+      "100% Proprietà e Codice del Sito per Sempre",
+      "2 Anni di Assistenza Tecnica Gratuita Inclusa",
+      "Dominio Personalizzato Incluso",
+      "Email Aziendale Gratuita per 1 Anno",
+      "Sito web professionale per ristoranti",
+      "Design 100% responsive per smartphone",
+      "Menu digitale interattivo con QR code",
+      "Galleria fotografica piatti in alta definizione",
+      "Integrazione Google Maps e posizione locale",
+      "Pulsante prenotazione diretta WhatsApp",
+      "Hosting dedicato ultra-veloce & SSL incluso"
+    ],
+    lifetimeCta: `Acquisto a Vita (${lifetimePrice}€)`,
+    lifetimeFootnote: "Pagamento una tantum • Nessun costo mensile ricorrente",
 
     // Form Section
     formBadge: "RICHIEDI IL TUO SITO",
@@ -163,10 +223,6 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
     submittedSuccess: "Richiesta Ricevuta con Successo! Apertura conferma...",
     noCreditCard: "100% gratis per iniziare. Nessuna carta di credito. 0€ anticipo.",
     terms: "* Ti contatteremo su WhatsApp o Email per ricevere il menu e logo e iniziare la bozza.",
-
-    lifetimeOptionTitle: "Preferisci Acquistare il Sito a Vita?",
-    lifetimeOptionSub: `Se non desideri l'abbonamento mensile, puoi acquistare il sito per sempre a ${lifetimePrice}€ una tantum con 2 anni di assistenza tecnica gratuita inclusa.`,
-    lifetimeBtn: "Acquisto a Vita (399€)",
 
     howItWorks: "Come Funziona in 3 Semplici Passaggi",
     hw1Title: "1. Invia i Dettagli del Locale",
@@ -206,21 +262,53 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
     offerBadge: "TRANSPARENTES RESTAURANT-ANGEBOT",
     offerTitle: "Restaurant-Website",
     offerSubtitle: "Bringen Sie Ihr Restaurant online ohne hohe Vorabkosten für die Website-Entwicklung.",
-    offerFeatures: [
+
+    // Monthly Card
+    monthlyOfferTitle: "Monatliches Abonnement",
+    monthlyOfferBadge: "BELIEBT & NULL RISIKO",
+    monthlyPriceTag: `${price}€/Monat`,
+    monthlySetupTag: "0€ SETUP",
+    monthlyOfferSub: "Keine Vorabkosten für die Entwicklung. Flexibles Monatsabo.",
+    monthlyIncludeBadge: "Domain & Business-E-Mail für 1 Jahr kostenlos inklusive",
+    monthlyFeatures: [
+      "Eigene Domain inklusive",
+      "Kostenlose geschäftliche E-Mail für 1 Jahr",
       "Professionelle Restaurant-Website",
       "100% mobil-optimiertes responsives Design",
       "Digitale Speisekarte & QR-Code",
       "Fotogalerie in hoher Auflösung",
-      "Google Maps Integration für lokale Sichtbarkeit",
-      "Kontakt- & Tischreservierungsfunktionen",
+      "Google Maps & lokale Auffindbarkeit",
       "Direkter WhatsApp-Buchungsbutton",
-      "Blitzschnelles dediziertes Hosting",
-      "SSL-Sicherheitszertifikat inklusive",
+      "Blitzschnelles Hosting & SSL-Zertifikat",
       "Kontinuierliche technische Wartung",
-      "Unbegrenzte Menü- & Text-Updates",
-      "Mehrsprachige Unterstützung (IT/EN/DE)"
+      "Unbegrenzte Menü- & Text-Updates"
     ],
-    offerFootnote: "Keine versteckten Gebühren. Jederzeit kündbar. Sie besitzen Ihre Domain.",
+    monthlyCta: "KOSTENLOSE WEBSITE SICHERN",
+    monthlyFootnote: "Keine versteckten Gebühren. Jederzeit kündbar.",
+
+    // Lifetime Card
+    lifetimeOfferTitle: "Lebenslanges Eigentum",
+    lifetimeOfferBadge: "EINMALIGE ZAHLUNG",
+    lifetimePriceTag: `${lifetimePrice}€`,
+    lifetimeSetupTag: "EINMAL ZAHLEN, FÜR IMMER BESITZEN",
+    lifetimeOfferSub: "Keine monatlichen Gebühren. Die Website gehört für immer Ihnen.",
+    lifetimeSupportBadge: "2 Jahre kostenloser technischer Support inklusive",
+    lifetimeIncludeBadge: "Domain & Business-E-Mail für 1 Jahr kostenlos inklusive",
+    lifetimeFeatures: [
+      "100% Website-Code & lebenslanges Eigentum",
+      "2 Jahre kostenloser technischer Support inklusive",
+      "Eigene Domain inklusive",
+      "Kostenlose geschäftliche E-Mail für 1 Jahr",
+      "Professionelle Restaurant-Website",
+      "100% mobil-optimiertes responsives Design",
+      "Digitale Speisekarte & QR-Code",
+      "Fotogalerie in hoher Auflösung",
+      "Google Maps Integration & Auffindbarkeit",
+      "Direkter WhatsApp-Buchungsbutton",
+      "Blitzschnelles Hosting & SSL-Setup inklusive"
+    ],
+    lifetimeCta: `Auf Lebenszeit kaufen (${lifetimePrice}€)`,
+    lifetimeFootnote: "Einmalige Zahlung • Keine wiederkehrenden Monatsgebühren",
 
     // Form Section
     formBadge: "WEBSITE ANFORDERN",
@@ -245,10 +333,6 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
     noCreditCard: "100% kostenloser Start. Keine Kreditkarte erforderlich. 0€ Setup.",
     terms: "* Wir kontaktieren Sie per WhatsApp oder E-Mail, um Speisekarte und Logo für den Entwurf zu erhalten.",
 
-    lifetimeOptionTitle: "Lieber einmalig kaufen statt Monatsabo?",
-    lifetimeOptionSub: `Wenn Sie kein Monatsabo wünschen, können Sie die Website für einmalig ${lifetimePrice}€ für immer kaufen – inklusive 2 Jahre technischem Support.`,
-    lifetimeBtn: "Auf Lebenszeit sichern (399€)",
-
     howItWorks: "So funktioniert es in 3 einfachen Schritten",
     hw1Title: "1. Restaurant-Details angeben",
     hw1Sub: "Füllen Sie das kurze Formular mit Namen und Kontaktdaten aus.",
@@ -271,7 +355,7 @@ const getTranslations = (price = '45', lifetimePrice = '399') => ({
 
 function Home() {
   const [lang, setLang] = useState(() => localStorage.getItem('pixeloro_lang') || 'it');
-  const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '45');
+  const [monthlyPrice, setMonthlyPrice] = useState(() => localStorage.getItem('pixeloro_monthly_price') || '55');
   const [lifetimePrice, setLifetimePrice] = useState(() => localStorage.getItem('pixeloro_lifetime_price') || '399');
 
   useEffect(() => {
@@ -575,64 +659,129 @@ function Home() {
         <ShowcaseCarousel lang={lang} monthlyPrice={monthlyPrice} onGetStarted={scrollToLeadForm} />
       </Suspense>
 
-      {/* Transparent Restaurant Offer (€0 Setup / €45 Monthly) */}
-      <section className="py-20 px-4 max-w-5xl mx-auto">
-        <div className="bg-gradient-to-b from-card to-black p-8 sm:p-12 rounded-[2.5rem] border-2 border-primary/40 shadow-[0_0_50px_rgba(229,193,88,0.12)]">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-black tracking-widest text-primary uppercase mb-3 block">{t.offerBadge}</span>
-            <h2 className="text-3xl sm:text-5xl font-black mb-4 text-white">{t.offerTitle}</h2>
-            <p className="text-text-muted text-base sm:text-lg font-medium">{t.offerSubtitle}</p>
-            
-            {/* Pricing highlights */}
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mt-6">
-              <div className="bg-primary text-black font-black text-xl sm:text-2xl py-2 px-4 sm:px-5 rounded-xl shadow-[0_0_20px_rgba(229,193,88,0.3)]">
-                {t.setupZero}
+      {/* Transparent Restaurant Offer Section (2 Distinct Offer Cards: Monthly & Lifetime) */}
+      <section className="py-20 px-4 max-w-6xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="text-xs font-black tracking-widest text-primary uppercase mb-3 block">
+            {t.offerBadge}
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black mb-4 text-white">
+            {t.offerTitle}
+          </h2>
+          <p className="text-text-muted text-base sm:text-lg font-medium">
+            {t.offerSubtitle}
+          </p>
+        </div>
+
+        {/* 2 Offer Cards Grid */}
+        <div className="grid md:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
+          {/* Card 1: 0€ Setup + 55€/Month */}
+          <div className="bg-gradient-to-b from-card to-black p-8 sm:p-10 rounded-[2.5rem] border-2 border-primary/50 flex flex-col shadow-[0_0_40px_rgba(229,193,88,0.15)] relative hover:-translate-y-1 transition-all duration-300">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-black text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-[0_0_15px_rgba(229,193,88,0.4)] whitespace-nowrap">
+              {t.monthlyOfferBadge}
+            </div>
+
+            <div className="text-center pt-2 pb-6 border-b border-white/10 mb-6">
+              <h3 className="text-2xl font-black text-white mb-3">{t.monthlyOfferTitle}</h3>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <span className="text-3xl sm:text-4xl font-black text-primary">{t.setupZero}</span>
+                <span className="text-2xl font-bold text-white/50">+</span>
+                <span className="text-3xl sm:text-4xl font-black text-white">{t.priceMonthly}</span>
               </div>
-              <div className="text-2xl font-black text-white">
-                +
-              </div>
-              <div className="bg-white/10 text-white font-black text-xl sm:text-2xl py-2 px-4 sm:px-5 rounded-xl border border-white/10">
-                {t.priceMonthly}
-              </div>
+              <p className="text-xs text-text-muted font-medium mt-1">
+                {t.monthlyOfferSub}
+              </p>
+            </div>
+
+            {/* Highlights: Domain & Email */}
+            <div className="mb-6 p-3 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center gap-2 text-xs font-bold text-primary text-center">
+              <span>🌐 {t.monthlyIncludeBadge}</span>
+            </div>
+
+            {/* Features */}
+            <ul className="space-y-3.5 font-medium text-text-muted flex-grow text-sm mb-8">
+              {t.monthlyFeatures.map((feat, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-white/90">
+                  <Check className="text-primary flex-shrink-0 mt-0.5 w-4 h-4 stroke-[3]" />
+                  <span className={idx < 2 ? "font-bold text-white" : ""}>{feat}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto pt-6 border-t border-white/10 text-center space-y-3">
+              <button 
+                onClick={scrollToLeadForm}
+                className="w-full bg-primary hover:bg-primary-hover text-black font-black text-sm sm:text-base py-4 px-6 rounded-2xl transition-all shadow-[0_0_25px_rgba(229,193,88,0.3)] hover:shadow-[0_0_35px_rgba(229,193,88,0.5)] active:scale-98 cursor-pointer uppercase tracking-wider flex items-center justify-center gap-2"
+              >
+                <span>{t.primaryCta}</span>
+                <ArrowDown size={18} className="stroke-[3]" />
+              </button>
+              <p className="text-xs text-text-muted font-medium">
+                {t.monthlyFootnote}
+              </p>
             </div>
           </div>
 
-          {/* 12 Features List */}
-          <div className="grid sm:grid-cols-2 gap-3.5 max-w-3xl mx-auto mb-10">
-            {t.offerFeatures.map((feat, idx) => (
-              <div key={idx} className="flex items-start gap-3 bg-white/5 p-3.5 rounded-xl border border-white/5">
-                <Check className="text-primary flex-shrink-0 mt-0.5 w-5 h-5 stroke-[2.5]" />
-                <span className="text-white/90 text-sm font-medium">{feat}</span>
+          {/* Card 2: 399€ Lifetime Buyout */}
+          <div className="bg-gradient-to-b from-[#181622] to-black p-8 sm:p-10 rounded-[2.5rem] border-2 border-amber-500/70 flex flex-col shadow-[0_0_40px_rgba(245,158,11,0.18)] relative hover:-translate-y-1 transition-all duration-300">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.5)] whitespace-nowrap">
+              {t.lifetimeOfferBadge}
+            </div>
+
+            <div className="text-center pt-2 pb-6 border-b border-white/10 mb-6">
+              <h3 className="text-2xl font-black text-white mb-3">{t.lifetimeOfferTitle}</h3>
+              <div className="flex items-baseline justify-center gap-2 mb-2">
+                <span className="text-4xl sm:text-5xl font-black text-amber-400">{t.lifetimePriceTag}</span>
+                <span className="text-xs uppercase font-extrabold text-amber-400/80 tracking-wider">
+                  {lang === 'it' ? 'A VITA UNA TANTUM' : lang === 'de' ? 'EINMALIG LIFETIME' : 'LIFETIME BUYOUT'}
+                </span>
               </div>
-            ))}
-          </div>
+              <p className="text-xs text-text-muted font-medium mt-1">
+                {t.lifetimeOfferSub}
+              </p>
+            </div>
 
-          {/* CTA & Footnote */}
-          <div className="text-center space-y-4">
-            <button 
-              onClick={scrollToLeadForm}
-              className="bg-primary hover:bg-primary-hover text-black font-black text-base sm:text-lg py-4 px-10 rounded-full transition-all shadow-[0_0_30px_rgba(229,193,88,0.35)] hover:shadow-[0_0_40px_rgba(229,193,88,0.5)] hover:scale-105 active:scale-95 cursor-pointer uppercase tracking-wider inline-flex items-center gap-3"
-            >
-              <span>{t.primaryCta}</span>
-              <ArrowDown size={18} className="stroke-[3]" />
-            </button>
-            <p className="text-xs text-text-muted font-medium block">
-              {t.offerFootnote}
-            </p>
-          </div>
+            {/* Special 2 Years Free Support & Domain/Email Badge */}
+            <div className="mb-6 p-3 rounded-2xl bg-amber-500/15 border border-amber-500/35 flex flex-col items-center justify-center gap-1.5 text-xs font-bold text-amber-300 text-center">
+              <div className="flex items-center gap-1.5">
+                <Zap size={14} className="fill-amber-400 text-amber-400 flex-shrink-0" />
+                <span>{t.lifetimeSupportBadge}</span>
+              </div>
+              <span className="text-[11px] text-amber-200/90">🌐 {t.lifetimeIncludeBadge}</span>
+            </div>
 
-          {/* Lifetime Buyout Option */}
-          <div className="mt-10 pt-8 border-t border-white/10 text-center max-w-xl mx-auto">
-            <h4 className="text-sm font-bold text-amber-400 mb-1">{t.lifetimeOptionTitle}</h4>
-            <p className="text-xs text-text-muted mb-4">{t.lifetimeOptionSub}</p>
-            <button
-              onClick={() => handleStripeCheckout('lifetime')}
-              disabled={checkingOut === 'lifetime'}
-              className="text-xs font-bold py-2.5 px-5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 transition-all inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <Zap size={14} className="fill-amber-400" />
-              <span>{t.lifetimeBtn}</span>
-            </button>
+            {/* Features */}
+            <ul className="space-y-3.5 font-medium text-text-muted flex-grow text-sm mb-8">
+              {t.lifetimeFeatures.map((feat, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-white/90">
+                  <Check className="text-amber-400 flex-shrink-0 mt-0.5 w-4 h-4 stroke-[3]" />
+                  <span className={idx < 2 ? "font-bold text-amber-300" : ""}>{feat}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto pt-6 border-t border-white/10 text-center space-y-3">
+              <button 
+                onClick={() => handleStripeCheckout('lifetime')}
+                disabled={checkingOut === 'lifetime'}
+                className="w-full bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-black text-sm sm:text-base py-4 px-6 rounded-2xl transition-all shadow-[0_0_25px_rgba(245,158,11,0.35)] hover:shadow-[0_0_35px_rgba(245,158,11,0.6)] active:scale-98 cursor-pointer uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {checkingOut === 'lifetime' ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>{lang === 'it' ? 'Apertura Stripe...' : lang === 'de' ? 'Wird geöffnet...' : 'Opening Stripe...'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap size={18} className="fill-black" />
+                    <span>{t.lifetimeCta}</span>
+                  </>
+                )}
+              </button>
+              <p className="text-xs text-amber-400/80 font-medium">
+                {t.lifetimeFootnote}
+              </p>
+            </div>
           </div>
         </div>
       </section>
